@@ -1,0 +1,7 @@
+--- 
+wordpress_id: 143
+layout: post
+title: Build a Comparison Chart with Tablefy
+wordpress_url: http://dontforgettoplantit.wordpress.com/?p=147
+---
+I found <a href="http://www.tablefy.com/tables/edit/608">Tablefy</a> via Lifehacker last night, which is an application that is very much like <a href="http://blog.codeeg.com/2006/09/02/interesting-app-ideas/">one of the ideas I wrote about</a> almost 2 years ago.  It's still rough around the edges (the petfinder captcha is a first for me and is pretty cool, although klunky), but I'm looking forward to using it and seeing what kind of usage can come out of it.
