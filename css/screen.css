@@ -51,6 +51,12 @@ table {
   font: 100%;
 }
 
+blockquote {
+  color: #777;
+  font-size: 1.1em;
+  font-style: italic;
+  margin: 0 .5em;
+}
 /*****************************************************************************/
 /*
 /* Home
@@ -195,3 +201,5 @@ ul.posts {
   #related h2 {
     margin-bottom: 1em;
   }
+
+.highlight pre { overflow: auto; }

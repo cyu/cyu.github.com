@@ -12,4 +12,4 @@ In addition to this update, I've also added a Tails script to <a title="Technora
 
 Here's a screenshot of the object details view:
 
-<span style="color:#0000ee;text-decoration:underline;"><a class="imagelink" title="Object Details Screenshot" href="http://blog.codeeg.com/wp-content/uploads/2006/09/tails_0-3-4_object_details.png"></a><a href="http://blog2.codeeg.com/wp-content/uploads/2008/06/tails_0-3-4_object_details.png"><img class="alignnone size-medium wp-image-124" src="http://blog2.codeeg.com/wp-content/uploads/2008/06/tails_0-3-4_object_details.png?w=300" alt="" width="300" height="213" /></a></span>
+<span style="color:#0000ee;text-decoration:underline;"><a href="/images/wp/tails_0-3-4_object_details.png"><img class="alignnone size-medium wp-image-124" src="/images/wp/tails_0-3-4_object_details.png?w=300" alt="" width="300" height="213" /></a></span>

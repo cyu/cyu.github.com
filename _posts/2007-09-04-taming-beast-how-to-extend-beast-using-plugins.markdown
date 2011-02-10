@@ -10,7 +10,7 @@ Fortunately, Beast has a plugin feature that will easily allow you to do this.  
 <h2>The Plugin File Structure</h2>
 First, let's cover plugin file structure.  This is what my StyleEditor plugin looks like:
 
-<img class="alignnone size-full wp-image-112" src="http://blog2.codeeg.com/wp-content/uploads/2008/06/beast_plugin_dir_structure.png" alt="" width="162" height="223" />
+<img class="alignnone size-full wp-image-112" src="/images/wp/beast_plugin_dir_structure.png" alt="" width="162" height="223" />
 
 Here are the important points to note:
 <ul>
@@ -19,9 +19,11 @@ Here are the important points to note:
 </ul>
 <h2>The Plugin Class</h2>
 Here's what's the plugin class should look like:
-<pre>module Beast
+
+{% highlight ruby %}
+module Beast
   module Plugins
-    class StyleEditor &lt; Beast::Plugin
+    class StyleEditor < Beast::Plugin
       author 'Calvin Yu - boardista.com'
       version '0001'
       homepage 'http://boardista.com'
@@ -44,7 +46,9 @@ Here's what's the plugin class should look like:
       end
     end # end StyleEditor class
   end # end Plugins module
-end # end Beast module</pre>
+end # end Beast module
+{% endhighlight %}
+
 You can see what <a href="http://svn.codeeg.com/beast/style_editor/lib/beast/plugins/style_editor.rb">the final source looks like here</a>.  Here are some things to note about this class:
 <ul>
 	<li>The <em>author</em>, <em>version</em>, <em>homepage</em>, and <em>notes</em> methods provide some meta information for the plugin.</li>
@@ -55,12 +59,18 @@ You can see what <a href="http://svn.codeeg.com/beast/style_editor/lib/beast/plu
 </ul>
 <h2>Adding New Routes</h2>
 I needed to create some new routes for my <em>StylesController</em>, so I used the <em>route</em> method of the <em>Beast::Plugin</em> class to install them:
-<pre><code># add this within the class scope of the StyleEditorroute :resources, 'styles'</code></pre>
+
+{% highlight ruby %}
+# add this within the class scope of the StyleEditor
+route :resources, 'styles'
+{% endhighlight %}
+
 I'm using the RESTful syntax to creating routes here, but you can also use <em>:connect</em> and named routes as well.
 <h2>Updating the Beast Schema</h2>
 To update the Beast Schema, all I needed to do is to create a Schema class within the scope of your plugin class:
-<code> </code>
-<pre>class Schema &lt; ActiveRecord::Migration
+
+{% highlight ruby %}
+class Schema < ActiveRecord::Migration
   def self.install
     create_table :style_options do |t|
       t.string :name
@@ -80,17 +90,22 @@ To update the Beast Schema, all I needed to do is to create a Schema class withi
     drop_table :styles
     drop_table :style_options
   end
-end # end Schema class</pre>
+end # end Schema class
+{% endhighlight %}
+
 The code in <em>install/uninstall</em> methods will work just like the <em>up/down</em> methods in a typical migration class.  There is an issue where there's no support for handling db changes overtime -- hopefully someone will find a nice way to handle this (any takers?).
 <h2>Using the Rails Console</h2>
 At some point, you'll want to do some quick tests to make sure your plugin changes are working as you expect them to, and try to test them from the console.  If you have tried to this already, you'll quickly find that your changes for some reason won't work.  Don't fret, the reason why it doesn't work is because the plugins aren't initialize until the <em>Dispatcher</em> receives its first request.  So, if you do want to test your changes in the console, you'll need to run this command first:
-<pre><code>Dispatcher.send :prepare_application</code></pre>
+{% highlight ruby %}
+Dispatcher.send :prepare_application
+{% endhighlight %}
 <h2>Installing a Plugin</h2>
 Once you're done with your plugin, you'll need to install it.  This step is pretty easy.  First, install your beast plugins into <em>vendor/beast</em>, then run the plugin install method:
 
-<code>script/runner 'Beast::Plugins::StyleEditor.install'</code>
+{% highlight bash %}
+script/runner 'Beast::Plugins::StyleEditor.install'
+{% endhighlight %}
 
 Some plugins might have some additional installation instructions, so I would suggest looking at the <em>README</em> file (and if you're developing on a plugin, make sure to put your install instructions in the README).
 <h2>That's It!</h2>
 It's important to note that Beast plugin system is an evolving system, and the steps I laid out here are what worked best for me through the process of trial an error.  I'd love to hear what conclusions others have come to in their plugin development exploits.  If you want to get a better feel of what an actual Beast plugin looks like, you can check out the plugins that I've developed at <a href="http://svn.codeeg.com/beast">http://svn.codeeg.com/beast</a>.  If you want to see what those plugins look like in action, you can check them out on <a href="http://boardista.com">Boardista.com</a>.
-<p class="poweredbyperformancing">Powered by <a href="http://scribefire.com/">ScribeFire</a>.</p>

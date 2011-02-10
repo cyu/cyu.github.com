@@ -4,7 +4,7 @@ layout: post
 title: The New and Somewhat Improved Google Reader
 wordpress_url: http://blog.codeeg.com/2006/09/30/the-new-and-somewhat-improved-google-reader/
 ---
-<p class="center"><img class="alignnone size-full wp-image-123" src="http://blog2.codeeg.com/wp-content/uploads/2008/06/google_reader_new_ui.png" alt="" width="462" height="240" /></p>
+<p class="center"><img class="alignnone size-full wp-image-123" src="/images/wp/google_reader_new_ui.png" alt="" width="462" height="240" /></p>
 
 I logged in to catch up on my feeds the other night and found that Google has done a major update to their <a title="Google Reader" href="http://reader.google.com">Reader</a> application.
 

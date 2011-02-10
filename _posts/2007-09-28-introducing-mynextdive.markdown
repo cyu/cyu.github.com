@@ -4,7 +4,7 @@ layout: post
 title: Introducing MyNextDive
 wordpress_url: http://blog.codeeg.com/2007/09/28/introducing-mynextdive/
 ---
-<a href="http://mynextdive.com"><img class="aligncenter size-full wp-image-107" src="http://blog2.codeeg.com/wp-content/uploads/2008/06/logo.gif" alt="" width="193" height="41" /></a>
+<a href="http://mynextdive.com"><img class="aligncenter size-full wp-image-107" src="/images/wp/mnd_logo.gif" alt="" width="193" height="41" /></a>
 
 There are some things -- buying your first home (check), getting married (check), having babies (no check) -- that seem like you're never ready for. Those things are always blocked by some other thing in the horizon that you want to wait for before taking the big leap.  Determining when you want to get your application is ready to put in front of users apparently is one of those things.
 

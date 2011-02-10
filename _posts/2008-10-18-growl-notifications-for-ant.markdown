@@ -8,8 +8,8 @@ It's a real refreshing change to be doing developing on Mac these days.  Curren
 
 The <a href="http://code.google.com/p/growlbuildlistener/wiki/README">README</a> for the listener got me started - the only thing that didn't work for me is setting the build listener using the <em>ANT_OPT</em> environment variable.  It looks like the default install of Ant on Leopard uses that environment variable as arguments to pass to the Java VM.  So instead, I just used an alias:
 
-<code><pre>
+{% highlight ruby %}
 alias ant='ant -listener net.slimeslurp.growl.GrowlListener'
-</pre></code>
+{% endhighlight %}
 
 Just add this line to your <em>~/.bash_login</em> to use the build listener every time you build.

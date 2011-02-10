@@ -4,7 +4,7 @@ layout: post
 title: Tails Update v0.3.5
 wordpress_url: http://blog.codeeg.com/2006/10/21/tails-update-v035/
 ---
-<span style="color:#0000ee;text-decoration:underline;"><a class="imagelink" title="Tails geo support" href="http://blog.codeeg.com/wp-content/uploads/2006/10/tails_geo_support.png"></a><a href="http://blog2.codeeg.com/wp-content/uploads/2008/06/tails_geo_support.png"><img class="alignnone size-medium wp-image-119" src="http://blog2.codeeg.com/wp-content/uploads/2008/06/tails_geo_support.png?w=300" alt="" width="300" height="162" /></a></span>
+<span style="color:#0000ee;text-decoration:underline;"><a href="/images/wp/tails_geo_support.png"><img class="alignnone size-medium wp-image-119" src="/images/wp/tails_geo_support.png" alt="" width="300" height="162" /></a></span>
 
 I've been holding on this release of my <a title="Tails Extension" href="http://blog.codeeg.com/tails-firefox-extension-03/">Tails Extension</a> for a while now and finally got my butt in gear to get this out.  Here is what's new:
 <ul>

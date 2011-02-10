@@ -16,20 +16,20 @@ So here's how I created my Lifestream feed.  Here's <a title="Calvin Yu's Yahoo!
 
 <strong>First</strong>, I fetched my twitter, delicious, and forum feeds using the Fetch Feed module.  I do this in the LifeStream: Twitter/Delicious/Forums Pipes.  I separated them out because each type of feed had some characteristics that I wanted to transform from so that when I merged them individual items had some level of consistency with each other.  I also wanted to modify the author of each item so that I could later render an icon to identify the source of the item.
 
-<span style="color:#0000ee;text-decoration:underline;"><a href="http://blog2.codeeg.com/wp-content/uploads/2008/06/pipes_forums.png"><img class="alignnone size-medium wp-image-109" src="http://blog2.codeeg.com/wp-content/uploads/2008/06/pipes_forums.png?w=300" alt="" width="300" height="160" /></a></span>
+<span style="color:#0000ee;text-decoration:underline;"><a href="/images/wp/pipes_forums.png"><img class="alignnone size-medium wp-image-109" src="/images/wp/pipes_forums.png" alt="" width="300" height="160" /></a></span>
 
 <strong>Second</strong>, I merged the individual feeds into one large one (Pipe Lifestream: Merge Sources):
 
-<span style="color:#0000ee;text-decoration:underline;"><a href="http://blog2.codeeg.com/wp-content/uploads/2008/06/pipes_merge.png"><img class="alignnone size-medium wp-image-110" src="http://blog2.codeeg.com/wp-content/uploads/2008/06/pipes_merge.png?w=300" alt="" width="300" height="158" /></a>
+<span style="color:#0000ee;text-decoration:underline;"><a href="/images/wp/pipes_merge.png"><img class="alignnone size-medium wp-image-110" src="/images/wp/pipes_merge.png" alt="" width="300" height="158" /></a>
 </span>
 
 <strong>Then</strong>, I  sorted the feeds, chopped the feed to only show the last 5 items, and truncated the description to 150 characters if necessary (Pipe LifeStream).
 
-<a href="http://blog2.codeeg.com/wp-content/uploads/2008/06/pipes_lifestream.png"><img class="alignnone size-medium wp-image-111" src="http://blog2.codeeg.com/wp-content/uploads/2008/06/pipes_lifestream.png?w=300" alt="" width="300" height="147" /></a>
+<a href="/images/wp/pipes_lifestream.png"><img class="alignnone size-medium wp-image-111" src="/images/wp/pipes_lifestream.png" alt="" width="300" height="147" /></a>
 
 <strong>Finally</strong>, I needed a way to show this on my blog.  I really liked how <a title="Andy Bennett's Blog" href="http://andybennett.net/">Andy Bennett</a> showed his latest twitter on his blog, so I wanted to have something like that.  Doing some research online, I was able to find the <a href="http://adambrown.info/b/widgets/category/kb-advanced-rss/">KB Advanced RSS Widget</a> which did mostly what I wanted, all I had to do is tweak it to show the correct icon based on the author I set in the first step.
 
-So after few hours of work, I had a pretty cool Lifestream feed.  Overtime, I expect to add more feeds to make my lifestream more complete (I would love to add my <a href="http://cocommen.com">coComment</a> feed, if I can only get my actual comment in the feed).
+So after few hours of work, I had a pretty cool Lifestream feed.  Overtime, I expect to add more feeds to make my lifestream more complete (I would love to add my <a href="http://cocomment.com">coComment</a> feed, if I can only get my actual comment in the feed).
 
 I've also learned quite a bit about Yahoo! Pipes:
 <ul>

@@ -8,7 +8,7 @@ Up until now, Google Reader has been very effective in keeping me caught up with
 
 Since the thought of going back to the classic 2- or 3-pane reader makes me want to stop reading RSS altogether, I decided to give the <a href="http://www.niallkennedy.com/blog/archives/2005/12/google_reader_a.html">Google Reader API</a> a shot and see if I could come up with a UI that would better suit my reading habits.
 
-The result of a few days of work resulted in this <a title="Drag this bookmarklet to your toolbar" href="//codeeg.com/readerfp/readerfp.js'); document.body.appendChild(element)})())">Reader FP</a> bookmarklet.  While there's still a lot of work to be done to make this the UI I originally envisioned, it is currently usable for me as a replacement for the current Google Reader UI.  Here are some of its features:
+The result of a few days of work resulted in this <a href="https://gist.github.com/812476">Reader FP</a> bookmarklet.  While there's still a lot of work to be done to make this the UI I originally envisioned, it is currently usable for me as a replacement for the current Google Reader UI.  Here are some of its features:
 <ul>
 	<li>The colors are a little softer on the eyes</li>
 	<li>The fonts are larger (again better for my eyes)</li>
@@ -21,4 +21,4 @@ It's looking pretty good so far, and I have a couple more features I plan to add
 
 Here's a screenshot of what FP looks like:
 
-<span style="color:#551a8b;text-decoration:underline;"><a class="imagelink" title="Reader FP" href="http://blog.codeeg.com/wp-content/uploads/2006/05/readerfp.jpg"></a><a href="http://blog2.codeeg.com/wp-content/uploads/2008/06/readerfp.jpg"><img class="alignnone size-medium wp-image-128" src="http://blog2.codeeg.com/wp-content/uploads/2008/06/readerfp.jpg?w=300" alt="" width="300" height="208" /></a></span>
+<span style="color:#551a8b;text-decoration:underline;"><a href="/images/wp/readerfp.jpg"><img class="alignnone size-medium wp-image-128" src="/images/wp/readerfp.jpg" alt="" width="300" height="208" /></a></span>
