@@ -16,14 +16,16 @@ html, body {
 }
 
 body {
-  background-color: white;
-  font: 13.34px helvetica, arial, clean, sans-serif;
+  background-color: #eee;
+  font: 13.34px Palatino, "Palatino Linotype", Georgia, Times, "Times New Roman", serif;
   *font-size: small;
   text-align: center;
 }
 
 h1, h2, h3, h4, h5, h6 {
+  font-family: Garamond, "Hoefler Text", Palatino, "Palatino Linotype", serif;
   font-size: 100%;
+  text-shadow: 1px 1px #fff;
 }
 
 h1 {
@@ -87,7 +89,7 @@ ul.posts {
 .site {
   font-size: 110%;
   text-align: justify;
-  width: 40em;
+  width: 46em;
   margin: 3em auto 2em auto;
   line-height: 1.5em;
 }
@@ -159,6 +161,12 @@ ul.posts {
 }
 
   /* standard */
+  #post h1 {
+    font-size: 1.7em;
+    font-weight: normal;
+    line-height: 1.3em;
+    width: 12em;
+  }
 
   #post pre {
     border: 1px solid #ddd;
