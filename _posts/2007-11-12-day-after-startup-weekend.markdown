@@ -3,6 +3,7 @@ wordpress_id: 87
 layout: post
 title: Day After Startup Weekend
 wordpress_url: http://blog.codeeg.com/2007/11/12/day-after-startup-weekend/
+permalink: /2007/11/12/day-after-startup-weekend.html
 ---
 <span style="color:#0000ee;text-decoration:underline;"><a href="http://www.skribit.com"></a><a href="http://skribit.com"><img class="aligncenter size-full wp-image-103" src="/images/wp/logo_small1.png" alt="Skribit Logo" width="216" height="54" /></a></span>
 

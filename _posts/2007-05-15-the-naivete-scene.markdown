@@ -3,6 +3,7 @@ wordpress_id: 65
 layout: post
 title: The Naivete Scene
 wordpress_url: http://blog.codeeg.com/2007/05/15/the-naivete-scene/
+permalink: /2007/05/15/the-naivete-scene.html
 ---
 [<strong>Note: </strong>This is a repost of a post I made a few weeks ago -- I just noticed it was missing, probably from upgrading WP a couple of days ago.]
 

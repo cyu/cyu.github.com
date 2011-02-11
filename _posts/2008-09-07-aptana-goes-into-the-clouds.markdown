@@ -3,6 +3,7 @@ wordpress_id: 153
 layout: post
 title: Aptana Goes into the Clouds
 wordpress_url: http://dontforgettoplantit.wordpress.com/?p=161
+permalink: /2008/09/07/aptana-goes-into-the-clouds.html
 ---
 I use <a title="Aptana Website" href="http://www.aptana.com">Aptana</a> for RoR development.  Not because it's a good Ruby or Rails IDE, but because I do so much Java at my paying job and switching between Java development on Eclipse to RoR development on Aptana is a breeze.  Today, I was checking out Aptana's website for updates when I noticed that they now have a product called <a href="http://www.aptana.com/cloud">Aptana Cloud</a>.
 

@@ -3,6 +3,7 @@ wordpress_id: 168
 layout: post
 title: Running FiveRuns TuneUp in a Separate Environment
 wordpress_url: http://blog2.codeeg.com/?p=168
+permalink: /2008/10/05/running-fiveruns-tuneup-in-a-separate-environment.html
 ---
 <a href="http://www.fiveruns.com/products/tuneup">FiveRuns' TuneUp</a> is a great tool for profiling your Rails app, but by default it is always running in development.  This causes two issues 1) every request is slower in development as it is always collecting profiling data, and 2) the TuneUp bar can mess with the layout of your application, especially if you're rendering content in iframes like we do with <a href="http://skribit.com">Skribit</a>.  So instead of having TuneUp always run in development mode, I've changed it to run only when the server is started in a new environment called 'profiler'.   Here's how I did it.
 

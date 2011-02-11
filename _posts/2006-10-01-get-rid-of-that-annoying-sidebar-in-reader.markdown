@@ -3,6 +3,7 @@ wordpress_id: 34
 layout: post
 title: Get Rid of that Annoying Sidebar in Reader
 wordpress_url: http://blog.codeeg.com/2006/10/01/get-rid-of-that-annoying-sidebar-in-reader/
+permalink: /2006/10/01/get-rid-of-that-annoying-sidebar-in-reader.html
 ---
 <img class="alignnone size-full wp-image-120" src="/images/wp/reader_toggle_link.png" alt="" width="400" height="31" />
 

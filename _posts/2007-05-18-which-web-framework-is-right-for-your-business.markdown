@@ -3,6 +3,7 @@ wordpress_id: 67
 layout: post
 title: Which web framework is right for your business?
 wordpress_url: http://blog.codeeg.com/2007/05/18/which-web-framework-is-right-for-your-business/
+permalink: /2007/05/18/which-web-framework-is-right-for-your-business.html
 ---
 <a title="Which web framework is right for your business?" href="http://blog.jeffhaynie.us/which-web-framework-is-right-for-your-business.html">Jeff's follow up answers</a> for <a href="http://web.meetup.com/32/">Thursday's Web Entrepreneurs meetup</a> was good idea, so I'd thought I lay out some of my answers from a Java perspective.  I think Jeff is spot on when he talks about how someone should choose a web framework for their business -- rely on your technology team to chose the right one.  There isn't one great framework out there that, by itself, will give you any significant business advantage (however, having a great technology team with a framework <strong>that's right for them</strong> will).
 

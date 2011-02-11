@@ -3,6 +3,7 @@ wordpress_id: 252
 layout: post
 title: Problems Uploading Files to WordPress?
 wordpress_url: http://blog.codeeg.com/?p=252
+permalink: /2009/06/25/having-problems-uploading-files-to-wordpress.html
 ---
 A Google search seems to indicate that problems uploading files on WordPress installs is a pretty common occurrence.  Unfortunately, I had the hardest time finding the solution to my particular ailment.  Hopefully, this post will find those others who run into this problem in the future.
 

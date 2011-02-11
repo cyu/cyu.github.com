@@ -3,6 +3,7 @@ wordpress_id: 80
 layout: post
 title: "Taming Beast: How to Extend Beast using Plugins"
 wordpress_url: http://blog.codeeg.com/2007/09/04/taming-beast-how-to-extend-beast-using-plugins/
+permalink: /2007/09/04/taming-beast-how-to-extend-beast-using-plugins.html
 ---
 If you're building a Ruby on Rails application and are in need of some forums functionality, you've most likely have looked into Beast.  However, Beast is very limited in functionality (which I actually think is a good thing), so you might find yourself needing to extend Beast to do the things you want.
 

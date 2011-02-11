@@ -3,6 +3,7 @@ wordpress_id: 41
 layout: post
 title: Tails Update 0.3.6
 wordpress_url: http://blog.codeeg.com/2006/10/29/tails-update-036/
+permalink: /2006/10/29/tails-update-036.html
 ---
 <span style="color:#0000ee;text-decoration:underline;"><a href="/tails-firefox-extension-03/"><img class="alignnone size-full wp-image-117" src="/images/wp/v0-3-6screenshot.png" alt="" width="500" height="120" /></a></span>
 

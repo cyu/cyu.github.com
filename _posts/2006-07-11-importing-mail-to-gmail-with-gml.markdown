@@ -3,6 +3,7 @@ wordpress_id: 20
 layout: post
 title: Importing Mail to GMail with GML
 wordpress_url: http://blog.codeeg.com/2006/07/11/importing-mail-to-gmail-with-gml/
+permalink: /2006/07/11/importing-mail-to-gmail-with-gml.html
 ---
 Having switched to GMail as my primary email client for a couple of months now, I've decided that it was time to try to copy my old emails from Thunderbird to GMail.  From doing a quick search, I find that the tool to use is <a href="http://www.marklyon.org/gmail/download.htm">Mark Lyon's GMail Loader tool</a>.  Unfortunately, that's been the only quick thing so far in this exercise.
 

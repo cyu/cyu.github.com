@@ -3,6 +3,7 @@ wordpress_id: 187
 layout: post
 title: Growl Notifications for Ant
 wordpress_url: http://blog.codeeg.com/?p=187
+permalink: /2008/10/18/growl-notifications-for-ant.html
 ---
 It's a real refreshing change to be doing developing on Mac these days.  Currently, our Ant builds at work are less than optimal, taking ten's of minutes to do a full build.  Fixing it is something we definitely want to do, but because of the complexity of the build and existing deadlines, right now isn't the best time.  So instead of constantly checking on the progress of my build, I installed this <a href="http://blog.slimeslurp.net/2007/03/18/ant-build-notifications-via-growl/">Growl Ant build listener</a> which will display a Growl notification when a build has completed.
 

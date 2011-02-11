@@ -3,6 +3,7 @@ wordpress_id: 36
 layout: post
 title: Tails Update v0.3.5
 wordpress_url: http://blog.codeeg.com/2006/10/21/tails-update-v035/
+permalink: /2006/10/21/tails-update-v035.html
 ---
 <span style="color:#0000ee;text-decoration:underline;"><a href="/images/wp/tails_geo_support.png"><img class="alignnone size-medium wp-image-119" src="/images/wp/tails_geo_support.png" alt="" width="300" height="162" /></a></span>
 

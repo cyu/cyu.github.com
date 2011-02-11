@@ -3,6 +3,7 @@ wordpress_id: 91
 layout: post
 title: "Github: Sourceforge 2.0?"
 wordpress_url: http://blog.codeeg.com/2008/03/20/github-sourceforge-20/
+permalink: /2008/03/20/github-sourceforge-20.html
 ---
 While I sitting through <a href="http://files.jnewland.com/git.pdf">Jesse's git presentation</a> during the atlrug meetup last week,  I migrated my <a href="https://github.com/cyu/beast-plugins/tree/master" title="Beast Plugins repo on Github">Beast Plugins</a> from my own Subversion repository to <a href="http://github.com" title="git repository hosting">github</a>.
 

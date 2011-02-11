@@ -3,6 +3,7 @@ wordpress_id: 221
 layout: post
 title: Creating Static Pages w/ Rails ActionViews
 wordpress_url: http://blog.codeeg.com/?p=221
+permalink: /2009/05/24/creating-static-pages-w-rails-actionviews.html
 ---
 Recently, I needed to create some static reporting pages for Skribit.  From a quick search, I got a lot of results that talk about Rails and static pages, but none did exactly what I needed:
 <ol>

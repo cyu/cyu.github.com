@@ -3,6 +3,7 @@ wordpress_id: 70
 layout: post
 title: Del.icio.us Bookmarks, For 2007-06-27
 wordpress_url: http://dontforgettoplantit.wordpress.com/2007/06/28/daily-delicious-25/
+permalink: /2007/06/28/daily-delicious-25.html
 ---
 <p class="daily-delicious-header">For Wednesday, June 27 2007 --</p>
 <ul class="daily-delicious">

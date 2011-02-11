@@ -3,6 +3,7 @@ wordpress_id: 201
 layout: post
 title: Building Software to their Audiences
 wordpress_url: http://blog.codeeg.com/?p=201
+permalink: /2009/02/24/building-software-to-their-audiences.html
 ---
 When building software, it's a good idea to identify the needs of 3 different kinds of audiences.
 

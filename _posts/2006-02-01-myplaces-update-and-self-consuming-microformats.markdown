@@ -3,6 +3,7 @@ wordpress_id: 13
 layout: post
 title: MyPlaces Update and Self-consuming Microformats
 wordpress_url: http://blog.codeeg.com/2006/02/01/myplaces-update-and-self-consuming-microformats/
+permalink: /2006/02/01/myplaces-update-and-self-consuming-microformats.html
 ---
 I took the effort and modified the <a title="Plot your favorite locations with MyPlaces" href="http://myplaces.codeeg.com/">MyPlaces</a> script to support both the Yahoo! and Google Maps APIs.  I also fixed a problem with the generator application not working in IE.
 

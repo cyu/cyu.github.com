@@ -3,6 +3,7 @@ wordpress_id: 52
 layout: post
 title: My Daily Delicious
 wordpress_url: http://blog.codeeg.com/2007/02/23/my-daily-delicious/
+permalink: /2007/02/23/my-daily-delicious.html
 ---
 I've received a couple of inquiries about how I'm doing my daily delicious posts, so today I cleaned up the script a little so I can post about it and send it out.
 

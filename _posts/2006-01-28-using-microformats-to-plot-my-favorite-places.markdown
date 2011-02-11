@@ -3,6 +3,7 @@ wordpress_id: 12
 layout: post
 title: Using Microformats to Plot My Favorite Places
 wordpress_url: http://blog.codeeg.com/2006/01/28/using-microformats-to-plot-my-favorite-places/
+permalink: /2006/01/28/using-microformats-to-plot-my-favorite-places.html
 ---
 Currently, the most popular use of <a title="Learn about microformats" href="http://microformats.org">microformats</a> is to export them to their native formats, (hCards -&gt; vCards and hCalendar -&gt; iCal), but there's really should be more utility for microformats than that.
 

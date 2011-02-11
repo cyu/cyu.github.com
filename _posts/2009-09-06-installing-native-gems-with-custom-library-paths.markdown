@@ -3,6 +3,7 @@ wordpress_id: 271
 layout: post
 title: Installing Native Gems with Custom Library Paths
 wordpress_url: http://blog.codeeg.com/?p=271
+permalink: /2009/09/06/installing-native-gems-with-custom-library-paths.html
 ---
 A few weeks ago, I started using the <a href="http://github.com/toland/patron/tree/master">Patron</a> Gem for Skribit and ran into an issue on our CentOS production servers which uses a very old version of libcurl.  I got it working by compiling a new version of libcurl and building the Gem against those binaries.  Since I didn't want to overwrite the libcurl that CentOS provided, I installed the binaries in another location instead, and updated the <strong>LD_LIBRARY_PATH</strong> environment variable so Rails could properly load the Gem.
 

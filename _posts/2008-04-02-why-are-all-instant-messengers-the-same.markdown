@@ -3,6 +3,7 @@ wordpress_id: 93
 layout: post
 title: Why are All Instant Messengers the Same?
 wordpress_url: http://blog.codeeg.com/2008/04/02/why-are-all-instant-messengers-the-same/
+permalink: /2008/04/02/why-are-all-instant-messengers-the-same.html
 ---
 This pass weekend, my wonderful wife got me a shiny new MacBook Pro for our anniversary.  If you've ever seen my old laptop, you know it's been a long time coming.
 

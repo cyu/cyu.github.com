@@ -3,6 +3,7 @@ wordpress_id: 144
 layout: post
 title: 25 Things I Hate about Maven
 wordpress_url: http://dontforgettoplantit.wordpress.com/?p=148
+permalink: /2008/06/28/25-things-i-hate-about-maven.html
 ---
 I've been doing a lot of work with Maven recently, and having a miserable time of it.  Earlier this week I was ranting about it on a mailing list I was on, when I thought it would be therapeutic to try to list 100 things that irks me about Maven 2 that I've personally ran into.  So, I didn't come close - I only came up with 25.  But I do feel much better now.
 

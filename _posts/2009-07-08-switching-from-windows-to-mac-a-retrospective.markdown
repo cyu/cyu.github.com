@@ -3,6 +3,7 @@ wordpress_id: 232
 layout: post
 title: "Switching from Windows to Mac: A Retrospective"
 wordpress_url: http://blog.codeeg.com/?p=232
+permalink: /2009/07/08/switching-from-windows-to-mac-a-retrospective.html
 ---
 Just recently done a 2 week stint working on Windows while Apple Geniuses were working on my MBP, I thought it would be a good time to blog on <a title="My Skribit Suggestion" href="http://skribit.com/suggestions/switching-to-from-windows-to-mac">my own Skribit Suggestion</a> and reflect on my switch to Mac 14 months ago.
 <h2>Reasons for Switching</h2>

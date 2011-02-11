@@ -3,6 +3,7 @@ wordpress_id: 11
 layout: post
 title: The Fight for Rails for Java is a Good One.
 wordpress_url: http://blog.codeeg.com/2006/01/21/the-fight-for-rails-for-java-is-a-good-one/
+permalink: /2006/01/21/the-fight-for-rails-for-java-is-a-good-one.html
 ---
 I couldn't agree more with <a title="The REASONS of Rails in Java. FIGHT BACK again PHP, LAMP,ASP" href="http://www.xeniumhk.com/blog/?postid=30">Chris on the reasons for a Rails-like framework</a> for Java.
 

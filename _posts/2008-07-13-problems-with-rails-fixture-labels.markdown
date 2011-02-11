@@ -3,6 +3,7 @@ wordpress_id: 145
 layout: post
 title: Problems With Rails Fixture Labels?
 wordpress_url: http://dontforgettoplantit.wordpress.com/?p=149
+permalink: /2008/07/13/problems-with-rails-fixture-labels.html
 ---
 Newer versions of Rails has a nice feature where you can use label references for fixtures.  So instead of:
 {% highlight yaml %}

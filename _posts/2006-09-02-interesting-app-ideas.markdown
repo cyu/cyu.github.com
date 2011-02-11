@@ -3,6 +3,7 @@ wordpress_id: 29
 layout: post
 title: Interesting App Ideas
 wordpress_url: http://blog.codeeg.com/2006/09/02/interesting-app-ideas/
+permalink: /2006/09/02/interesting-app-ideas.html
 ---
 Here are a few ideas I have on some cool applications I would like to see.  Hopefully, someone will have some use for them, because I don't expect to ever have the time (or the complete interest) to implement them.
 <ol>

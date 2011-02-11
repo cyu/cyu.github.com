@@ -3,6 +3,7 @@ wordpress_id: 27
 layout: post
 title: Desktop Backgrounds w/ Flickr
 wordpress_url: http://blog.codeeg.com/2006/08/15/desktop-backgrounds-w-flickr/
+permalink: /2006/08/15/desktop-backgrounds-w-flickr.html
 ---
 I usually get my backgrounds from a couple of <a href="http://www.chromasia.com/">photo blogs</a> <a href="http://wvs.topleftpixel.com/">I subscribe to</a>, but using <a href="http://www.redmonk.com/sogrady/archives/002054.html">Flickr for my backgrounds</a> was such a good idea (and a good excuse to play with ruby), that I thought I'd give it a shot.
 

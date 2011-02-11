@@ -3,6 +3,7 @@ wordpress_id: 142
 layout: post
 title: Troubleshooting Performance Problems
 wordpress_url: http://dontforgettoplantit.wordpress.com/?p=146
+permalink: /2008/06/10/troubleshooting-performance-problems.html
 ---
 Skribit's downtime last Monday got me thinking about my past experience with performance tuning.  I've troubleshot a lot of performance problems in the past, and here are some things I've noticed:
 

@@ -3,6 +3,7 @@ wordpress_id: 277
 layout: post
 title: Setting up Virtual Hosts on Mac OSX
 wordpress_url: http://blog.codeeg.com/?p=277
+permalink: /2010/03/26/setting-up-virtual-hosts-on-mac-osx.html
 ---
 I've been juggling a few different web projects lately, and decided to setup different virtual hosts on my Mac so that I can easily work with them.  Googling around gave me a lot of different answers, none of which seem to work completely.  This is what finally worked for me (on Snow Leopard).
 

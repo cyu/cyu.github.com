@@ -3,6 +3,7 @@ wordpress_id: 192
 layout: post
 title: Turning a New Page
 wordpress_url: http://blog.codeeg.com/?p=192
+permalink: /2008/11/15/turning-a-new-page.html
 ---
 It's been a month now since I left my contract at AutoTrader.com.  For the most part, I've enjoyed my time there, but the thought of celebrating my two year anniversary there was a little frightening.  While I am very adaptable to the corporate life, it isn't for me.  When FlickStation (the last startup I was a part of) desolved, the plan was to serve a year of corporate duty to get my bearings before heading back into the startup arena.  But some interesting work, interesting politics, and great co-workers kept me there longer than I expected.  But ultimately, I'm addicted to execution and delivery, both of which seem very hard to do well and often in large companies.
 

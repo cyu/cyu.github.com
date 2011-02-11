@@ -3,6 +3,7 @@ wordpress_id: 88
 layout: post
 title: My Thoughts on Atlanta Startup Weekend
 wordpress_url: http://blog.codeeg.com/2007/11/18/my-thoughts-on-atlanta-startup-weekend/
+permalink: /2007/11/18/my-thoughts-on-atlanta-startup-weekend.html
 ---
 Here are some of my thoughts on Startup Weekend and in particular, Atlanta's Startup Weekend.  I suggest everyone read <a href="http://blog.aisleten.com/2007/11/10/startup-weekend-atlanta-interesting-but-not-for-me">Micah's accounts of ASW</a> as well.  He wasn't there when we were finally able to turn it around Sat. night, but his account was pretty accurate up to that point.
 

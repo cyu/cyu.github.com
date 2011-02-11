@@ -3,6 +3,7 @@ wordpress_id: 26
 layout: post
 title: Tails Release 0.3.2
 wordpress_url: http://blog.codeeg.com/2006/08/05/tails-release-032/
+permalink: /2006/08/05/tails-release-032.html
 ---
 What's in this release:
 <ul>

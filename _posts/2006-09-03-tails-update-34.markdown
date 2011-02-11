@@ -3,6 +3,7 @@ wordpress_id: 30
 layout: post
 title: Tails Update 3.4
 wordpress_url: http://blog.codeeg.com/2006/09/03/tails-update-34/
+permalink: /2006/09/03/tails-update-34.html
 ---
 In addition to fixing a bug with uninstalling Tails Scripts (thanks to <a href="http://blog.codeeg.com/tails-firefox-extension-03/?preview=true#comment-1529">CÃ©dric</a> for finding this), I've also added a details view for viewing all the fields of a microformat (just click on the bolded object label in the object list).
 

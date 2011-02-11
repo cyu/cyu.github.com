@@ -3,6 +3,7 @@ wordpress_id: 284
 layout: post
 title: Introducing Rack::CORS
 wordpress_url: http://blog.codeeg.com/?p=284
+permalink: /2010/06/09/introducin-rack-cors.html
 ---
 Recently, I've been working on an HTML5 project that needed to need to retrieve data from a different origin, and decided to look at using CORS.
 

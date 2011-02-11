@@ -3,6 +3,7 @@ wordpress_id: 17
 layout: post
 title: Google Reader, Remixed
 wordpress_url: http://blog.codeeg.com/2006/05/15/google-reader-remixed/
+permalink: /2006/05/15/google-reader-remixed.html
 ---
 Up until now, Google Reader has been very effective in keeping me caught up with my subscribed feeds, but as my number of feeds continue to grow, the limitation in the Reader UI is becoming more and more apparent.
 

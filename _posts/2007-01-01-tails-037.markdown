@@ -3,6 +3,7 @@ wordpress_id: 49
 layout: post
 title: Tails 0.3.7
 wordpress_url: http://blog.codeeg.com/2007/01/01/tails-037/
+permalink: /2007/01/01/tails-037.html
 ---
 I've finally gotten tired of telling folks that this and that will be fixed in the next release, and have finally gotten Tails to the point of a 0.3.7 release.  Here's are the highlights this new release:
 <ul>

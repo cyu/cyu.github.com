@@ -3,6 +3,7 @@ wordpress_id: 132
 layout: post
 title: Moving to Wordpress.com
 wordpress_url: http://dontforgettoplantit.wordpress.com/?p=135
+permalink: /2008/06/09/moving-to-wordpresscom.html
 ---
 I took the time today and moved my blog from a self-hosted Wordpress Installation to Wordpress.com.  I did this for mainly two reasons:
 <ol>

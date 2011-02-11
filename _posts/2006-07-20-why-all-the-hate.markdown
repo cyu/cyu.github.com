@@ -3,6 +3,7 @@ wordpress_id: 25
 layout: post
 title: Why All the Hate?
 wordpress_url: http://blog.codeeg.com/2006/07/20/why-all-the-hate/
+permalink: /2006/07/20/why-all-the-hate.html
 ---
 <a href="http://www.oreillynet.com/onjava/blog/2006/07/why_i_hate_microformats.html?CMP=OTC-FP2116136014&amp;ATT=Why+I+Hate+Microformats">Robert hates microformats</a>.
 

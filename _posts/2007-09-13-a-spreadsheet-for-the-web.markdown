@@ -3,6 +3,7 @@ wordpress_id: 81
 layout: post
 title: A Spreadsheet for the Web
 wordpress_url: http://blog.codeeg.com/2007/09/13/a-spreadsheet-for-the-web/
+permalink: /2007/09/13/a-spreadsheet-for-the-web.html
 ---
 No, I don't mean <a title="Google Spreadsheet" href="http://docs.google.com">a web-based version of Excel</a>, but an application that does for live web data what the spreadsheet did for static cell data.  This type of application is commonly referred to as the mashup editor, which there are <a title="Google Mashup Editor" href="http://editor.googlemashups.com">a few of</a> <a title="Yahoo! Pipes" href="http://pipes.yahoo.com/pipes/">out there</a>, but are more like the "IDE for the Web" than a spreadsheet.
 

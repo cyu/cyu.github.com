@@ -3,6 +3,7 @@ wordpress_id: 32
 layout: post
 title: The New and Somewhat Improved Google Reader
 wordpress_url: http://blog.codeeg.com/2006/09/30/the-new-and-somewhat-improved-google-reader/
+permalink: /2006/09/30/the-new-and-somewhat-improved-google-reader.html
 ---
 <p class="center"><img class="alignnone size-full wp-image-123" src="/images/wp/google_reader_new_ui.png" alt="" width="462" height="240" /></p>
 

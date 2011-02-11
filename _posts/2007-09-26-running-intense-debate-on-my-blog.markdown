@@ -3,6 +3,7 @@ wordpress_id: 84
 layout: post
 title: Running Intense Debate on My Blog
 wordpress_url: http://blog.codeeg.com/2007/09/26/running-intense-debate-on-my-blog/
+permalink: /2007/09/26/running-intense-debate-on-my-blog.html
 ---
 I was lucky in enough to get invited into the closed <a title="Intense Debate website" href="http://www.intensedebate.com">Intense Debate</a> a few weeks ago, and after a stumble here and there I was able to get the ID plugin installed and working on this blog.  Now all new comments be going to be handled by Intense Debate instead of WordPress.
 

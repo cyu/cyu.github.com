@@ -3,6 +3,7 @@ wordpress_id: 10
 layout: post
 title: Can Coworking Places Work in Atlanta?
 wordpress_url: http://blog.codeeg.com/2006/01/18/can-coworking-places-work-in-atlanta/
+permalink: /2006/01/18/can-coworking-places-work-in-atlanta.html
 ---
 I've been spending approximately one day a week for the last couple of weeks working out of <a title="Panera Bread" href="http://www.panerabread.com">Panera</a> in Smyrna, I can't help to think that <a title="A request for a coworking place in SF" href="http://factoryjoe.com/blog/2006/01/17/wanting-a-permanent-coworking-space/">coworking places</a> would work here in Atlanta.  Throughout the day, the place is frequently visited by laptop toting patrons that can't get enough of good food and free wi-fi.
 

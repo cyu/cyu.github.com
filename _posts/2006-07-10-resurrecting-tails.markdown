@@ -3,6 +3,7 @@ wordpress_id: 19
 layout: post
 title: Resurrecting Tails
 wordpress_url: http://blog.codeeg.com/2006/07/10/resurrecting-tails/
+permalink: /2006/07/10/resurrecting-tails.html
 ---
 After careful thought and <a href="http://microformats.org/wiki/user-interface">some</a> <a href="http://ben-ward.co.uk/journal/microformats-ui/">inspiration</a>, I've decided to bring my original <a href="http://blog.codeeg.com/tails-firefox-extension/">Tails Extension</a> out of retirement.  It wasn't a decision I took lightly, since <a href="http://bordewolf.blogspot.com/">Robert</a> has done such a great job with the <a href="https://addons.mozilla.org/firefox/2240/">Tails Export Extension</a> and I didn't want to duplicate his effort, but in order to execute my vision of what I wanted to do, I practically had to rebuild Tails (and Flocktails) from the ground up.
 

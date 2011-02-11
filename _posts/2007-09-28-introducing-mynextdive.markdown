@@ -3,6 +3,7 @@ wordpress_id: 85
 layout: post
 title: Introducing MyNextDive
 wordpress_url: http://blog.codeeg.com/2007/09/28/introducing-mynextdive/
+permalink: /2007/09/28/introducing-mynextdive.html
 ---
 <a href="http://mynextdive.com"><img class="aligncenter size-full wp-image-107" src="/images/wp/mnd_logo.gif" alt="" width="193" height="41" /></a>
 

@@ -3,6 +3,7 @@ wordpress_id: 40
 layout: post
 title: Del.icio.us Bookmarks, Served Daily
 wordpress_url: http://dontforgettoplantit.wordpress.com/2006/10/28/daily-delicious-5/
+permalink: /2006/10/28/daily-delicious-5.html
 ---
 <p class="daily-delicious-header">For Friday, October 27 2006 --</p>
 <ul class="daily-delicious">

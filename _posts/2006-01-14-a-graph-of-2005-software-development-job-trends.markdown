@@ -3,6 +3,7 @@ wordpress_id: 7
 layout: post
 title: A Graph of 2005 Software Development Job Trends
 wordpress_url: http://blog.codeeg.com/2006/01/14/a-graph-of-2005-software-development-job-trends/
+permalink: /2006/01/14/a-graph-of-2005-software-development-job-trends.html
 ---
 After some tweaking of a graph originally created by a member of the <a title="Straight-Talking Java" href="http://groups.yahoo.com/group/straight_talking_java/">ST-J Java Group</a>, this is what I think is the most accurate representation of 2005:
 

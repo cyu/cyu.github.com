@@ -3,6 +3,7 @@ wordpress_id: 83
 layout: post
 title: Lifestreaming using Yahoo! Pipes
 wordpress_url: http://blog.codeeg.com/2007/09/22/lifestreaming-using-yahoo-pipes/
+permalink: /2007/09/22/lifestreaming-using-yahoo-pipes.html
 ---
 Some of you might have noticed that I recently added a <em><strong>What I'm up to</strong><strong> </strong></em>feature on my blog.  While I'm not normally a frequent blogger (I actually consider that a feature of this blog), I am pretty active elsewhere on the internet.  So I thought it would be cool to create an aggregated feed of my online activities, commonly referred to as a Lifestream.  This seemed like the perfect job for <a href="http://pipes.yahoo.com">Yahoo! Pipes</a> and apparently <a title="A Lifestream Yahoo! Pipes Search" href="http://pipes.yahoo.com/pipes/search?q=lifestream&amp;x=0&amp;y=0">I'm not alone in that thought</a>.
 

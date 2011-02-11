@@ -3,6 +3,7 @@ wordpress_id: 292
 layout: post
 title: Loading CouchDB Views from Source Files
 wordpress_url: http://blog.codeeg.com/?p=292
+permalink: /2010/07/28/loading-couchdb-views.html
 ---
 I've been doing a lot work with CouchDB lately for Socialytics, and which means writing map/reduce functions in JavaScript for building views.  I was beginning to have a healthy set of views, it made sense to have this code in version control and be able to load these views to a CouchDB instance via the command line.  Not finding anything like this on the interwebs, I decided to come with something on my own.
 

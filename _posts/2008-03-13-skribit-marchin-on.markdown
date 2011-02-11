@@ -3,6 +3,7 @@ wordpress_id: 90
 layout: post
 title: Skribit March'in On...
 wordpress_url: http://blog.codeeg.com/2008/03/13/skribit-marchin-on/
+permalink: /2008/03/13/skribit-marchin-on.html
 ---
 (pun intended.)
 

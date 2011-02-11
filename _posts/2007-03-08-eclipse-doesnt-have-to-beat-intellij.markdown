@@ -3,6 +3,7 @@ wordpress_id: 56
 layout: post
 title: Eclipse Doesn't Have to Beat IntelliJ
 wordpress_url: http://blog.codeeg.com/2007/03/08/eclipse-doesnt-have-to-beat-intellij/
+permalink: /2007/03/08/eclipse-doesnt-have-to-beat-intellij.html
 ---
 <a href="http://serpensalbus.com/blog/?p=109">Lars says IntelliJ can't beat IDEA for Java development</a>.  I say that's fine, but Eclipse doesn't have to be better than IntelliJ, it just can't be more than $500 worst ;).  How much IDE does one need anyway?  When IntelliJ first entered the market, they offered a IDE that offered a <strong>huge</strong> (with a capital F) productivity gain over existing IDEs, but since then Eclipse has caught up.  While I would concede that IntelliJ has some very smart features that doesn't exist in Eclipse, they only offer me marginal benefits towards overall productivity.  I feel like I make that up easily with Eclipse's excellent source control facilities,  the breadth of plugins available, and through my experience with the tool.
 

@@ -3,6 +3,7 @@ wordpress_id: 33
 layout: post
 title: Refactoring IDEs and Dynamic Languages
 wordpress_url: http://blog.codeeg.com/2006/10/01/refactoring-ides-and-dynamic-languages/
+permalink: /2006/10/01/refactoring-ides-and-dynamic-languages.html
 ---
 <img class="alignnone size-full wp-image-122" src="/images/wp/jerrymaguire.jpg" alt="" width="200" height="210" />
 

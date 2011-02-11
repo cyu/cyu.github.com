@@ -3,6 +3,7 @@ wordpress_id: 18
 layout: post
 title: Flocktails Update 0.1.2
 wordpress_url: http://blog.codeeg.com/2006/06/17/flocktails-update-012/
+permalink: /2006/06/17/flocktails-update-012.html
 ---
 I've updated <a title="Flocktails Extension for the Flock Browser" href="http://blog.codeeg.com/flocktails-extension/">Flocktails</a> to be work with the latest <a title="The Flock Browser" href="http://www.flock.com">Flock</a> beta (v0.7).  Here is a list of the changes:
 <ul>

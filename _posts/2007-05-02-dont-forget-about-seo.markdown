@@ -3,6 +3,7 @@ wordpress_id: 63
 layout: post
 title: Don't Forget About SEO
 wordpress_url: http://blog.codeeg.com/2007/05/02/dont-forget-about-seo/
+permalink: /2007/05/02/dont-forget-about-seo.html
 ---
 Like <a href="http://blog.aisleten.com/">Micah</a>,  I too was at <a href="http://www.atlanta-web.org/">The Atlanta Web Entrepreneurs</a> meetup listening to John Sherrod talk about Search Engine Optimization as part of my "Resolution 2007: Getting out of My Comfort Zone" tour.  And also like Micah, in the back of my mind I was afraid that I would come out of meetup needing to take a long, take-a-layer-of-skin-off shower to get rid of all the dirty hackery that is SEO, but instead the meeting was a real eye opener.   The most important point I got out of the presentation is that SEO is not as much about getting yourself listed as #1, but more about controlling how you want Google and Google users view your web presence.   In a way, SEO is the web application's equivalent or traditional retail's mantra of 'location, location, location'.
 

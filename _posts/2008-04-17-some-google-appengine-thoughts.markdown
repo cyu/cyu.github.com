@@ -3,6 +3,7 @@ wordpress_id: 94
 layout: post
 title: Some Google AppEngine Thoughts
 wordpress_url: http://blog.codeeg.com/?p=146
+permalink: /2008/04/17/some-google-appengine-thoughts.html
 ---
 I'm still waiting to get into the GAE beta, but I wanted to share a couple of thoughts about why I think GAE is significant beyond grid computing and making it cheaper for developers to build applications.
 

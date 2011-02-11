@@ -3,6 +3,7 @@ wordpress_id: 16
 layout: post
 title: Flock + Tails = Flocktails
 wordpress_url: http://blog.codeeg.com/2006/03/20/flock-tails-flocktails/
+permalink: /2006/03/20/flock-tails-flocktails.html
 ---
 The weekend before last, I took the time and ported my <a href="http://blog.codeeg.com/tails-firefox-extension">Tails Firefox Extension</a> to <a title="Flock Browser" href="http://www.flock.com/">Flock</a>, the result of which is <a title="Flocktails, A Flock Microformats Extension" href="http://blog.codeeg.com/flocktails-extension">Flocktails</a>.  The biggest improvement was moving the extension from display microformats on the sidebar to Flock's topbar, which makes a very significant visual difference:
 
