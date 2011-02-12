@@ -25,10 +25,12 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: Garamond, "Hoefler Text", Palatino, "Palatino Linotype", serif;
   font-size: 100%;
+  font-weight: normal;
   text-shadow: 1px 1px #fff;
 }
 
 h1 {
+  font-size: 1.7em;
   margin-bottom: 1em;
 }
 
@@ -103,7 +105,6 @@ ul.posts {
   h1.title {
     font-family: "english-1","english-2", Garamond, "Hoefler Text", Palatino, "Palatino Linotype", serif;
     font-size: 2.2em;
-    font-weight: normal;
     margin-bottom: 1.2em;
     visibility: hidden;
   }
@@ -172,7 +173,6 @@ ul.posts {
   /* standard */
   #post h1 {
     font-size: 1.7em;
-    font-weight: normal;
     line-height: 1.3em;
     width: 12em;
   }
