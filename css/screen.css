@@ -100,6 +100,13 @@ ul.posts {
   margin-bottom: 2em;
 }
 
+  h1.title {
+    font-family: "english-1","english-2", Garamond, "Hoefler Text", Palatino, "Palatino Linotype", serif;
+    font-size: 2.2em;
+    font-weight: normal;
+    margin-bottom: 1.2em;
+  }
+
   .site .title a {
     color: #a00;
     text-decoration: none;
