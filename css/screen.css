@@ -105,7 +105,9 @@ ul.posts {
     font-size: 2.2em;
     font-weight: normal;
     margin-bottom: 1.2em;
+    visibility: hidden;
   }
+  .wf-active h1.title { visibility: visible; }
 
   .site .title a {
     color: #a00;
