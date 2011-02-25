@@ -7,13 +7,17 @@ title: Don't Forget to Plant It!
 </h1>
 
 <div id="home">
+
   <h1>Blog Posts</h1>
   <ul class="posts">
-    {% for post in site.posts limit:10 %}
+    {% for post in site.posts limit:7 %}
       <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></li>
     {% endfor %}
     <li><a href="/archives.html">All Articles</a></li>
   </ul>
+
+  <h1>About Me</h1>
+  <p>My name is Calvin Yu, I'm a technologies living in Atlanta, Georgia, where I'm a lead game developer for <a href=http://menue.com>Menue</a>.  I'm also a Co-founder of <a href=http://skribit.com>Skribit</a>, a social suggestion widget for bloggers.</p>
 
   <!-- <h1>Open Source Projects</h1>
   <ul class="posts"></ul> -->
