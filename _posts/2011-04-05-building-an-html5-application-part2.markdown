@@ -1,6 +1,6 @@
 --- 
 layout: post
-title: 'Building an HTML5 Application, Part 2: Web Notifications & &lt;Audio&gt;'
+title: 'Building an HTML5 Application, Part 2: Web Notifications &amp; &lt;Audio&gt;'
 ---
 
 This is part 2 in a series of posts walking through my experiences building [Thymer](http://blog.sourcebender.com/thymer), a single-page web application using HTML5 and related technologies.  In [my first post](building-an-html5-application-part1.html), I got the basics of the application working and used the Local **Storage API** to store timers between browser refreshes.  In this article, I'm going to talk about the **Notification API** and the **&lt;audio&gt;** tag.
