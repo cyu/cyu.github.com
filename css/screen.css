@@ -109,14 +109,14 @@ ul.posts {
 }
 
   h1.title {
-    font-family: "english-1","english-2", Garamond, "Hoefler Text", Palatino, "Palatino Linotype", serif;
+    font-family: "Hoefler Text", Palatino, "Palatino Linotype", serif;
     font-size: 3.2em;
     line-height: 1.5em;
     margin-bottom: 1.2em;
-    width: 6em;
-    visibility: hidden;
+    text-align: left;
+    text-shadow: 2px 2px #fff;
+    width: 7em;
   }
-  .wf-active h1.title { visibility: visible; }
 
   .site .title a {
     color: #a00;
