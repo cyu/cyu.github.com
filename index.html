@@ -98,6 +98,79 @@
     
   <header>
     
+      <h1 class="entry-title"><a href="/my-scoutmob-setup.html">My Scoutmob Setup</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2011-08-24 23:42:00 -0400" pubdate  updated >Aug 24<span>th</span>, 2011</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>When I got my Scoutmob laptop (a quad-core 15&#8217; MBP) a couple of months ago, I wrote down everything I needed for making it ready for development.  Here&#8217;s my minimum viable development setup.</p>
+
+<p><strong>Chrome (Dev Channel).</strong> At one point I was dabbling with writing Chrome Extensions, but there&#8217;s not really a good reason to continue using the dev channel - &#8216;cept that it&#8217;s been pretty stable for me.</p>
+
+<p><strong>iTerm2.</strong> I was a tmux user, and screen before that.  Based on a recommendation from <a href="http://amro.co">Amro</a>, I&#8217;ve been using <a href="http://iterm2.com">iTerm2</a> for a few weeks now. Not totally sold on it, but it&#8217;s a narrow win over tmux because of its ease of set up. I recommend downloading the <a href="http://ethanschoonover.com/solarized">Solarized theme</a> for it.</p>
+
+<p><strong>Divvy.</strong> Great app for organizing windows.  Use it all the time.</p>
+
+<p><strong>Dropbox.</strong> Easy filesharing. More importantly, I need it for my next app, which is&#8230;</p>
+
+<p><strong>1Password.</strong> I use this a lot already, but I need to use this more. You&#8217;re only as safe as your weakest password.</p>
+
+<p><strong>Homebrew.</strong> Best package manager for OSX.  No reason to use anything else.</p>
+
+<p><strong>XCode 4.</strong> Requirement for Homebrew, but starting some serious iOS development as well.</p>
+
+<p><strong>TextMate.</strong> I vi occasionally, but TextMate is my editor of choice, especially for Ruby/Rails development.  I recommend the Solarized theme for it as well.</p>
+
+<p><strong>Twitter.</strong> I don&#8217;t tweet enough to need anything more.</p>
+
+<p><strong>Notational Velocity.</strong> Synchronized to Simplenote, I&#8217;ve built up enough notes over time to where this is tool is now an essential part of how I work. I&#8217;ve tried Evernote, but it wants to be more than I really need.</p>
+
+<p><strong>iStat Menu.</strong> I tried to go without installing this initially - until my machine started getting sluggish. Essential for finding misbehaving processes.</p>
+
+<p><strong>JumpCut.</strong> Clipboard history.  Nice not having to worry about overwriting your current clipboard contents.</p>
+
+<p><strong>Git (via Homebrew).</strong> I would use this even if I didn&#8217;t need to push to a remote repository. It&#8217;s the safety net for software developers.</p>
+
+<p><strong>RVM.</strong> Nice that it makes upgrading Ruby a breeze, but Gemsets is the killer feature.</p>
+
+<p><strong>MySQL (via Homebrew).</strong> It&#8217;s what we use at Scoutmob.</p>
+
+<p><strong>POW.</strong> Always available Rails apps. Install the powder gem to make managing applications a snap.</p>
+
+<p><strong>Ack (via Homebrew).</strong> Super fast searches on the command line. Also, I recommend install the <a href="https://github.com/protocool/ackmate">Ackmate</a> plugin for TextMate.</p>
+
+<p>My <a href="http://github.com/cyu/dotfiles">dotfiles</a> and <a href="http://github.com/cyu/dotvim">dotvim</a> Projects. Gets my terminal environment how I like it quickly.</p>
+
+<p>In addition, there are two settings I do every time I setup a new machine:</p>
+
+<ul>
+<li><em>Turn off Dashboard.</em> Never use it. and it hijacks a very useful function key. Speaking of function keys&#8230;</li>
+<li><em>Use F1, F2, &#8230; Keys.</em> Instead of the feature keys. Developers pretty much live in those function keys.</li>
+</ul>
+
+</div>
+  
+  
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
       <h1 class="entry-title"><a href="/building-an-html5-application-part3.html">Building an HTML5 Application, Part 3: Let&#8217;s Take This Offline</a></h1>
     
     
@@ -1211,48 +1284,6 @@
 
   </article>
 
-
-  <article>
-    
-  <header>
-    
-      <h1 class="entry-title"><a href="/2009/09/06/installing-native-gems-with-custom-library-paths.html">Installing Native Gems With Custom Library Paths</a></h1>
-    
-    
-      <p class="meta">
-
-
-
-
-<time datetime="2009-09-06 00:00:00 -0400" pubdate  updated >Sep 6<span>th</span>, 2009</time>
-
-
-</p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>A few weeks ago, I started using the <a href="http://github.com/toland/patron/tree/master">Patron</a> Gem for Skribit and ran into an issue on our CentOS production servers which uses a very old version of libcurl.  I got it working by compiling a new version of libcurl and building the Gem against those binaries.  Since I didn&#8217;t want to overwrite the libcurl that CentOS provided, I installed the binaries in another location instead, and updated the <strong>LD_LIBRARY_PATH</strong> environment variable so Rails could properly load the Gem.</p>
-
-<p>A couple of days ago, <a href="http://paulstamatiou.com">Paul</a> brought to my attention that <a href="http://linuxmafia.com/faq/Admin/ld-lib-path.html">using LD_LIBRARY_PATH isn&#8217;t a good thing</a>.  While I didn&#8217;t necessarily think it was a big deal, it did peak my curiosity on how I would get this work without it.  Here&#8217;s the command I finally used to get it to work:</p>
-
-<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
-<span class='line'>2</span>
-<span class='line'>3</span>
-</pre></td><td class='code' width='100%'><pre><code class='bash'><div class='line'>sudo env <span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;/opt/curl/bin:$PATH&quot;</span> gem install toland-patron <span class="se">\</span>
-</div><div class='line'>    -v <span class="s2">&quot;0.4.1&quot;</span> --source http://gems.github.com <span class="se">\</span>
-</div><div class='line'>    -- --with-ldflags<span class="o">=</span><span class="s2">&quot;-Wl,-R/opt/curl/lib&quot;</span>
-</div></code></pre></td></tr></table></div></figure></div>
-
-
-<p>The key part is the <strong>&#8211;with-ldflags</strong> option at the very end.  The <strong>-Wl,-R&lt;path&gt;</strong> option adds the given path to the list of paths the linker will use to find libraries at runtime.  Hopefully, someone will find this information useful, since I couldn&#8217;t find this information myself on the &#8216;nets anywhere.</p>
-</div>
-  
-  
-
-
-  </article>
-
 <nav role="pagination">
   <div>
     
@@ -1277,8 +1308,16 @@
 <aside role=sidebar>
   
     <section>
+  <h1>About Me</h1>
+  <p>My name is Calvin Yu, I&#8217;m a Technologist living in Atlanta, Georgia, where I&#8217;m a developer for <a href=http://Scoutmob.com>Scoutmob</a>.</p>
+</section>
+<section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/my-scoutmob-setup.html">My Scoutmob Setup</a>
+      </li>
     
       <li class="post">
         <a href="/building-an-html5-application-part3.html">Building an HTML5 Application, Part 3: Let&#8217;s Take this Offline</a>
@@ -1294,10 +1333,6 @@
     
       <li class="post">
         <a href="/storio-and-backbonejs.html">Stor.IO and Backbone.js</a>
-      </li>
-    
-      <li class="post">
-        <a href="/easy-storage-for-html5-applications.html">Easy Storage for HTML5 Applications</a>
       </li>
     
   </ul>

@@ -4,13 +4,66 @@
   <title>Don't Forget to Plant It!</title>
   <link href="http://blog.sourcebender.com/atom.xml" rel="self"/>
   <link href="http://blog.sourcebender.com/"/>
-  <updated>2011-08-24T23:06:14-04:00</updated>
+  <updated>2011-08-25T00:11:22-04:00</updated>
   <id>http://blog.sourcebender.com/</id>
   <author>
     <name>Calvin Yu</name>
     
   </author>
 
+  
+  <entry>
+    <title>My Scoutmob Setup</title>
+    <link href="http://blog.sourcebender.com/my-scoutmob-setup.html"/>
+    <updated>2011-08-24T23:42:00-04:00</updated>
+    <id>http://blog.sourcebender.com/my-scoutmob-setup</id>
+    <content type="html">&lt;p&gt;When I got my Scoutmob laptop (a quad-core 15' MBP) a couple of months ago, I wrote down everything I needed for making it ready for development.  Here's my minimum viable development setup.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Chrome (Dev Channel).&lt;/strong&gt; At one point I was dabbling with writing Chrome Extensions, but there's not really a good reason to continue using the dev channel - 'cept that it's been pretty stable for me.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;iTerm2.&lt;/strong&gt; I was a tmux user, and screen before that.  Based on a recommendation from &lt;a href=&quot;http://amro.co&quot;&gt;Amro&lt;/a&gt;, I've been using &lt;a href=&quot;http://iterm2.com&quot;&gt;iTerm2&lt;/a&gt; for a few weeks now. Not totally sold on it, but it's a narrow win over tmux because of its ease of set up. I recommend downloading the &lt;a href=&quot;http://ethanschoonover.com/solarized&quot;&gt;Solarized theme&lt;/a&gt; for it.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Divvy.&lt;/strong&gt; Great app for organizing windows.  Use it all the time.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Dropbox.&lt;/strong&gt; Easy filesharing. More importantly, I need it for my next app, which is...&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;1Password.&lt;/strong&gt; I use this a lot already, but I need to use this more. You're only as safe as your weakest password.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Homebrew.&lt;/strong&gt; Best package manager for OSX.  No reason to use anything else.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;XCode 4.&lt;/strong&gt; Requirement for Homebrew, but starting some serious iOS development as well.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;TextMate.&lt;/strong&gt; I vi occasionally, but TextMate is my editor of choice, especially for Ruby/Rails development.  I recommend the Solarized theme for it as well.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Twitter.&lt;/strong&gt; I don't tweet enough to need anything more.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Notational Velocity.&lt;/strong&gt; Synchronized to Simplenote, I've built up enough notes over time to where this is tool is now an essential part of how I work. I've tried Evernote, but it wants to be more than I really need.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;iStat Menu.&lt;/strong&gt; I tried to go without installing this initially - until my machine started getting sluggish. Essential for finding misbehaving processes.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;JumpCut.&lt;/strong&gt; Clipboard history.  Nice not having to worry about overwriting your current clipboard contents.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Git (via Homebrew).&lt;/strong&gt; I would use this even if I didn't need to push to a remote repository. It's the safety net for software developers.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;RVM.&lt;/strong&gt; Nice that it makes upgrading Ruby a breeze, but Gemsets is the killer feature.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;MySQL (via Homebrew).&lt;/strong&gt; It's what we use at Scoutmob.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;POW.&lt;/strong&gt; Always available Rails apps. Install the powder gem to make managing applications a snap.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Ack (via Homebrew).&lt;/strong&gt; Super fast searches on the command line. Also, I recommend install the &lt;a href=&quot;https://github.com/protocool/ackmate&quot;&gt;Ackmate&lt;/a&gt; plugin for TextMate.&lt;/p&gt;
+
+&lt;p&gt;My &lt;a href=&quot;http://github.com/cyu/dotfiles&quot;&gt;dotfiles&lt;/a&gt; and &lt;a href=&quot;http://github.com/cyu/dotvim&quot;&gt;dotvim&lt;/a&gt; Projects. Gets my terminal environment how I like it quickly.&lt;/p&gt;
+
+&lt;p&gt;In addition, there are two settings I do every time I setup a new machine:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Turn off Dashboard.&lt;/em&gt; Never use it. and it hijacks a very useful function key. Speaking of function keys...&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Use F1, F2, ... Keys.&lt;/em&gt; Instead of the feature keys. Developers pretty much live in those function keys.&lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+  </entry>
   
   <entry>
     <title>Building an HTML5 Application, Part 3: Let's Take this Offline</title>
@@ -1294,54 +1347,6 @@
 &lt;p&gt;Aptana Cloud appears to be a integrated deployment/hosting platform for Aptana.  You can write applications in PHP, Jaxer (Aptana's AJAX framework), and Ruby on Rails (coming soon), and deploy them to a cloud with a push of a button.  Right now, it deploys to Joyent's Cloud, but it appears that the intention is to be provider agnostic, which would be key for adoption.&lt;/p&gt;
 
 &lt;p&gt;I'm very interested in trying this out, though I'm going to wait until RoR support is ready.  Hopefully, this will lead to some standards to cloud computing, making it easier to switch from one provider to another.  No doubt this is where lightweight development frameworks should be going (looking at you Appcelerator).&lt;/p&gt;
-</content>
-  </entry>
-  
-  <entry>
-    <title>Problems With Rails Fixture Labels?</title>
-    <link href="http://blog.sourcebender.com/2008/07/13/problems-with-rails-fixture-labels.html"/>
-    <updated>2008-07-13T00:00:00-04:00</updated>
-    <id>http://blog.sourcebender.com/2008/07/13/problems-with-rails-fixture-labels</id>
-    <content type="html">&lt;p&gt;Newer versions of Rails has a nice feature where you can use label references for fixtures.  So instead of:&lt;/p&gt;
-
-&lt;div&gt;&lt;figure role=code&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
-&lt;span class='line'&gt;2&lt;/span&gt;
-&lt;span class='line'&gt;3&lt;/span&gt;
-&lt;span class='line'&gt;4&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='yaml'&gt;&lt;div class='line'&gt;&lt;span class=&quot;c1&quot;&gt;# posts.yml&lt;/span&gt;
-&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;l-Scalar-Plain&quot;&gt;test_post&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt;
-&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;l-Scalar-Plain&quot;&gt;user_id&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;1&lt;/span&gt;
-&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;l-Scalar-Plain&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;My Test Post&lt;/span&gt;
-&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
-
-
-&lt;p&gt;You can do this:&lt;/p&gt;
-
-&lt;div&gt;&lt;figure role=code&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
-&lt;span class='line'&gt;2&lt;/span&gt;
-&lt;span class='line'&gt;3&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='yaml'&gt;&lt;div class='line'&gt;&lt;span class=&quot;l-Scalar-Plain&quot;&gt;test_post&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt;
-&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;l-Scalar-Plain&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;quentin&lt;/span&gt;
-&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;l-Scalar-Plain&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;My Test Post&lt;/span&gt;
-&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
-
-
-&lt;p&gt;However, if your model class name is in a pluralized form, you might find that label references won't work.  That's because fixtures derive their class name from the singular form of the table name by default.  Fortunately, you can fix this by adding this line to your TestHelper:&lt;/p&gt;
-
-&lt;div&gt;&lt;figure role=code&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
-&lt;span class='line'&gt;2&lt;/span&gt;
-&lt;span class='line'&gt;3&lt;/span&gt;
-&lt;span class='line'&gt;4&lt;/span&gt;
-&lt;span class='line'&gt;5&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='ruby'&gt;&lt;div class='line'&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Unit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;TestCase&lt;/span&gt;
-&lt;/div&gt;&lt;div class='line'&gt;
-&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;c1&quot;&gt;# Explicitly map the table name to class name&lt;/span&gt;
-&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;n&quot;&gt;set_fixture_class&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:accounts&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;accounts&amp;#39;&lt;/span&gt;
-&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
-
-
-&lt;p&gt;Hopefully, this will save someone else from having to dig through the Rails fixtures internals.&lt;/p&gt;
 </content>
   </entry>
   

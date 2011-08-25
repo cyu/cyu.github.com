@@ -98,6 +98,48 @@
     
   <header>
     
+      <h1 class="entry-title"><a href="/2009/09/06/installing-native-gems-with-custom-library-paths.html">Installing Native Gems With Custom Library Paths</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2009-09-06 00:00:00 -0400" pubdate  updated >Sep 6<span>th</span>, 2009</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>A few weeks ago, I started using the <a href="http://github.com/toland/patron/tree/master">Patron</a> Gem for Skribit and ran into an issue on our CentOS production servers which uses a very old version of libcurl.  I got it working by compiling a new version of libcurl and building the Gem against those binaries.  Since I didn&#8217;t want to overwrite the libcurl that CentOS provided, I installed the binaries in another location instead, and updated the <strong>LD_LIBRARY_PATH</strong> environment variable so Rails could properly load the Gem.</p>
+
+<p>A couple of days ago, <a href="http://paulstamatiou.com">Paul</a> brought to my attention that <a href="http://linuxmafia.com/faq/Admin/ld-lib-path.html">using LD_LIBRARY_PATH isn&#8217;t a good thing</a>.  While I didn&#8217;t necessarily think it was a big deal, it did peak my curiosity on how I would get this work without it.  Here&#8217;s the command I finally used to get it to work:</p>
+
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+</pre></td><td class='code' width='100%'><pre><code class='bash'><div class='line'>sudo env <span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;/opt/curl/bin:$PATH&quot;</span> gem install toland-patron <span class="se">\</span>
+</div><div class='line'>    -v <span class="s2">&quot;0.4.1&quot;</span> --source http://gems.github.com <span class="se">\</span>
+</div><div class='line'>    -- --with-ldflags<span class="o">=</span><span class="s2">&quot;-Wl,-R/opt/curl/lib&quot;</span>
+</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>The key part is the <strong>&#8211;with-ldflags</strong> option at the very end.  The <strong>-Wl,-R&lt;path&gt;</strong> option adds the given path to the list of paths the linker will use to find libraries at runtime.  Hopefully, someone will find this information useful, since I couldn&#8217;t find this information myself on the &#8216;nets anywhere.</p>
+</div>
+  
+  
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
       <h1 class="entry-title"><a href="/2009/07/08/switching-from-windows-to-mac-a-retrospective.html">Switching From Windows to Mac: A Retrospective</a></h1>
     
     
@@ -598,74 +640,6 @@
 
   </article>
 
-
-  <article>
-    
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/07/13/problems-with-rails-fixture-labels.html">Problems With Rails Fixture Labels?</a></h1>
-    
-    
-      <p class="meta">
-
-
-
-
-<time datetime="2008-07-13 00:00:00 -0400" pubdate  updated >Jul 13<span>th</span>, 2008</time>
-
-
-</p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Newer versions of Rails has a nice feature where you can use label references for fixtures.  So instead of:</p>
-
-<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
-<span class='line'>2</span>
-<span class='line'>3</span>
-<span class='line'>4</span>
-</pre></td><td class='code' width='100%'><pre><code class='yaml'><div class='line'><span class="c1"># posts.yml</span>
-</div><div class='line'><span class="l-Scalar-Plain">test_post</span><span class="p-Indicator">:</span>
-</div><div class='line'>  <span class="l-Scalar-Plain">user_id</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
-</div><div class='line'>  <span class="l-Scalar-Plain">title</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">My Test Post</span>
-</div></code></pre></td></tr></table></div></figure></div>
-
-
-<p>You can do this:</p>
-
-<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
-<span class='line'>2</span>
-<span class='line'>3</span>
-</pre></td><td class='code' width='100%'><pre><code class='yaml'><div class='line'><span class="l-Scalar-Plain">test_post</span><span class="p-Indicator">:</span>
-</div><div class='line'>  <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">quentin</span>
-</div><div class='line'>  <span class="l-Scalar-Plain">title</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">My Test Post</span>
-</div></code></pre></td></tr></table></div></figure></div>
-
-
-<p>However, if your model class name is in a pluralized form, you might find that label references won&#8217;t work.  That&#8217;s because fixtures derive their class name from the singular form of the table name by default.  Fortunately, you can fix this by adding this line to your TestHelper:</p>
-
-<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
-<span class='line'>2</span>
-<span class='line'>3</span>
-<span class='line'>4</span>
-<span class='line'>5</span>
-</pre></td><td class='code' width='100%'><pre><code class='ruby'><div class='line'><span class="k">class</span> <span class="nc">Test</span><span class="o">::</span><span class="no">Unit</span><span class="o">::</span><span class="no">TestCase</span>
-</div><div class='line'>
-</div><div class='line'>  <span class="c1"># Explicitly map the table name to class name</span>
-</div><div class='line'>  <span class="n">set_fixture_class</span> <span class="ss">:accounts</span> <span class="o">=&gt;</span> <span class="s1">&#39;accounts&#39;</span>
-</div><div class='line'><span class="k">end</span>
-</div></code></pre></td></tr></table></div></figure></div>
-
-
-<p>Hopefully, this will save someone else from having to dig through the Rails fixtures internals.</p>
-</div>
-  
-  
-
-
-  </article>
-
 <nav role="pagination">
   <div>
     
@@ -692,8 +666,16 @@
 <aside role=sidebar>
   
     <section>
+  <h1>About Me</h1>
+  <p>My name is Calvin Yu, I&#8217;m a Technologist living in Atlanta, Georgia, where I&#8217;m a developer for <a href=http://Scoutmob.com>Scoutmob</a>.</p>
+</section>
+<section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/my-scoutmob-setup.html">My Scoutmob Setup</a>
+      </li>
     
       <li class="post">
         <a href="/building-an-html5-application-part3.html">Building an HTML5 Application, Part 3: Let&#8217;s Take this Offline</a>
@@ -709,10 +691,6 @@
     
       <li class="post">
         <a href="/storio-and-backbonejs.html">Stor.IO and Backbone.js</a>
-      </li>
-    
-      <li class="post">
-        <a href="/easy-storage-for-html5-applications.html">Easy Storage for HTML5 Applications</a>
       </li>
     
   </ul>

@@ -98,6 +98,74 @@
     
   <header>
     
+      <h1 class="entry-title"><a href="/2008/07/13/problems-with-rails-fixture-labels.html">Problems With Rails Fixture Labels?</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-07-13 00:00:00 -0400" pubdate  updated >Jul 13<span>th</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Newer versions of Rails has a nice feature where you can use label references for fixtures.  So instead of:</p>
+
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+</pre></td><td class='code' width='100%'><pre><code class='yaml'><div class='line'><span class="c1"># posts.yml</span>
+</div><div class='line'><span class="l-Scalar-Plain">test_post</span><span class="p-Indicator">:</span>
+</div><div class='line'>  <span class="l-Scalar-Plain">user_id</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+</div><div class='line'>  <span class="l-Scalar-Plain">title</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">My Test Post</span>
+</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>You can do this:</p>
+
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+</pre></td><td class='code' width='100%'><pre><code class='yaml'><div class='line'><span class="l-Scalar-Plain">test_post</span><span class="p-Indicator">:</span>
+</div><div class='line'>  <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">quentin</span>
+</div><div class='line'>  <span class="l-Scalar-Plain">title</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">My Test Post</span>
+</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>However, if your model class name is in a pluralized form, you might find that label references won&#8217;t work.  That&#8217;s because fixtures derive their class name from the singular form of the table name by default.  Fortunately, you can fix this by adding this line to your TestHelper:</p>
+
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+</pre></td><td class='code' width='100%'><pre><code class='ruby'><div class='line'><span class="k">class</span> <span class="nc">Test</span><span class="o">::</span><span class="no">Unit</span><span class="o">::</span><span class="no">TestCase</span>
+</div><div class='line'>
+</div><div class='line'>  <span class="c1"># Explicitly map the table name to class name</span>
+</div><div class='line'>  <span class="n">set_fixture_class</span> <span class="ss">:accounts</span> <span class="o">=&gt;</span> <span class="s1">&#39;accounts&#39;</span>
+</div><div class='line'><span class="k">end</span>
+</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>Hopefully, this will save someone else from having to dig through the Rails fixtures internals.</p>
+</div>
+  
+  
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
       <h1 class="entry-title"><a href="/2008/06/28/25-things-i-hate-about-maven.html">25 Things I Hate About Maven</a></h1>
     
     
@@ -461,55 +529,6 @@
 
   </article>
 
-
-  <article>
-    
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/03/13/skribit-marchin-on.html">Skribit March&#8217;in On&#8230;</a></h1>
-    
-    
-      <p class="meta">
-
-
-
-
-<time datetime="2008-03-13 00:00:00 -0400" pubdate  updated >Mar 13<span>th</span>, 2008</time>
-
-
-</p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>(pun intended.)</p>
-
-<p><a href="http://skribit.com"><img class="aligncenter size-full wp-image-103" src="/images/wp/logo_small1.png" alt="Skribit Logo" width="216" height="54" /></a></p>
-
-<p>So a couple of weeks ago, we knocked out our third release of <a title="Blog Suggestions" href="http://skribit.com">Skribit</a> into production.  The Skribit team has done <a title="Skribit in Public Beta" href="http://skribit.com/blog/2008/03/09/skribit-in-public-beta/">a great job</a> <a title="Skribit In Open Beta" href="http://blog.weatherby.net/2008/03/skribit-in-open.html">of covering</a> <a title="skribit reloaded" href="http://rkischuk.wordpress.com/2008/03/03/skribit-reloaded/">what is in the latest release</a>, so I don&#8217;t it isn&#8217;t necessary to cover what we&#8217;ve added here.</p>
-
-<p>So what is the real value of Skribit?  Before Skribit, things look a lot like this:</p>
-
-<p><img class="aligncenter size-full wp-image-104" src="/images/wp/before-skribit.png" alt="" width="454" height="72" /></p>
-
-<p>Bloggers posted and readers read the posts and commented on the post.  Occasionally, comments will lead into more posts, but still, bloggers for the most part led the conversation.  Sometimes you&#8217;ll get emails, instant messages or direct conversations asking you to write about something, but they only come from people who can reach you directly.  Also, you have no idea if the rest of your readers are interested in that same subject.</p>
-
-<p>With Skribit, things now look more like this:</p>
-
-<p><img class="aligncenter size-full wp-image-105" src="/images/wp/after-skribit.png" alt="" width="461" height="78" /></p>
-
-<p>By using Skribit and taking in suggestions, bloggers can now have their readers lead conversations, as well as gain better understand who their reader are.</p>
-
-<p>Another thing important about this release is that it&#8217;s a declaration Skribit hasn&#8217;t croaked (oops) and we&#8217;re still hoppin&#8217; (yep, sorry!) along.  And beyond the initial idea of Skribit we&#8217;ve developed the plan will make Skribit a real awesome product.</p>
-
-<p>So please, go sign up on Skribit and join in the conversation.  And let us know what you think!</p>
-</div>
-  
-  
-
-
-  </article>
-
 <nav role="pagination">
   <div>
     
@@ -536,8 +555,16 @@
 <aside role=sidebar>
   
     <section>
+  <h1>About Me</h1>
+  <p>My name is Calvin Yu, I&#8217;m a Technologist living in Atlanta, Georgia, where I&#8217;m a developer for <a href=http://Scoutmob.com>Scoutmob</a>.</p>
+</section>
+<section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/my-scoutmob-setup.html">My Scoutmob Setup</a>
+      </li>
     
       <li class="post">
         <a href="/building-an-html5-application-part3.html">Building an HTML5 Application, Part 3: Let&#8217;s Take this Offline</a>
@@ -553,10 +580,6 @@
     
       <li class="post">
         <a href="/storio-and-backbonejs.html">Stor.IO and Backbone.js</a>
-      </li>
-    
-      <li class="post">
-        <a href="/easy-storage-for-html5-applications.html">Easy Storage for HTML5 Applications</a>
       </li>
     
   </ul>

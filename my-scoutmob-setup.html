@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Don't Forget to Plant It!: Del.icio.us Bookmarks, For 2007-04-25</title>
+  <title>Don't Forget to Plant It!: My Scoutmob Setup</title>
   <meta name="author" content="Calvin Yu">
   
 
@@ -16,7 +16,7 @@
 
   
 
-  <link rel="canonical" href="http://blog.sourcebender.com/2007/04/26/daily-delicious-20.html"/>
+  <link rel="canonical" href="http://blog.sourcebender.com/my-scoutmob-setup.html"/>
   <link href="/favicon.png" rel="shortcut icon" />
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -95,7 +95,7 @@
   
   <header>
     
-      <h1 class="entry-title">Del.icio.us Bookmarks, for 2007-04-25</h1>
+      <h1 class="entry-title">My Scoutmob Setup</h1>
     
     
       <p class="meta">
@@ -103,7 +103,7 @@
 
 
 
-<time datetime="2007-04-26 00:00:00 -0400" pubdate  updated >Apr 26<span>th</span>, 2007</time>
+<time datetime="2011-08-24 23:42:00 -0400" pubdate  updated >Aug 24<span>th</span>, 2011</time>
 
 
 </p>
@@ -111,15 +111,50 @@
   </header>
 
 
-<div class="entry-content"><p class="daily-delicious-header">For Wednesday, April 25 2007 &#8211;</p>
+<div class="entry-content"><p>When I got my Scoutmob laptop (a quad-core 15&#8217; MBP) a couple of months ago, I wrote down everything I needed for making it ready for development.  Here&#8217;s my minimum viable development setup.</p>
 
+<p><strong>Chrome (Dev Channel).</strong> At one point I was dabbling with writing Chrome Extensions, but there&#8217;s not really a good reason to continue using the dev channel - &#8216;cept that it&#8217;s been pretty stable for me.</p>
 
-<ul class="daily-delicious">
-    <li><img src="http://images.websnapr.com/?url=http://www.wired.com/techbiz/people/news/2007/04/mag_schmidt_trans?currentPage=all"> <p><a href="http://www.wired.com/techbiz/people/news/2007/04/mag_schmidt_trans?currentPage=all" title="http://www.wired.com/techbiz/people/news/2007/04/mag_schmidt_trans?currentPage=all">Text of Wired&#8217;s Interview with Google CEO Eric Schmidt -</a></p>
-<p>&quot;&#8230;We analyze this every day, and our conclusion is that the best model remains small teams running as fast as they can and tolerating a certain lack of cohesion. The attempt to provide order drives out the creativity&quot;</p><div class="daily-delicious-tags">Tag(s): <a href="http://del.icio.us/popular/google">google</a> <a href="http://del.icio.us/popular/interview">interview</a> <a href="http://del.icio.us/popular/business">business</a> </div></li></ul>
+<p><strong>iTerm2.</strong> I was a tmux user, and screen before that.  Based on a recommendation from <a href="http://amro.co">Amro</a>, I&#8217;ve been using <a href="http://iterm2.com">iTerm2</a> for a few weeks now. Not totally sold on it, but it&#8217;s a narrow win over tmux because of its ease of set up. I recommend downloading the <a href="http://ethanschoonover.com/solarized">Solarized theme</a> for it.</p>
 
+<p><strong>Divvy.</strong> Great app for organizing windows.  Use it all the time.</p>
 
-<p class="daily-delicious-footer">Bookmarks provided by <a href="http://del.icio.us/cyu">del.icio.us</a>.  Thumbnails courtesy of <a href="http://websnapr.com">WebSnapr</a>
+<p><strong>Dropbox.</strong> Easy filesharing. More importantly, I need it for my next app, which is&#8230;</p>
+
+<p><strong>1Password.</strong> I use this a lot already, but I need to use this more. You&#8217;re only as safe as your weakest password.</p>
+
+<p><strong>Homebrew.</strong> Best package manager for OSX.  No reason to use anything else.</p>
+
+<p><strong>XCode 4.</strong> Requirement for Homebrew, but starting some serious iOS development as well.</p>
+
+<p><strong>TextMate.</strong> I vi occasionally, but TextMate is my editor of choice, especially for Ruby/Rails development.  I recommend the Solarized theme for it as well.</p>
+
+<p><strong>Twitter.</strong> I don&#8217;t tweet enough to need anything more.</p>
+
+<p><strong>Notational Velocity.</strong> Synchronized to Simplenote, I&#8217;ve built up enough notes over time to where this is tool is now an essential part of how I work. I&#8217;ve tried Evernote, but it wants to be more than I really need.</p>
+
+<p><strong>iStat Menu.</strong> I tried to go without installing this initially - until my machine started getting sluggish. Essential for finding misbehaving processes.</p>
+
+<p><strong>JumpCut.</strong> Clipboard history.  Nice not having to worry about overwriting your current clipboard contents.</p>
+
+<p><strong>Git (via Homebrew).</strong> I would use this even if I didn&#8217;t need to push to a remote repository. It&#8217;s the safety net for software developers.</p>
+
+<p><strong>RVM.</strong> Nice that it makes upgrading Ruby a breeze, but Gemsets is the killer feature.</p>
+
+<p><strong>MySQL (via Homebrew).</strong> It&#8217;s what we use at Scoutmob.</p>
+
+<p><strong>POW.</strong> Always available Rails apps. Install the powder gem to make managing applications a snap.</p>
+
+<p><strong>Ack (via Homebrew).</strong> Super fast searches on the command line. Also, I recommend install the <a href="https://github.com/protocool/ackmate">Ackmate</a> plugin for TextMate.</p>
+
+<p>My <a href="http://github.com/cyu/dotfiles">dotfiles</a> and <a href="http://github.com/cyu/dotvim">dotvim</a> Projects. Gets my terminal environment how I like it quickly.</p>
+
+<p>In addition, there are two settings I do every time I setup a new machine:</p>
+
+<ul>
+<li><em>Turn off Dashboard.</em> Never use it. and it hijacks a very useful function key. Speaking of function keys&#8230;</li>
+<li><em>Use F1, F2, &#8230; Keys.</em> Instead of the feature keys. Developers pretty much live in those function keys.</li>
+</ul>
 
 </div>
 
@@ -136,7 +171,7 @@
 
 
 
-<time datetime="2007-04-26 00:00:00 -0400" pubdate  updated >Apr 26<span>th</span>, 2007</time>
+<time datetime="2011-08-24 23:42:00 -0400" pubdate  updated >Aug 24<span>th</span>, 2011</time>
 
 
 
@@ -147,7 +182,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.sourcebender.com/2007/04/26/daily-delicious-20.html" data-via="cyu" data-counturl="http://blog.sourcebender.com/2007/04/26/daily-delicious-20.html" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.sourcebender.com/my-scoutmob-setup.html" data-via="cyu" data-counturl="http://blog.sourcebender.com/my-scoutmob-setup.html" >Tweet</a>
   
   
   <g:plusone size="medium"></g:plusone>
@@ -163,8 +198,8 @@
     <div id="disqus_thread"><div id="disqus_thread"></div>
 <script type="text/javascript">
   var disqus_shortname = 'dontforgettoplantit';
-  var disqus_identifier = 'http://blog.sourcebender.com/2007/04/26/daily-delicious-20.html';
-  var disqus_url = 'http://blog.sourcebender.com/2007/04/26/daily-delicious-20.html';
+  var disqus_identifier = 'http://blog.sourcebender.com/my-scoutmob-setup.html';
+  var disqus_url = 'http://blog.sourcebender.com/my-scoutmob-setup.html';
   //var disqus_developer = 1;
   (function() {
     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
