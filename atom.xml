@@ -4,7 +4,7 @@
   <title>Don't Forget to Plant It!</title>
   <link href="http://blog.sourcebender.com/atom.xml" rel="self"/>
   <link href="http://blog.sourcebender.com/"/>
-  <updated>2011-08-24T22:24:46-04:00</updated>
+  <updated>2011-08-24T22:31:53-04:00</updated>
   <id>http://blog.sourcebender.com/</id>
   <author>
     <name>Calvin Yu</name>
@@ -17,7 +17,7 @@
     <link href="http://blog.sourcebender.com/building-an-html5-application-part3.html"/>
     <updated>2011-04-28T00:00:00-04:00</updated>
     <id>http://blog.sourcebender.com/building-an-html5-application-part3</id>
-    <content type="html">&lt;p&gt;&lt;em&gt;Here's &lt;a href=&quot;2011-03-29-building-an-html5-application-part1.html&quot;&gt;Part 1&lt;/a&gt; and &lt;a href=&quot;2011-04-05-building-an-html5-application-part2.html&quot;&gt;Part 2&lt;/a&gt; of this series.&lt;/em&gt;&lt;/p&gt;
+    <content type="html">&lt;p&gt;&lt;em&gt;Here's &lt;a href=&quot;building-an-html5-application-part1.html&quot;&gt;Part 1&lt;/a&gt; and &lt;a href=&quot;building-an-html5-application-part2.html&quot;&gt;Part 2&lt;/a&gt; of this series.&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;So after taking a break to spend time with family (yay!) and doing taxes (bleh!), I was able to spend some time on Thymer again.  It's time to get it working offline.&lt;/p&gt;
 
