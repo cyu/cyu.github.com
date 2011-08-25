@@ -115,47 +115,48 @@
 
 <p>First, you need to tell TuneUp to only run in the profiler environment.  You do this by modifying <em>config/tuneup.rb</em> (create this file if it doesn&#8217;t already exist):</p>
 
-<div>
-  <pre>
-    <code class='ruby'>Fiveruns::Tuneup.config do |config|
-  config.environments.delete('development')
-  config.environments &lt;&lt; 'profiler'
-end</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+</pre></td><td class='code' width='100%'><pre><code class='ruby'><div class='line'><span class="no">Fiveruns</span><span class="o">::</span><span class="no">Tuneup</span><span class="o">.</span><span class="n">config</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+</div><div class='line'>  <span class="n">config</span><span class="o">.</span><span class="n">environments</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s1">&#39;development&#39;</span><span class="p">)</span>
+</div><div class='line'>  <span class="n">config</span><span class="o">.</span><span class="n">environments</span> <span class="o">&lt;&lt;</span> <span class="s1">&#39;profiler&#39;</span>
+</div><div class='line'><span class="k">end</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>Next, copy the development configuration block in <em>config/database.yml</em> and create a new block called <em>profiler</em>:</p>
 
-<div>
-  <pre>
-    <code class='yaml'>profiler:
-  adapter: mysql
-  encoding: utf8
-  database: YOUR_DATABASE
-  username: YOUR_USERNAME
-  password: YOUR_PASSWORD
-  socket: /tmp/mysql.sock</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+</pre></td><td class='code' width='100%'><pre><code class='yaml'><div class='line'><span class="l-Scalar-Plain">profiler</span><span class="p-Indicator">:</span>
+</div><div class='line'>  <span class="l-Scalar-Plain">adapter</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">mysql</span>
+</div><div class='line'>  <span class="l-Scalar-Plain">encoding</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">utf8</span>
+</div><div class='line'>  <span class="l-Scalar-Plain">database</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">YOUR_DATABASE</span>
+</div><div class='line'>  <span class="l-Scalar-Plain">username</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">YOUR_USERNAME</span>
+</div><div class='line'>  <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">YOUR_PASSWORD</span>
+</div><div class='line'>  <span class="l-Scalar-Plain">socket</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/tmp/mysql.sock</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>Finally, create your profiler environment configs by copying your development configs:</p>
 
-<div>
-  <pre>
-    <code class='bash'>cp config/environments/development.rb config/environments/profiler.rb</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class='bash'><div class='line'>cp config/environments/development.rb config/environments/profiler.rb
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>You&#8217;re all set!  Now, to run the server with TuneUp on, just run the server in the <em>profiler</em> environment:</p>
 
-<div>
-  <pre>
-    <code class='bash'>script/server -e profiler</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class='bash'><div class='line'>script/server -e profiler
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>Now, I have TuneUp available to me only when I&#8217;m looking to optimize performance.</p>

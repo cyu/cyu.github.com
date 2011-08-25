@@ -117,31 +117,49 @@
 
 <p>Searching around, I found an CORS extension for Sinatra, which happened to be the framework I was using.  However, the extension didn&#8217;t properly implement the spec, nor did it support CORS preflighting (required for more complex AJAX requests).  So I rolled my own, but as a Rack Middleware.  Here&#8217;s an example of a Rackup that shows it in action (this example uses <a title="Rack::CORS Rubygem" href="http://rubygems.org/gems/rack-cors">Rack::CORS</a> in Sinatra app, but should be able to use it in any Rack compatible framework):</p>
 
-<div>
-  <pre>
-    <code class='ruby'>require 'sinatra'
-require 'rack/cors'
-
-use Rack::Cors do |config|
-  config.allow do |allow|
-    allow.origins '*'
-    allow.resource '/file/list_all/', :headers =&amp;gt; :any
-    allow.resource '/file/at/*',
-        :methods =&amp;gt; [:get, :post, :put, :delete],
-        :headers =&amp;gt; :any,
-        :max_age =&amp;gt; 0
-  end
-end
-
-get '/file/list_all/' do
-  #...
-end
-
-get '/file/at/*' do
-  #...
-end</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+<span class='line'>8</span>
+<span class='line'>9</span>
+<span class='line'>10</span>
+<span class='line'>11</span>
+<span class='line'>12</span>
+<span class='line'>13</span>
+<span class='line'>14</span>
+<span class='line'>15</span>
+<span class='line'>16</span>
+<span class='line'>17</span>
+<span class='line'>18</span>
+<span class='line'>19</span>
+<span class='line'>20</span>
+<span class='line'>21</span>
+</pre></td><td class='code' width='100%'><pre><code class='ruby'><div class='line'><span class="nb">require</span> <span class="s1">&#39;sinatra&#39;</span>
+</div><div class='line'><span class="nb">require</span> <span class="s1">&#39;rack/cors&#39;</span>
+</div><div class='line'>
+</div><div class='line'><span class="n">use</span> <span class="no">Rack</span><span class="o">::</span><span class="no">Cors</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+</div><div class='line'>  <span class="n">config</span><span class="o">.</span><span class="n">allow</span> <span class="k">do</span> <span class="o">|</span><span class="n">allow</span><span class="o">|</span>
+</div><div class='line'>    <span class="n">allow</span><span class="o">.</span><span class="n">origins</span> <span class="s1">&#39;*&#39;</span>
+</div><div class='line'>    <span class="n">allow</span><span class="o">.</span><span class="n">resource</span> <span class="s1">&#39;/file/list_all/&#39;</span><span class="p">,</span> <span class="ss">:headers</span> <span class="o">=&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="ss">:any</span>
+</div><div class='line'>    <span class="n">allow</span><span class="o">.</span><span class="n">resource</span> <span class="s1">&#39;/file/at/*&#39;</span><span class="p">,</span>
+</div><div class='line'>        <span class="ss">:methods</span> <span class="o">=&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="o">[</span><span class="ss">:get</span><span class="p">,</span> <span class="ss">:post</span><span class="p">,</span> <span class="ss">:put</span><span class="p">,</span> <span class="ss">:delete</span><span class="o">]</span><span class="p">,</span>
+</div><div class='line'>        <span class="ss">:headers</span> <span class="o">=&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="ss">:any</span><span class="p">,</span>
+</div><div class='line'>        <span class="ss">:max_age</span> <span class="o">=&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="mi">0</span>
+</div><div class='line'>  <span class="k">end</span>
+</div><div class='line'><span class="k">end</span>
+</div><div class='line'>
+</div><div class='line'><span class="n">get</span> <span class="s1">&#39;/file/list_all/&#39;</span> <span class="k">do</span>
+</div><div class='line'>  <span class="c1">#...</span>
+</div><div class='line'><span class="k">end</span>
+</div><div class='line'>
+</div><div class='line'><span class="n">get</span> <span class="s1">&#39;/file/at/*&#39;</span> <span class="k">do</span>
+</div><div class='line'>  <span class="c1">#...</span>
+</div><div class='line'><span class="k">end</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>To get going with Rack::CORS, just install the rack-cors Gem.  To check out the source, see <a href="http://github.com/cyu/rack-cors">the project on Github</a>.</p>

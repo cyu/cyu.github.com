@@ -113,38 +113,41 @@
 
 <div class="entry-content"><p>Newer versions of Rails has a nice feature where you can use label references for fixtures.  So instead of:</p>
 
-<div>
-  <pre>
-    <code class='yaml'># posts.yml
-test_post:
-  user_id: 1
-  title: My Test Post</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+</pre></td><td class='code' width='100%'><pre><code class='yaml'><div class='line'><span class="c1"># posts.yml</span>
+</div><div class='line'><span class="l-Scalar-Plain">test_post</span><span class="p-Indicator">:</span>
+</div><div class='line'>  <span class="l-Scalar-Plain">user_id</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+</div><div class='line'>  <span class="l-Scalar-Plain">title</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">My Test Post</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>You can do this:</p>
 
-<div>
-  <pre>
-    <code class='yaml'>test_post:
-  user: quentin
-  title: My Test Post</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+</pre></td><td class='code' width='100%'><pre><code class='yaml'><div class='line'><span class="l-Scalar-Plain">test_post</span><span class="p-Indicator">:</span>
+</div><div class='line'>  <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">quentin</span>
+</div><div class='line'>  <span class="l-Scalar-Plain">title</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">My Test Post</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>However, if your model class name is in a pluralized form, you might find that label references won&#8217;t work.  That&#8217;s because fixtures derive their class name from the singular form of the table name by default.  Fortunately, you can fix this by adding this line to your TestHelper:</p>
 
-<div>
-  <pre>
-    <code class='ruby'>class Test::Unit::TestCase
-
-  # Explicitly map the table name to class name
-  set_fixture_class :accounts =&gt; 'accounts'
-end</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+</pre></td><td class='code' width='100%'><pre><code class='ruby'><div class='line'><span class="k">class</span> <span class="nc">Test</span><span class="o">::</span><span class="no">Unit</span><span class="o">::</span><span class="no">TestCase</span>
+</div><div class='line'>
+</div><div class='line'>  <span class="c1"># Explicitly map the table name to class name</span>
+</div><div class='line'>  <span class="n">set_fixture_class</span> <span class="ss">:accounts</span> <span class="o">=&gt;</span> <span class="s1">&#39;accounts&#39;</span>
+</div><div class='line'><span class="k">end</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>Hopefully, this will save someone else from having to dig through the Rails fixtures internals.</p>

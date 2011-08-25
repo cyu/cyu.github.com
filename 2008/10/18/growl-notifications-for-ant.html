@@ -115,11 +115,9 @@
 
 <p>The <a href="http://code.google.com/p/growlbuildlistener/wiki/README">README</a> for the listener got me started - the only thing that didn&#8217;t work for me is setting the build listener using the <em>ANT_OPT</em> environment variable.  It looks like the default install of Ant on Leopard uses that environment variable as arguments to pass to the Java VM.  So instead, I just used an alias:</p>
 
-<div>
-  <pre>
-    <code class='ruby'>alias ant='ant -listener net.slimeslurp.growl.GrowlListener'</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class='ruby'><div class='line'><span class="k">alias</span> <span class="n">ant</span><span class="o">=</span><span class="s1">&#39;ant -listener net.slimeslurp.growl.GrowlListener&#39;</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>Just add this line to your <em>~/.bash_login</em> to use the build listener every time you build.</p>

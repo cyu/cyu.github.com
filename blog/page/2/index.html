@@ -246,68 +246,99 @@
 
 <p>First, I needed to add a route for generating/displaying the reports:</p>
 
-<div>
-  <pre>
-    <code class='ruby'>map.reports 'report/:year/:month/:day', :controller =&gt; 'report',
-    :action =&gt; 'show', :year =&gt; nil, :month =&gt; nil, :day =&gt; nil</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+</pre></td><td class='code' width='100%'><pre><code class='ruby'><div class='line'><span class="n">map</span><span class="o">.</span><span class="n">reports</span> <span class="s1">&#39;report/:year/:month/:day&#39;</span><span class="p">,</span> <span class="ss">:controller</span> <span class="o">=&gt;</span> <span class="s1">&#39;report&#39;</span><span class="p">,</span>
+</div><div class='line'>    <span class="ss">:action</span> <span class="o">=&gt;</span> <span class="s1">&#39;show&#39;</span><span class="p">,</span> <span class="ss">:year</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span> <span class="ss">:month</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span> <span class="ss">:day</span> <span class="o">=&gt;</span> <span class="kp">nil</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>From here, I could just use the standard <strong>caches_page :show</strong> declaration, but that would only generate the page I wanted if I used <em>/report/2009/05/25 </em>as the URL.  What if I wanted <em>/report</em> to generate the report for the current week?  Well, you can do something like this:</p>
 
-<div>
-  <pre>
-    <code class='ruby'>class ReportController &lt; ApplicationController
-  after_filter :cache_weekly_report, :only =&gt; :show
-  
-  def show
-    if params[:year]
-      @year  = params[:year]
-      @month = params[:month]
-      @day   = params[:day]
-      if File.exist?(&quot;#{Rails.root}/public/report/#{@year}/#{@month}/#{@day}.html&quot;)
-        redirect_to reports_path(
-            :year  =&gt; @year,
-            :month =&gt; @month,
-            :day   =&gt; @day)
-      else
-        # render report for a specific day
-      end
-    else
-      today  = Date.today
-      @year  = today.year
-      @month = today.month
-      @day   = today.day
-      
-      # render report for the current week
-    end
-  end
-  
-  protected
-  
-    def cache_weekly_report
-      cache_page(response.body,
-            &quot;/report/#{@year}/#{@month}/#{@day}.html&quot;) if @year
-    end
-    
-end</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+<span class='line'>8</span>
+<span class='line'>9</span>
+<span class='line'>10</span>
+<span class='line'>11</span>
+<span class='line'>12</span>
+<span class='line'>13</span>
+<span class='line'>14</span>
+<span class='line'>15</span>
+<span class='line'>16</span>
+<span class='line'>17</span>
+<span class='line'>18</span>
+<span class='line'>19</span>
+<span class='line'>20</span>
+<span class='line'>21</span>
+<span class='line'>22</span>
+<span class='line'>23</span>
+<span class='line'>24</span>
+<span class='line'>25</span>
+<span class='line'>26</span>
+<span class='line'>27</span>
+<span class='line'>28</span>
+<span class='line'>29</span>
+<span class='line'>30</span>
+<span class='line'>31</span>
+<span class='line'>32</span>
+<span class='line'>33</span>
+<span class='line'>34</span>
+</pre></td><td class='code' width='100%'><pre><code class='ruby'><div class='line'><span class="k">class</span> <span class="nc">ReportController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+</div><div class='line'>  <span class="n">after_filter</span> <span class="ss">:cache_weekly_report</span><span class="p">,</span> <span class="ss">:only</span> <span class="o">=&gt;</span> <span class="ss">:show</span>
+</div><div class='line'>
+</div><div class='line'>  <span class="k">def</span> <span class="nf">show</span>
+</div><div class='line'>    <span class="k">if</span> <span class="n">params</span><span class="o">[</span><span class="ss">:year</span><span class="o">]</span>
+</div><div class='line'>      <span class="vi">@year</span>  <span class="o">=</span> <span class="n">params</span><span class="o">[</span><span class="ss">:year</span><span class="o">]</span>
+</div><div class='line'>      <span class="vi">@month</span> <span class="o">=</span> <span class="n">params</span><span class="o">[</span><span class="ss">:month</span><span class="o">]</span>
+</div><div class='line'>      <span class="vi">@day</span>   <span class="o">=</span> <span class="n">params</span><span class="o">[</span><span class="ss">:day</span><span class="o">]</span>
+</div><div class='line'>      <span class="k">if</span> <span class="no">File</span><span class="o">.</span><span class="n">exist?</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">#{</span><span class="no">Rails</span><span class="o">.</span><span class="n">root</span><span class="si">}</span><span class="s2">/public/report/</span><span class="si">#{</span><span class="vi">@year</span><span class="si">}</span><span class="s2">/</span><span class="si">#{</span><span class="vi">@month</span><span class="si">}</span><span class="s2">/</span><span class="si">#{</span><span class="vi">@day</span><span class="si">}</span><span class="s2">.html&quot;</span><span class="p">)</span>
+</div><div class='line'>        <span class="n">redirect_to</span> <span class="n">reports_path</span><span class="p">(</span>
+</div><div class='line'>            <span class="ss">:year</span>  <span class="o">=&gt;</span> <span class="vi">@year</span><span class="p">,</span>
+</div><div class='line'>            <span class="ss">:month</span> <span class="o">=&gt;</span> <span class="vi">@month</span><span class="p">,</span>
+</div><div class='line'>            <span class="ss">:day</span>   <span class="o">=&gt;</span> <span class="vi">@day</span><span class="p">)</span>
+</div><div class='line'>      <span class="k">else</span>
+</div><div class='line'>        <span class="c1"># render report for a specific day</span>
+</div><div class='line'>      <span class="k">end</span>
+</div><div class='line'>    <span class="k">else</span>
+</div><div class='line'>      <span class="n">today</span>  <span class="o">=</span> <span class="no">Date</span><span class="o">.</span><span class="n">today</span>
+</div><div class='line'>      <span class="vi">@year</span>  <span class="o">=</span> <span class="n">today</span><span class="o">.</span><span class="n">year</span>
+</div><div class='line'>      <span class="vi">@month</span> <span class="o">=</span> <span class="n">today</span><span class="o">.</span><span class="n">month</span>
+</div><div class='line'>      <span class="vi">@day</span>   <span class="o">=</span> <span class="n">today</span><span class="o">.</span><span class="n">day</span>
+</div><div class='line'>
+</div><div class='line'>      <span class="c1"># render report for the current week</span>
+</div><div class='line'>    <span class="k">end</span>
+</div><div class='line'>  <span class="k">end</span>
+</div><div class='line'>
+</div><div class='line'>  <span class="kp">protected</span>
+</div><div class='line'>
+</div><div class='line'>    <span class="k">def</span> <span class="nf">cache_weekly_report</span>
+</div><div class='line'>      <span class="n">cache_page</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">body</span><span class="p">,</span>
+</div><div class='line'>            <span class="s2">&quot;/report/</span><span class="si">#{</span><span class="vi">@year</span><span class="si">}</span><span class="s2">/</span><span class="si">#{</span><span class="vi">@month</span><span class="si">}</span><span class="s2">/</span><span class="si">#{</span><span class="vi">@day</span><span class="si">}</span><span class="s2">.html&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="vi">@year</span>
+</div><div class='line'>    <span class="k">end</span>
+</div><div class='line'>
+</div><div class='line'><span class="k">end</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>The magic is in the <strong>after_filter</strong> method <strong>cache_weekly_report</strong>.  We basically use the same mechanism Rails page caching uses to save our new report page.  Now, calling <em>/report</em> will generate a static report at <em>/report/2009/05/25</em>, or whatever the current day is.</p>
 
 <p>The last thing to do is to make sure that the reports persist through new server deployments.  That can easily be done with a symlink in your capistrano script:</p>
 
-<div>
-  <pre>
-    <code class='ruby'>task :symlink_reports do
-  run &quot;mkdir -p #{shared_path}/report; ln -nfs #{shared_path}/report #{release_path}/public/report&quot;
-end
-after 'deploy:update_code', 'deploy:symlink_reports'</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+</pre></td><td class='code' width='100%'><pre><code class='ruby'><div class='line'><span class="n">task</span> <span class="ss">:symlink_reports</span> <span class="k">do</span>
+</div><div class='line'>  <span class="n">run</span> <span class="s2">&quot;mkdir -p </span><span class="si">#{</span><span class="n">shared_path</span><span class="si">}</span><span class="s2">/report; ln -nfs </span><span class="si">#{</span><span class="n">shared_path</span><span class="si">}</span><span class="s2">/report </span><span class="si">#{</span><span class="n">release_path</span><span class="si">}</span><span class="s2">/public/report&quot;</span>
+</div><div class='line'><span class="k">end</span>
+</div><div class='line'><span class="n">after</span> <span class="s1">&#39;deploy:update_code&#39;</span><span class="p">,</span> <span class="s1">&#39;deploy:symlink_reports&#39;</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>And that&#8217;s it!  What do you think?  I&#8217;d love to know if there are any simpler solutions to this.</p>
@@ -413,11 +444,9 @@ after 'deploy:update_code', 'deploy:symlink_reports'</code>
 
 <p>The <a href="http://code.google.com/p/growlbuildlistener/wiki/README">README</a> for the listener got me started - the only thing that didn&#8217;t work for me is setting the build listener using the <em>ANT_OPT</em> environment variable.  It looks like the default install of Ant on Leopard uses that environment variable as arguments to pass to the Java VM.  So instead, I just used an alias:</p>
 
-<div>
-  <pre>
-    <code class='ruby'>alias ant='ant -listener net.slimeslurp.growl.GrowlListener'</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class='ruby'><div class='line'><span class="k">alias</span> <span class="n">ant</span><span class="o">=</span><span class="s1">&#39;ant -listener net.slimeslurp.growl.GrowlListener&#39;</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>Just add this line to your <em>~/.bash_login</em> to use the build listener every time you build.</p>
@@ -484,47 +513,48 @@ after 'deploy:update_code', 'deploy:symlink_reports'</code>
 
 <p>First, you need to tell TuneUp to only run in the profiler environment.  You do this by modifying <em>config/tuneup.rb</em> (create this file if it doesn&#8217;t already exist):</p>
 
-<div>
-  <pre>
-    <code class='ruby'>Fiveruns::Tuneup.config do |config|
-  config.environments.delete('development')
-  config.environments &lt;&lt; 'profiler'
-end</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+</pre></td><td class='code' width='100%'><pre><code class='ruby'><div class='line'><span class="no">Fiveruns</span><span class="o">::</span><span class="no">Tuneup</span><span class="o">.</span><span class="n">config</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+</div><div class='line'>  <span class="n">config</span><span class="o">.</span><span class="n">environments</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s1">&#39;development&#39;</span><span class="p">)</span>
+</div><div class='line'>  <span class="n">config</span><span class="o">.</span><span class="n">environments</span> <span class="o">&lt;&lt;</span> <span class="s1">&#39;profiler&#39;</span>
+</div><div class='line'><span class="k">end</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>Next, copy the development configuration block in <em>config/database.yml</em> and create a new block called <em>profiler</em>:</p>
 
-<div>
-  <pre>
-    <code class='yaml'>profiler:
-  adapter: mysql
-  encoding: utf8
-  database: YOUR_DATABASE
-  username: YOUR_USERNAME
-  password: YOUR_PASSWORD
-  socket: /tmp/mysql.sock</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+</pre></td><td class='code' width='100%'><pre><code class='yaml'><div class='line'><span class="l-Scalar-Plain">profiler</span><span class="p-Indicator">:</span>
+</div><div class='line'>  <span class="l-Scalar-Plain">adapter</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">mysql</span>
+</div><div class='line'>  <span class="l-Scalar-Plain">encoding</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">utf8</span>
+</div><div class='line'>  <span class="l-Scalar-Plain">database</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">YOUR_DATABASE</span>
+</div><div class='line'>  <span class="l-Scalar-Plain">username</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">YOUR_USERNAME</span>
+</div><div class='line'>  <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">YOUR_PASSWORD</span>
+</div><div class='line'>  <span class="l-Scalar-Plain">socket</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/tmp/mysql.sock</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>Finally, create your profiler environment configs by copying your development configs:</p>
 
-<div>
-  <pre>
-    <code class='bash'>cp config/environments/development.rb config/environments/profiler.rb</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class='bash'><div class='line'>cp config/environments/development.rb config/environments/profiler.rb
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>You&#8217;re all set!  Now, to run the server with TuneUp on, just run the server in the <em>profiler</em> environment:</p>
 
-<div>
-  <pre>
-    <code class='bash'>script/server -e profiler</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class='bash'><div class='line'>script/server -e profiler
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>Now, I have TuneUp available to me only when I&#8217;m looking to optimize performance.</p>
@@ -591,38 +621,41 @@ end</code>
 
   <div class="entry-content"><p>Newer versions of Rails has a nice feature where you can use label references for fixtures.  So instead of:</p>
 
-<div>
-  <pre>
-    <code class='yaml'># posts.yml
-test_post:
-  user_id: 1
-  title: My Test Post</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+</pre></td><td class='code' width='100%'><pre><code class='yaml'><div class='line'><span class="c1"># posts.yml</span>
+</div><div class='line'><span class="l-Scalar-Plain">test_post</span><span class="p-Indicator">:</span>
+</div><div class='line'>  <span class="l-Scalar-Plain">user_id</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+</div><div class='line'>  <span class="l-Scalar-Plain">title</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">My Test Post</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>You can do this:</p>
 
-<div>
-  <pre>
-    <code class='yaml'>test_post:
-  user: quentin
-  title: My Test Post</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+</pre></td><td class='code' width='100%'><pre><code class='yaml'><div class='line'><span class="l-Scalar-Plain">test_post</span><span class="p-Indicator">:</span>
+</div><div class='line'>  <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">quentin</span>
+</div><div class='line'>  <span class="l-Scalar-Plain">title</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">My Test Post</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>However, if your model class name is in a pluralized form, you might find that label references won&#8217;t work.  That&#8217;s because fixtures derive their class name from the singular form of the table name by default.  Fortunately, you can fix this by adding this line to your TestHelper:</p>
 
-<div>
-  <pre>
-    <code class='ruby'>class Test::Unit::TestCase
-
-  # Explicitly map the table name to class name
-  set_fixture_class :accounts =&gt; 'accounts'
-end</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+</pre></td><td class='code' width='100%'><pre><code class='ruby'><div class='line'><span class="k">class</span> <span class="nc">Test</span><span class="o">::</span><span class="no">Unit</span><span class="o">::</span><span class="no">TestCase</span>
+</div><div class='line'>
+</div><div class='line'>  <span class="c1"># Explicitly map the table name to class name</span>
+</div><div class='line'>  <span class="n">set_fixture_class</span> <span class="ss">:accounts</span> <span class="o">=&gt;</span> <span class="s1">&#39;accounts&#39;</span>
+</div><div class='line'><span class="k">end</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>Hopefully, this will save someone else from having to dig through the Rails fixtures internals.</p>

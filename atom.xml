@@ -4,7 +4,7 @@
   <title>Don't Forget to Plant It!</title>
   <link href="http://blog.sourcebender.com/atom.xml" rel="self"/>
   <link href="http://blog.sourcebender.com/"/>
-  <updated>2011-08-24T22:38:28-04:00</updated>
+  <updated>2011-08-24T23:06:14-04:00</updated>
   <id>http://blog.sourcebender.com/</id>
   <author>
     <name>Calvin Yu</name>
@@ -151,45 +151,66 @@
 
 &lt;p&gt;First, I request permission to use the Notifications API when the first timer is created.  It's important to note that &lt;strong&gt;you can only request permission on a user triggered event like a mouse click or key event.&lt;/strong&gt;  In Thymer's case, I request permission when the Enter key is pressed to submit a new timer:&lt;/p&gt;
 
-&lt;div&gt;
-  &lt;pre&gt;
-    &lt;code class='javascript'&gt;$('#add-timer-form input').keypress(function(event) {
-  if (event.which == '13') { // Enter key
-    event.preventDefault();
-    var seconds = parseInt($('#secs').val()) +
-        (parseInt($('#mins').val()) * 60) +
-        (parseInt($('#hours').val()) * 60 * 60);
-
-    Thymer.addTimer(new Timer($('#timer-name').val(), seconds));
-    $('#timer-name').val('');
-
-    // request notifications permission if API is supported.  We do
-    // this here because we can only do this on user triggered events.
-    if (window.webkitNotifications &amp;amp;&amp;amp;
-          window.webkitNotifications.checkPermission() != 0) {
-      window.webkitNotifications.requestPermission();
-    }
-  }
-})&lt;/code&gt;
-  &lt;/pre&gt;
-&lt;/div&gt;
+&lt;div&gt;&lt;figure role=code&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;span class='line'&gt;4&lt;/span&gt;
+&lt;span class='line'&gt;5&lt;/span&gt;
+&lt;span class='line'&gt;6&lt;/span&gt;
+&lt;span class='line'&gt;7&lt;/span&gt;
+&lt;span class='line'&gt;8&lt;/span&gt;
+&lt;span class='line'&gt;9&lt;/span&gt;
+&lt;span class='line'&gt;10&lt;/span&gt;
+&lt;span class='line'&gt;11&lt;/span&gt;
+&lt;span class='line'&gt;12&lt;/span&gt;
+&lt;span class='line'&gt;13&lt;/span&gt;
+&lt;span class='line'&gt;14&lt;/span&gt;
+&lt;span class='line'&gt;15&lt;/span&gt;
+&lt;span class='line'&gt;16&lt;/span&gt;
+&lt;span class='line'&gt;17&lt;/span&gt;
+&lt;span class='line'&gt;18&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;div class='line'&gt;&lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;#add-timer-form input&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;keypress&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;which&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;13&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// Enter key&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;nx&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;preventDefault&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;seconds&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;parseInt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;#secs&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;parseInt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;#mins&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;60&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;parseInt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;#hours&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;60&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;60&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;nx&quot;&gt;Thymer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;addTimer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Timer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;#timer-name&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;seconds&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;#timer-name&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;c1&quot;&gt;// request notifications permission if API is supported.  We do&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;c1&quot;&gt;// this here because we can only do this on user triggered events.&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;webkitNotifications&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;          &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;webkitNotifications&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;checkPermission&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;webkitNotifications&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;requestPermission&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Then I create a notification when the timer ends:&lt;/p&gt;
 
-&lt;div&gt;
-  &lt;pre&gt;
-    &lt;code class='javascript'&gt;_alarm:function() {
-  // show a notification if the browser supports it.
-  if (window.webkitNotifications &amp;amp;&amp;amp;
-      window.webkitNotifications.checkPermission() == 0) {
-
-    window.webkitNotifications.createNotification('clock_32x32.png',
-        'Thymer', '&amp;quot;' + this.name + '&amp;quot; timer has completed').show();
-  }
-}&lt;/code&gt;
-  &lt;/pre&gt;
-&lt;/div&gt;
+&lt;div&gt;&lt;figure role=code&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;span class='line'&gt;4&lt;/span&gt;
+&lt;span class='line'&gt;5&lt;/span&gt;
+&lt;span class='line'&gt;6&lt;/span&gt;
+&lt;span class='line'&gt;7&lt;/span&gt;
+&lt;span class='line'&gt;8&lt;/span&gt;
+&lt;span class='line'&gt;9&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;div class='line'&gt;&lt;span class=&quot;nx&quot;&gt;_alarm&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;c1&quot;&gt;// show a notification if the browser supports it.&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;webkitNotifications&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;webkitNotifications&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;checkPermission&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;webkitNotifications&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createNotification&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;clock_32x32.png&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;        &lt;span class=&quot;s1&quot;&gt;&amp;#39;Thymer&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;&amp;quot;&amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;&amp;quot; timer has completed&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Here's what the notification looks like:&lt;/p&gt;
@@ -209,34 +230,42 @@
 
 &lt;p&gt;So now I have a way to grab user's attention when a timer completes in Chrome, but what about other browsers?  How about playing an alarm sound when the timer completes?  This turned out to be pretty easy with the &lt;strong&gt;&amp;lt;audio&amp;gt;&lt;/strong&gt; tag:&lt;/p&gt;
 
-&lt;div&gt;
-  &lt;pre&gt;
-    &lt;code class='html'&gt;&amp;lt;audio id=alarm-sound&amp;gt;
-  &amp;lt;source src=alarm.mp3 type=audio/mpeg /&amp;gt;
-  &amp;lt;source src=alarm.ogg type=audio/ogg /&amp;gt;
-  &amp;lt;source src=alarm.wav type=audio/wav /&amp;gt;
-&amp;lt;/audio&amp;gt;&lt;/code&gt;
-  &lt;/pre&gt;
-&lt;/div&gt;
+&lt;div&gt;&lt;figure role=code&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;span class='line'&gt;4&lt;/span&gt;
+&lt;span class='line'&gt;5&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='html'&gt;&lt;div class='line'&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;audio&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;alarm-sound&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;nt&quot;&gt;&amp;lt;source&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;alarm.mp3&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;audio/mpeg&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;nt&quot;&gt;&amp;lt;source&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;alarm.ogg&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;audio/ogg&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;nt&quot;&gt;&amp;lt;source&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;alarm.wav&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;audio/wav&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;/audio&amp;gt;&lt;/span&gt;
+&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
 
 
 &lt;p&gt;This sets up a audio clip that I can access from JavaScript via the element id.  Since I don't specify a &lt;strong&gt;controls&lt;/strong&gt; or &lt;strong&gt;autoplay&lt;/strong&gt; attribute, the audio won't play until I want it to.  I'm also specifying the three different sources for audio (gotta love proprietary sound formats).  Between MP3 &amp;amp; Ogg Vorbis, all modern browsers should be covered, but I'm going to throw a WAV in there for completeness anyway.  I am concerned about how this will affect my footprint when I setup offline mode for Thymer, but that's an issue for a different post.&lt;/p&gt;
 
 &lt;p&gt;Playing the audio from JavaScript is cake:&lt;/p&gt;
 
-&lt;div&gt;
-  &lt;pre&gt;
-    &lt;code class='javascript'&gt;_alarm:function() {
-  // show a notification if the browser supports it.
-  if (window.webkitNotifications &amp;amp;&amp;amp; window.webkitNotifications.checkPermission() == 0) {
-    window.webkitNotifications.createNotification('clock_32x32.png', 'Thymer', '&amp;quot;' + this.name + '&amp;quot; timer has completed').show();
-  }
-
-  // play the alarm sound
-  document.getElementById('alarm-sound').play();
-}&lt;/code&gt;
-  &lt;/pre&gt;
-&lt;/div&gt;
+&lt;div&gt;&lt;figure role=code&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;span class='line'&gt;4&lt;/span&gt;
+&lt;span class='line'&gt;5&lt;/span&gt;
+&lt;span class='line'&gt;6&lt;/span&gt;
+&lt;span class='line'&gt;7&lt;/span&gt;
+&lt;span class='line'&gt;8&lt;/span&gt;
+&lt;span class='line'&gt;9&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;div class='line'&gt;&lt;span class=&quot;nx&quot;&gt;_alarm&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;c1&quot;&gt;// show a notification if the browser supports it.&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;webkitNotifications&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;webkitNotifications&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;checkPermission&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;webkitNotifications&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createNotification&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;clock_32x32.png&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;Thymer&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;&amp;quot;&amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;&amp;quot; timer has completed&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;c1&quot;&gt;// play the alarm sound&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getElementById&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;alarm-sound&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;play&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
 
 
 &lt;p&gt;For more information about the Audio tag, I recommend &lt;a href=&quot;http://html5doctor.com/native-audio-in-the-browser/&quot;&gt;this article at &amp;lt;html&amp;gt;5doctor&lt;/a&gt;.  In that article they have a helpful table showing the browser support for the different audio formats.&lt;/p&gt;
@@ -254,32 +283,51 @@
 
 &lt;p&gt;The application I've decided to build is a timer application - basically, you enter a time interval (in hours, minutes, seconds), and it'll notify you when that time has been reached.  I start things off by creating the basics of what the application would look like via HTML:&lt;/p&gt;
 
-&lt;div&gt;
-  &lt;pre&gt;
-    &lt;code class='html'&gt;&amp;lt;!doctype html&amp;gt;
-&amp;lt;html&amp;gt;
-&amp;lt;head&amp;gt;
-&amp;lt;title&amp;gt;Thymer&amp;lt;/title&amp;gt;
-&amp;lt;/head&amp;gt;
-&amp;lt;body&amp;gt;
-  &amp;lt;header&amp;gt;
-    &amp;lt;h1&amp;gt;Thymer&amp;lt;/h1&amp;gt;
-  &amp;lt;/header&amp;gt;
-  &amp;lt;div id=content&amp;gt;
-    &amp;lt;div id=add-timer-form&amp;gt;
-      &amp;lt;input class=text name=hours value=00 size=2&amp;gt; :
-      &amp;lt;input class=text name=mins value=05 size=2&amp;gt; :
-      &amp;lt;input class=text name=secs value=00 size=2&amp;gt;
-      &amp;lt;input name=name placeholder='Timer Name'&amp;gt;
-      &amp;lt;input type=submit value='Create Timer'&amp;gt;
-    &amp;lt;/div&amp;gt;
-    &amp;lt;ul id=timer-list&amp;gt;&amp;lt;/ul&amp;gt;
-  &amp;lt;/div&amp;gt;
-  &amp;lt;script src=thymer.js&amp;gt;&amp;lt;/script&amp;gt;
-&amp;lt;/body&amp;gt;
-&amp;lt;/html&amp;gt;&lt;/code&gt;
-  &lt;/pre&gt;
-&lt;/div&gt;
+&lt;div&gt;&lt;figure role=code&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;span class='line'&gt;4&lt;/span&gt;
+&lt;span class='line'&gt;5&lt;/span&gt;
+&lt;span class='line'&gt;6&lt;/span&gt;
+&lt;span class='line'&gt;7&lt;/span&gt;
+&lt;span class='line'&gt;8&lt;/span&gt;
+&lt;span class='line'&gt;9&lt;/span&gt;
+&lt;span class='line'&gt;10&lt;/span&gt;
+&lt;span class='line'&gt;11&lt;/span&gt;
+&lt;span class='line'&gt;12&lt;/span&gt;
+&lt;span class='line'&gt;13&lt;/span&gt;
+&lt;span class='line'&gt;14&lt;/span&gt;
+&lt;span class='line'&gt;15&lt;/span&gt;
+&lt;span class='line'&gt;16&lt;/span&gt;
+&lt;span class='line'&gt;17&lt;/span&gt;
+&lt;span class='line'&gt;18&lt;/span&gt;
+&lt;span class='line'&gt;19&lt;/span&gt;
+&lt;span class='line'&gt;20&lt;/span&gt;
+&lt;span class='line'&gt;21&lt;/span&gt;
+&lt;span class='line'&gt;22&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='html'&gt;&lt;div class='line'&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;!doctype html&amp;gt;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;html&amp;gt;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;head&amp;gt;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;title&amp;gt;&lt;/span&gt;Thymer&lt;span class=&quot;nt&quot;&gt;&amp;lt;/title&amp;gt;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;/head&amp;gt;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;body&amp;gt;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;nt&quot;&gt;&amp;lt;header&amp;gt;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;nt&quot;&gt;&amp;lt;h1&amp;gt;&lt;/span&gt;Thymer&lt;span class=&quot;nt&quot;&gt;&amp;lt;/h1&amp;gt;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/header&amp;gt;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;add-timer-form&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;nt&quot;&gt;&amp;lt;input&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;hours&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;value=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;00&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;size=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt; :
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;nt&quot;&gt;&amp;lt;input&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;mins&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;value=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;05&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;size=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt; :
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;nt&quot;&gt;&amp;lt;input&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;secs&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;value=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;00&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;size=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;nt&quot;&gt;&amp;lt;input&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;placeholder=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;Timer Name&amp;#39;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;nt&quot;&gt;&amp;lt;input&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;submit&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;value=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;Create Timer&amp;#39;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;nt&quot;&gt;&amp;lt;ul&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;timer-list&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/ul&amp;gt;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;nt&quot;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;thymer.js&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;
+&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Couple of notes about the above snippet:&lt;/p&gt;
@@ -292,113 +340,213 @@
 
 &lt;p&gt;Next comes the &lt;em&gt;thymer.js&lt;/em&gt; script.  Nothing HTML5 specific here, I'm just putting the code here for completeness.&lt;/p&gt;
 
-&lt;div&gt;
-  &lt;pre&gt;
-    &lt;code class='javascript'&gt;$().ready(function(){
-  var timerList = $('#timer-list');
-  var timers = [];
-
-  var UpdateLoop = {
-    start:function() {
-      if (!this.started) {
-        this.started = true;
-        this.interval = setInterval(function(){
-          UpdateLoop.update();
-        },1000);
-      }
-    },
-    update:function() {
-      if (timers.length &amp;gt; 0) {
-        for (var i in timers) {
-          timers[i].update();
-        }
-
-      } else {
-        clearInterval(this.interval);
-        this.interval = null;
-        this.started = false;
-      }
-    }
-  };
-
-  var Timer = function(name, seconds) {
-    this.name = name;
-    this.seconds = seconds;
-    this.started = new Date().getTime();
-    this.finished = false;
-    this.start();
-  };
-  Timer.prototype = {
-    start:function() {
-      this.el = $(&amp;quot;&amp;lt;li&amp;gt;&amp;quot; + this.buildDisplayString() + &amp;quot;&amp;lt;/li&amp;gt;&amp;quot;);
-      timerList.append(this.el);
-    },
-    update:function() {
-      if (!this.finished) {
-        if (this.check()) {
-          var timer = this;
-          var removeLink = $('&amp;lt;a href=&amp;quot;#&amp;quot;&amp;gt;remove&amp;lt;/a&amp;gt;').click(function(){
-            timer.remove();
-          });
-          this.el.text('ALARM!!! - ' + this.name + ' ');
-          this.el.append(removeLink);
-        } else {
-          this.el.text(this.buildDisplayString());
-        }
-      }
-    },
-    remove:function() {
-      this.el.remove();
-      for (var i in timers) {
-        if (timers[i] == this) {
-          timers.splice(i,1);
-          break;
-        }
-      }
-    },
-    check:function() {
-      var remaining = this.calculateRemaining();
-      if (remaining &amp;lt;= 0) {
-        this.finished = true;
-        return true;
-      }
-      return false;
-    },
-    calculateRemaining:function() {
-      return this.seconds - Math.floor((new Date().getTime() - this.started) / 1000);
-    },
-    buildDisplayString:function() {
-      var s = [];
-
-      var remaining = this.calculateRemaining();
-      remaining = this.buildTimeSegment('h', 60*60, remaining, s);
-      remaining = this.buildTimeSegment('m', 60, remaining, s);
-      s.push(remaining + 's');
-
-      return s.join(' ') + ' - ' + this.name;
-    },
-    buildTimeSegment:function(suffix, divisor, secondsRemaining, segments) {
-      var units = Math.floor(secondsRemaining / divisor);
-      if (units &amp;gt; 0) {
-        segments.push(units + suffix);
-        return secondsRemaining % divisor;
-      }
-      return secondsRemaining;
-    }
-  };
-
-  $('#add-timer-form form').submit(function(){
-    var seconds = parseInt($('#secs').val()) +
-        (parseInt($('#mins').val()) * 60) +
-        (parseInt($('#hours').val()) * 60 * 60);
-    var timer = new Timer($('#timer-name').val(), seconds)
-    timers.push(timer);
-    UpdateLoop.start();
-    return false;
-  });
-});&lt;/code&gt;
-  &lt;/pre&gt;
-&lt;/div&gt;
+&lt;div&gt;&lt;figure role=code&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;span class='line'&gt;4&lt;/span&gt;
+&lt;span class='line'&gt;5&lt;/span&gt;
+&lt;span class='line'&gt;6&lt;/span&gt;
+&lt;span class='line'&gt;7&lt;/span&gt;
+&lt;span class='line'&gt;8&lt;/span&gt;
+&lt;span class='line'&gt;9&lt;/span&gt;
+&lt;span class='line'&gt;10&lt;/span&gt;
+&lt;span class='line'&gt;11&lt;/span&gt;
+&lt;span class='line'&gt;12&lt;/span&gt;
+&lt;span class='line'&gt;13&lt;/span&gt;
+&lt;span class='line'&gt;14&lt;/span&gt;
+&lt;span class='line'&gt;15&lt;/span&gt;
+&lt;span class='line'&gt;16&lt;/span&gt;
+&lt;span class='line'&gt;17&lt;/span&gt;
+&lt;span class='line'&gt;18&lt;/span&gt;
+&lt;span class='line'&gt;19&lt;/span&gt;
+&lt;span class='line'&gt;20&lt;/span&gt;
+&lt;span class='line'&gt;21&lt;/span&gt;
+&lt;span class='line'&gt;22&lt;/span&gt;
+&lt;span class='line'&gt;23&lt;/span&gt;
+&lt;span class='line'&gt;24&lt;/span&gt;
+&lt;span class='line'&gt;25&lt;/span&gt;
+&lt;span class='line'&gt;26&lt;/span&gt;
+&lt;span class='line'&gt;27&lt;/span&gt;
+&lt;span class='line'&gt;28&lt;/span&gt;
+&lt;span class='line'&gt;29&lt;/span&gt;
+&lt;span class='line'&gt;30&lt;/span&gt;
+&lt;span class='line'&gt;31&lt;/span&gt;
+&lt;span class='line'&gt;32&lt;/span&gt;
+&lt;span class='line'&gt;33&lt;/span&gt;
+&lt;span class='line'&gt;34&lt;/span&gt;
+&lt;span class='line'&gt;35&lt;/span&gt;
+&lt;span class='line'&gt;36&lt;/span&gt;
+&lt;span class='line'&gt;37&lt;/span&gt;
+&lt;span class='line'&gt;38&lt;/span&gt;
+&lt;span class='line'&gt;39&lt;/span&gt;
+&lt;span class='line'&gt;40&lt;/span&gt;
+&lt;span class='line'&gt;41&lt;/span&gt;
+&lt;span class='line'&gt;42&lt;/span&gt;
+&lt;span class='line'&gt;43&lt;/span&gt;
+&lt;span class='line'&gt;44&lt;/span&gt;
+&lt;span class='line'&gt;45&lt;/span&gt;
+&lt;span class='line'&gt;46&lt;/span&gt;
+&lt;span class='line'&gt;47&lt;/span&gt;
+&lt;span class='line'&gt;48&lt;/span&gt;
+&lt;span class='line'&gt;49&lt;/span&gt;
+&lt;span class='line'&gt;50&lt;/span&gt;
+&lt;span class='line'&gt;51&lt;/span&gt;
+&lt;span class='line'&gt;52&lt;/span&gt;
+&lt;span class='line'&gt;53&lt;/span&gt;
+&lt;span class='line'&gt;54&lt;/span&gt;
+&lt;span class='line'&gt;55&lt;/span&gt;
+&lt;span class='line'&gt;56&lt;/span&gt;
+&lt;span class='line'&gt;57&lt;/span&gt;
+&lt;span class='line'&gt;58&lt;/span&gt;
+&lt;span class='line'&gt;59&lt;/span&gt;
+&lt;span class='line'&gt;60&lt;/span&gt;
+&lt;span class='line'&gt;61&lt;/span&gt;
+&lt;span class='line'&gt;62&lt;/span&gt;
+&lt;span class='line'&gt;63&lt;/span&gt;
+&lt;span class='line'&gt;64&lt;/span&gt;
+&lt;span class='line'&gt;65&lt;/span&gt;
+&lt;span class='line'&gt;66&lt;/span&gt;
+&lt;span class='line'&gt;67&lt;/span&gt;
+&lt;span class='line'&gt;68&lt;/span&gt;
+&lt;span class='line'&gt;69&lt;/span&gt;
+&lt;span class='line'&gt;70&lt;/span&gt;
+&lt;span class='line'&gt;71&lt;/span&gt;
+&lt;span class='line'&gt;72&lt;/span&gt;
+&lt;span class='line'&gt;73&lt;/span&gt;
+&lt;span class='line'&gt;74&lt;/span&gt;
+&lt;span class='line'&gt;75&lt;/span&gt;
+&lt;span class='line'&gt;76&lt;/span&gt;
+&lt;span class='line'&gt;77&lt;/span&gt;
+&lt;span class='line'&gt;78&lt;/span&gt;
+&lt;span class='line'&gt;79&lt;/span&gt;
+&lt;span class='line'&gt;80&lt;/span&gt;
+&lt;span class='line'&gt;81&lt;/span&gt;
+&lt;span class='line'&gt;82&lt;/span&gt;
+&lt;span class='line'&gt;83&lt;/span&gt;
+&lt;span class='line'&gt;84&lt;/span&gt;
+&lt;span class='line'&gt;85&lt;/span&gt;
+&lt;span class='line'&gt;86&lt;/span&gt;
+&lt;span class='line'&gt;87&lt;/span&gt;
+&lt;span class='line'&gt;88&lt;/span&gt;
+&lt;span class='line'&gt;89&lt;/span&gt;
+&lt;span class='line'&gt;90&lt;/span&gt;
+&lt;span class='line'&gt;91&lt;/span&gt;
+&lt;span class='line'&gt;92&lt;/span&gt;
+&lt;span class='line'&gt;93&lt;/span&gt;
+&lt;span class='line'&gt;94&lt;/span&gt;
+&lt;span class='line'&gt;95&lt;/span&gt;
+&lt;span class='line'&gt;96&lt;/span&gt;
+&lt;span class='line'&gt;97&lt;/span&gt;
+&lt;span class='line'&gt;98&lt;/span&gt;
+&lt;span class='line'&gt;99&lt;/span&gt;
+&lt;span class='line'&gt;100&lt;/span&gt;
+&lt;span class='line'&gt;101&lt;/span&gt;
+&lt;span class='line'&gt;102&lt;/span&gt;
+&lt;span class='line'&gt;103&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;div class='line'&gt;&lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ready&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;timerList&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;#timer-list&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;timers&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[];&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;UpdateLoop&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;nx&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;started&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;started&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;interval&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;setInterval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;          &lt;span class=&quot;nx&quot;&gt;UpdateLoop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;        &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;nx&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;timers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;timers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;          &lt;span class=&quot;nx&quot;&gt;timers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;        &lt;span class=&quot;nx&quot;&gt;clearInterval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;interval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;interval&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;started&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Timer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;seconds&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;seconds&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;seconds&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;started&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Date&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getTime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;finished&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;nx&quot;&gt;Timer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;nx&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;el&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&amp;lt;li&amp;gt;&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;buildDisplayString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;&amp;lt;/li&amp;gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;nx&quot;&gt;timerList&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;el&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;nx&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;finished&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;check&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;          &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;timer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;          &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;removeLink&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;&amp;lt;a href=&amp;quot;#&amp;quot;&amp;gt;remove&amp;lt;/a&amp;gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;click&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;            &lt;span class=&quot;nx&quot;&gt;timer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;remove&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;          &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;          &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;el&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;ALARM!!! - &amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39; &amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;          &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;el&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;removeLink&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;          &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;el&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;buildDisplayString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;());&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;nx&quot;&gt;remove&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;el&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;remove&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;timers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;timers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;          &lt;span class=&quot;nx&quot;&gt;timers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;splice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;          &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;nx&quot;&gt;check&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;remaining&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;calculateRemaining&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;remaining&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;finished&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;nx&quot;&gt;calculateRemaining&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;seconds&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Math&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;floor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Date&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getTime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;started&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;nx&quot;&gt;buildDisplayString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[];&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;remaining&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;calculateRemaining&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;nx&quot;&gt;remaining&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;buildTimeSegment&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;h&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;60&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;60&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;remaining&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;nx&quot;&gt;remaining&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;buildTimeSegment&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;m&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;60&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;remaining&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;nx&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;remaining&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;s&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39; &amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39; - &amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;nx&quot;&gt;buildTimeSegment&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;suffix&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;divisor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;secondsRemaining&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;segments&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;units&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Math&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;floor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;secondsRemaining&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;divisor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;units&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;        &lt;span class=&quot;nx&quot;&gt;segments&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;units&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;suffix&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;secondsRemaining&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;divisor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;secondsRemaining&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;#add-timer-form form&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;submit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;seconds&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;parseInt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;#secs&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;parseInt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;#mins&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;60&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;parseInt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;#hours&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;60&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;60&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;timer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Timer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;#timer-name&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;seconds&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;nx&quot;&gt;timers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;timer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;nx&quot;&gt;UpdateLoop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
 
 
 &lt;p&gt;I now have a basic timer application.  Now for the HTML5 goodness.&lt;/p&gt;
@@ -407,70 +555,116 @@
 
 &lt;p&gt;First, I update the &lt;em&gt;Timer&lt;/em&gt; object so it can be converted to/from a save state:&lt;/p&gt;
 
-&lt;div&gt;
-  &lt;pre&gt;
-    &lt;code class='javascript'&gt;var Timer = function(name, seconds, started, finished) {
-  this.name = name;
-  this.seconds = seconds;
-  this.started = started ? started : new Date().getTime();
-  this.finished = finished || false;
-  this.start();
-};
-Timer.prototype = {
-  // the rest of the Timer prototype...
-
-  toObject:function() {
-    return {
-      name: this.name,
-      seconds: this.seconds,
-      started: this.started,
-      finished: this.finished
-    };
-  }
-}&lt;/code&gt;
-  &lt;/pre&gt;
-&lt;/div&gt;
+&lt;div&gt;&lt;figure role=code&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;span class='line'&gt;4&lt;/span&gt;
+&lt;span class='line'&gt;5&lt;/span&gt;
+&lt;span class='line'&gt;6&lt;/span&gt;
+&lt;span class='line'&gt;7&lt;/span&gt;
+&lt;span class='line'&gt;8&lt;/span&gt;
+&lt;span class='line'&gt;9&lt;/span&gt;
+&lt;span class='line'&gt;10&lt;/span&gt;
+&lt;span class='line'&gt;11&lt;/span&gt;
+&lt;span class='line'&gt;12&lt;/span&gt;
+&lt;span class='line'&gt;13&lt;/span&gt;
+&lt;span class='line'&gt;14&lt;/span&gt;
+&lt;span class='line'&gt;15&lt;/span&gt;
+&lt;span class='line'&gt;16&lt;/span&gt;
+&lt;span class='line'&gt;17&lt;/span&gt;
+&lt;span class='line'&gt;18&lt;/span&gt;
+&lt;span class='line'&gt;19&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;div class='line'&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Timer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;seconds&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;started&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;finished&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;seconds&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;seconds&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;started&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;started&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;started&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Date&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getTime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;finished&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;finished&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;nx&quot;&gt;Timer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;c1&quot;&gt;// the rest of the Timer prototype...&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;nx&quot;&gt;toObject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;nx&quot;&gt;seconds&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;seconds&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;nx&quot;&gt;started&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;started&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;nx&quot;&gt;finished&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;finished&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Then I save the timer array every time a new timer is created, and load the stored timers when the application starts:&lt;/p&gt;
 
-&lt;div&gt;
-  &lt;pre&gt;
-    &lt;code class='javascript'&gt;$('#add-timer-form form').submit(function(){
-  var seconds = parseInt($('#secs').val()) +
-      (parseInt($('#mins').val()) * 60) +
-      (parseInt($('#hours').val()) * 60 * 60);
-
-  var timer = new Timer($('#timer-name').val(), seconds)
-  timers.push(timer);
-
-  // store timers
-  if ('localStorage' in window) {
-    var arr = [];
-    for (var i in timers) {
-      arr.push(timers[i].toObject());
-    }
-    window.localStorage.setItem('timers', JSON.stringify(arr));
-  }
-
-  UpdateLoop.start();
-  return false;
-});
-
-// load stored timers
-if ('localStorage' in window) {
-  var timersData = window.localStorage.getItem('timers');
-  if (timersData) {
-    var timersData = JSON.parse(timersData);
-    for (var i in timersData) {
-      var t = timersData[i];
-      timers.push(new Timer(t.name, t.seconds, t.started, t.finished));
-    }
-    UpdateLoop.start();
-  }
-}&lt;/code&gt;
-  &lt;/pre&gt;
-&lt;/div&gt;
+&lt;div&gt;&lt;figure role=code&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;span class='line'&gt;4&lt;/span&gt;
+&lt;span class='line'&gt;5&lt;/span&gt;
+&lt;span class='line'&gt;6&lt;/span&gt;
+&lt;span class='line'&gt;7&lt;/span&gt;
+&lt;span class='line'&gt;8&lt;/span&gt;
+&lt;span class='line'&gt;9&lt;/span&gt;
+&lt;span class='line'&gt;10&lt;/span&gt;
+&lt;span class='line'&gt;11&lt;/span&gt;
+&lt;span class='line'&gt;12&lt;/span&gt;
+&lt;span class='line'&gt;13&lt;/span&gt;
+&lt;span class='line'&gt;14&lt;/span&gt;
+&lt;span class='line'&gt;15&lt;/span&gt;
+&lt;span class='line'&gt;16&lt;/span&gt;
+&lt;span class='line'&gt;17&lt;/span&gt;
+&lt;span class='line'&gt;18&lt;/span&gt;
+&lt;span class='line'&gt;19&lt;/span&gt;
+&lt;span class='line'&gt;20&lt;/span&gt;
+&lt;span class='line'&gt;21&lt;/span&gt;
+&lt;span class='line'&gt;22&lt;/span&gt;
+&lt;span class='line'&gt;23&lt;/span&gt;
+&lt;span class='line'&gt;24&lt;/span&gt;
+&lt;span class='line'&gt;25&lt;/span&gt;
+&lt;span class='line'&gt;26&lt;/span&gt;
+&lt;span class='line'&gt;27&lt;/span&gt;
+&lt;span class='line'&gt;28&lt;/span&gt;
+&lt;span class='line'&gt;29&lt;/span&gt;
+&lt;span class='line'&gt;30&lt;/span&gt;
+&lt;span class='line'&gt;31&lt;/span&gt;
+&lt;span class='line'&gt;32&lt;/span&gt;
+&lt;span class='line'&gt;33&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;div class='line'&gt;&lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;#add-timer-form form&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;submit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;seconds&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;parseInt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;#secs&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;parseInt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;#mins&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;60&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;parseInt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;#hours&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;60&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;60&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;timer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Timer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;#timer-name&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;seconds&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;nx&quot;&gt;timers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;timer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;c1&quot;&gt;// store timers&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;localStorage&amp;#39;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;arr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[];&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;timers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;nx&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;timers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;toObject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;());&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;localStorage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;setItem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;timers&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;stringify&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;nx&quot;&gt;UpdateLoop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;c1&quot;&gt;// load stored timers&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;localStorage&amp;#39;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;timersData&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;localStorage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getItem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;timers&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;timersData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;timersData&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;parse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;timersData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;timersData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;timersData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;nx&quot;&gt;timers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Timer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;seconds&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;started&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;finished&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;nx&quot;&gt;UpdateLoop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Some notes about the &lt;strong&gt;Local Storage API&lt;/strong&gt;:&lt;/p&gt;
@@ -515,36 +709,46 @@ if ('localStorage' in window) {
 
 &lt;p&gt;So what if you can write an application, still all in client-side JavaScript, but store data centrally so it can be accessible on all devices and browsers?  This is what &lt;a href=&quot;http://stor.io&quot;&gt;Stor.IO&lt;/a&gt; does.  Here's some example code:&lt;/p&gt;
 
-&lt;div&gt;
-  &lt;pre&gt;
-    &lt;code class='javascript'&gt;&amp;lt;script src=&amp;quot;http://stor.io/app_storage.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
-&amp;lt;script&amp;gt;
-  window.appStorage.$.connect({email: 'my@emailaddress.com'});
-  //window.appStorage.$.connect({twitter:true}); // use Twitter OAuth
-  window.appStorage.setItem('foo', 'bar');
-  window.appStorage.getItem('foo'); // &amp;quot;bar&amp;quot;
-  window.appStorage.foo; // &amp;quot;bar&amp;quot;
-&amp;lt;/script&amp;gt;&lt;/code&gt;
-  &lt;/pre&gt;
-&lt;/div&gt;
+&lt;div&gt;&lt;figure role=code&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;span class='line'&gt;4&lt;/span&gt;
+&lt;span class='line'&gt;5&lt;/span&gt;
+&lt;span class='line'&gt;6&lt;/span&gt;
+&lt;span class='line'&gt;7&lt;/span&gt;
+&lt;span class='line'&gt;8&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;div class='line'&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;script&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;http://stor.io/app_storage.js&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;/script&amp;gt;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;appStorage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;connect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;email&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;my@emailaddress.com&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;c1&quot;&gt;//window.appStorage.$.connect({twitter:true}); // use Twitter OAuth&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;appStorage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;setItem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;foo&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;bar&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;appStorage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getItem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;foo&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// &amp;quot;bar&amp;quot;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;appStorage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// &amp;quot;bar&amp;quot;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;/script&amp;gt;&lt;/span&gt;
+&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Including the &lt;em&gt;app_storage.js&lt;/em&gt; script creates the &lt;strong&gt;appStorage&lt;/strong&gt; object on the browser window.  Next, you call the &lt;em&gt;connect&lt;/em&gt; method on the server object (&lt;em&gt;$&lt;/em&gt;), passing in the identity of the user.  Currently, an email-only method of authenticating is available, as well as Twitter OAuth.   Once connected, the appStorage API behaves essentially like the localStorage API.  And it doesn't force you to store strings like localStorage does, meaning you don't need to serialize/deserialize objects to/from JSON.&lt;/p&gt;
 
 &lt;p&gt;For reading data from Stor.IO, you'll need to wait on the server to identify the user and retrieve their data, and there's a &lt;em&gt;ready()&lt;/em&gt; handler available for that:&lt;/p&gt;
 
-&lt;div&gt;
-  &lt;pre&gt;
-    &lt;code class='javascript'&gt;&amp;lt;script&amp;gt;
-window.appStorage.$.ready(function(){
-  var tasks = window.appStorage.tasks;
-  for (var i=0; i&amp;lt;tasks.length; i++) {
-    console.log(tasks[i].text);
-  }
-});
-&amp;lt;/script&amp;gt;&lt;/code&gt;
-  &lt;/pre&gt;
-&lt;/div&gt;
+&lt;div&gt;&lt;figure role=code&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;span class='line'&gt;4&lt;/span&gt;
+&lt;span class='line'&gt;5&lt;/span&gt;
+&lt;span class='line'&gt;6&lt;/span&gt;
+&lt;span class='line'&gt;7&lt;/span&gt;
+&lt;span class='line'&gt;8&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;div class='line'&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;appStorage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ready&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;tasks&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;appStorage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;tasks&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;tasks&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;tasks&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;/script&amp;gt;&lt;/span&gt;
+&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Underneath, how Stor.IO works is that it creates an iframe and uses the &lt;a href=&quot;http://ajaxian.com/archives/cross-window-messaging-with-html-5-postmessage&quot;&gt;postMessage API&lt;/a&gt; to work around the same origin policy that handicaps Ajax calls.  The server is Sinatra app with the data being stored in MongoDB.  The data is isolated by the user identity and the application path, which is a substring the current URL up to the first directory path, so http://localhost/app1 and http://localhost/app2 will actually hold different data sets.&lt;/p&gt;
@@ -587,16 +791,19 @@ window.appStorage.$.ready(function(){
 
 &lt;p&gt;&lt;a title=&quot;loader.js&quot; href=&quot;http://gist.github.com/492124&quot;&gt;Here's the code&lt;/a&gt;.  The script expects a &lt;em&gt;designs/&lt;/em&gt; folder at the same level as the loader script, with a subfolder for each design document underneath.  A design folder should have a &lt;em&gt;.js&lt;/em&gt; file for each view.  A view file looks like this:&lt;/p&gt;
 
-&lt;div&gt;
-  &lt;pre&gt;
-    &lt;code class='javascript'&gt;design.view = {
-    map: function(doc) {
-        emit(doc.created_at, null);
-    },
-    reduce: '_count'
-};&lt;/code&gt;
-  &lt;/pre&gt;
-&lt;/div&gt;
+&lt;div&gt;&lt;figure role=code&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;span class='line'&gt;4&lt;/span&gt;
+&lt;span class='line'&gt;5&lt;/span&gt;
+&lt;span class='line'&gt;6&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;div class='line'&gt;&lt;span class=&quot;nx&quot;&gt;design&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;view&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;nx&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;doc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;        &lt;span class=&quot;nx&quot;&gt;emit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;doc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;created_at&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;nx&quot;&gt;reduce&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;_count&amp;#39;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
 
 
 &lt;p&gt;&lt;a href=&quot;http://wiki.apache.org/couchdb/Document_Update_Handlers&quot;&gt;CouchDB document update handlers&lt;/a&gt; are supported as well by assigning a function to &lt;strong&gt;design.update&lt;/strong&gt;.  Once your view files are ready, just run &lt;strong&gt;loader.js&lt;/strong&gt; with the CouchDB database URL as the parameter:&lt;/p&gt;
@@ -619,31 +826,49 @@ window.appStorage.$.ready(function(){
 
 &lt;p&gt;Searching around, I found an CORS extension for Sinatra, which happened to be the framework I was using.  However, the extension didn't properly implement the spec, nor did it support CORS preflighting (required for more complex AJAX requests).  So I rolled my own, but as a Rack Middleware.  Here's an example of a Rackup that shows it in action (this example uses &lt;a title=&quot;Rack::CORS Rubygem&quot; href=&quot;http://rubygems.org/gems/rack-cors&quot;&gt;Rack::CORS&lt;/a&gt; in Sinatra app, but should be able to use it in any Rack compatible framework):&lt;/p&gt;
 
-&lt;div&gt;
-  &lt;pre&gt;
-    &lt;code class='ruby'&gt;require 'sinatra'
-require 'rack/cors'
-
-use Rack::Cors do |config|
-  config.allow do |allow|
-    allow.origins '*'
-    allow.resource '/file/list_all/', :headers =&amp;amp;gt; :any
-    allow.resource '/file/at/*',
-        :methods =&amp;amp;gt; [:get, :post, :put, :delete],
-        :headers =&amp;amp;gt; :any,
-        :max_age =&amp;amp;gt; 0
-  end
-end
-
-get '/file/list_all/' do
-  #...
-end
-
-get '/file/at/*' do
-  #...
-end&lt;/code&gt;
-  &lt;/pre&gt;
-&lt;/div&gt;
+&lt;div&gt;&lt;figure role=code&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;span class='line'&gt;4&lt;/span&gt;
+&lt;span class='line'&gt;5&lt;/span&gt;
+&lt;span class='line'&gt;6&lt;/span&gt;
+&lt;span class='line'&gt;7&lt;/span&gt;
+&lt;span class='line'&gt;8&lt;/span&gt;
+&lt;span class='line'&gt;9&lt;/span&gt;
+&lt;span class='line'&gt;10&lt;/span&gt;
+&lt;span class='line'&gt;11&lt;/span&gt;
+&lt;span class='line'&gt;12&lt;/span&gt;
+&lt;span class='line'&gt;13&lt;/span&gt;
+&lt;span class='line'&gt;14&lt;/span&gt;
+&lt;span class='line'&gt;15&lt;/span&gt;
+&lt;span class='line'&gt;16&lt;/span&gt;
+&lt;span class='line'&gt;17&lt;/span&gt;
+&lt;span class='line'&gt;18&lt;/span&gt;
+&lt;span class='line'&gt;19&lt;/span&gt;
+&lt;span class='line'&gt;20&lt;/span&gt;
+&lt;span class='line'&gt;21&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='ruby'&gt;&lt;div class='line'&gt;&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;sinatra&amp;#39;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;rack/cors&amp;#39;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;n&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Rack&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Cors&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;allow&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;allow&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;n&quot;&gt;allow&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;origins&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;*&amp;#39;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;n&quot;&gt;allow&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;resource&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;/file/list_all/&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:headers&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:any&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;n&quot;&gt;allow&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;resource&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;/file/at/*&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;        &lt;span class=&quot;ss&quot;&gt;:methods&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:post&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:put&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:delete&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;        &lt;span class=&quot;ss&quot;&gt;:headers&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:any&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;        &lt;span class=&quot;ss&quot;&gt;:max_age&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;/file/list_all/&amp;#39;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;c1&quot;&gt;#...&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;/file/at/*&amp;#39;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;c1&quot;&gt;#...&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
 
 
 &lt;p&gt;To get going with Rack::CORS, just install the rack-cors Gem.  To check out the source, see &lt;a href=&quot;http://github.com/cyu/rack-cors&quot;&gt;the project on Github&lt;/a&gt;.&lt;/p&gt;
@@ -674,43 +899,51 @@ end&lt;/code&gt;
 
 &lt;p&gt;Next, you'll need to configure Apache with this new virtual host.  Fortunately, the default Apache config has this partially setup.  Open up &lt;em&gt;/etc/apache2/httpd.conf&lt;/em&gt; and uncomment the following Include:&lt;/p&gt;
 
-&lt;div&gt;
-  &lt;pre&gt;
-    &lt;code class='apache'&gt;# Virtual hosts
-#Include /private/etc/apache2/extra/httpd-vhosts.conf&lt;/code&gt;
-  &lt;/pre&gt;
-&lt;/div&gt;
+&lt;div&gt;&lt;figure role=code&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='apache'&gt;&lt;div class='line'&gt;&lt;span class=&quot;c&quot;&gt;# Virtual hosts&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;c&quot;&gt;#Include /private/etc/apache2/extra/httpd-vhosts.conf&lt;/span&gt;
+&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Now, we need to add our virtual host to the &lt;em&gt;httpd-vhosts.conf &lt;/em&gt;file referenced above.  The file already had a couple of sample configuration in it, but I commented out those and added the following:&lt;/p&gt;
 
-&lt;div&gt;
-  &lt;pre&gt;
-    &lt;code class='apache'&gt;&amp;lt;VirtualHost *:80&amp;gt;
-    DocumentRoot &amp;quot;/Library/WebServer/Documents&amp;quot;
-    ServerName localhost
-&amp;lt;/VirtualHost&amp;gt;
-
-&amp;lt;VirtualHost *:80&amp;gt;
-    DocumentRoot &amp;quot;/usr/docs/devsite.local&amp;quot;
-    ServerName devsite.local
-&amp;lt;/VirtualHost&amp;gt;&lt;/code&gt;
-  &lt;/pre&gt;
-&lt;/div&gt;
+&lt;div&gt;&lt;figure role=code&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;span class='line'&gt;4&lt;/span&gt;
+&lt;span class='line'&gt;5&lt;/span&gt;
+&lt;span class='line'&gt;6&lt;/span&gt;
+&lt;span class='line'&gt;7&lt;/span&gt;
+&lt;span class='line'&gt;8&lt;/span&gt;
+&lt;span class='line'&gt;9&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='apache'&gt;&lt;div class='line'&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;VirtualHost&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;*:80&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;nb&quot;&gt;DocumentRoot&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;/Library/WebServer/Documents&amp;quot;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;nb&quot;&gt;ServerName&lt;/span&gt; localhost
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;/VirtualHost&amp;gt;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;VirtualHost&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;*:80&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;nb&quot;&gt;DocumentRoot&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;/usr/docs/devsite.local&amp;quot;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;nb&quot;&gt;ServerName&lt;/span&gt; devsite.local
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;/VirtualHost&amp;gt;&lt;/span&gt;
+&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
 
 
 &lt;p&gt;This first entry will map localhost to its default document location (without it http://localhost won't work correctly).  The second entry maps my new domain.  Additionally, you'll want to make sure files in your new docs directory have adequate access permissions.  I ended adding a new Directory section to &lt;em&gt;httpd-vhosts.conf &lt;/em&gt;file:&lt;/p&gt;
 
-&lt;div&gt;
-  &lt;pre&gt;
-    &lt;code class='apache'&gt;&amp;lt;Directory &amp;quot;/usr/docs/devsite.local&amp;quot;&amp;gt;
-    Options Indexes FollowSymLinks MultiViews
-    AllowOverride None
-    Order allow,deny
-    Allow from all
-&amp;lt;/Directory&amp;gt;&lt;/code&gt;
-  &lt;/pre&gt;
-&lt;/div&gt;
+&lt;div&gt;&lt;figure role=code&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;span class='line'&gt;4&lt;/span&gt;
+&lt;span class='line'&gt;5&lt;/span&gt;
+&lt;span class='line'&gt;6&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='apache'&gt;&lt;div class='line'&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;Directory&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;/usr/docs/devsite.local&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;nb&quot;&gt;Options&lt;/span&gt; Indexes FollowSymLinks MultiViews
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;nb&quot;&gt;AllowOverride&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;None&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;nb&quot;&gt;Order&lt;/span&gt; allow,deny
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;nb&quot;&gt;Allow&lt;/span&gt; from &lt;span class=&quot;k&quot;&gt;all&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Directory&amp;gt;&lt;/span&gt;
+&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Now all you have to do is put your web files in &lt;em&gt;/usr/docs/devsite.local&lt;/em&gt;.  I originally had my new local domain map to &lt;em&gt;&amp;lt;user dir&amp;gt;/Sites/devsite.local&lt;/em&gt;, but changed it because I would have to make sure Apache could access to all the directories leading up to those docs. So instead I just symlinked my http docs from my user directory into &lt;em&gt;/usr/docs.&lt;/em&gt;&lt;/p&gt;
@@ -726,13 +959,13 @@ end&lt;/code&gt;
 
 &lt;p&gt;A couple of days ago, &lt;a href=&quot;http://paulstamatiou.com&quot;&gt;Paul&lt;/a&gt; brought to my attention that &lt;a href=&quot;http://linuxmafia.com/faq/Admin/ld-lib-path.html&quot;&gt;using LD_LIBRARY_PATH isn't a good thing&lt;/a&gt;.  While I didn't necessarily think it was a big deal, it did peak my curiosity on how I would get this work without it.  Here's the command I finally used to get it to work:&lt;/p&gt;
 
-&lt;div&gt;
-  &lt;pre&gt;
-    &lt;code class='bash'&gt;sudo env PATH=&amp;quot;/opt/curl/bin:$PATH&amp;quot; gem install toland-patron \
-    -v &amp;quot;0.4.1&amp;quot; --source http://gems.github.com \
-    -- --with-ldflags=&amp;quot;-Wl,-R/opt/curl/lib&amp;quot;&lt;/code&gt;
-  &lt;/pre&gt;
-&lt;/div&gt;
+&lt;div&gt;&lt;figure role=code&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;div class='line'&gt;sudo env &lt;span class=&quot;nv&quot;&gt;PATH&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;/opt/curl/bin:$PATH&amp;quot;&lt;/span&gt; gem install toland-patron &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    -v &lt;span class=&quot;s2&quot;&gt;&amp;quot;0.4.1&amp;quot;&lt;/span&gt; --source http://gems.github.com &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    -- --with-ldflags&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;-Wl,-R/opt/curl/lib&amp;quot;&lt;/span&gt;
+&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
 
 
 &lt;p&gt;The key part is the &lt;strong&gt;--with-ldflags&lt;/strong&gt; option at the very end.  The &lt;strong&gt;-Wl,-R&amp;lt;path&amp;gt;&lt;/strong&gt; option adds the given path to the list of paths the linker will use to find libraries at runtime.  Hopefully, someone will find this information useful, since I couldn't find this information myself on the 'nets anywhere.&lt;/p&gt;
@@ -836,68 +1069,99 @@ end&lt;/code&gt;
 
 &lt;p&gt;First, I needed to add a route for generating/displaying the reports:&lt;/p&gt;
 
-&lt;div&gt;
-  &lt;pre&gt;
-    &lt;code class='ruby'&gt;map.reports 'report/:year/:month/:day', :controller =&amp;gt; 'report',
-    :action =&amp;gt; 'show', :year =&amp;gt; nil, :month =&amp;gt; nil, :day =&amp;gt; nil&lt;/code&gt;
-  &lt;/pre&gt;
-&lt;/div&gt;
+&lt;div&gt;&lt;figure role=code&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='ruby'&gt;&lt;div class='line'&gt;&lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reports&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;report/:year/:month/:day&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:controller&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;report&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;ss&quot;&gt;:action&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;show&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:year&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:month&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:day&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;nil&lt;/span&gt;
+&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
 
 
 &lt;p&gt;From here, I could just use the standard &lt;strong&gt;caches_page :show&lt;/strong&gt; declaration, but that would only generate the page I wanted if I used &lt;em&gt;/report/2009/05/25 &lt;/em&gt;as the URL.  What if I wanted &lt;em&gt;/report&lt;/em&gt; to generate the report for the current week?  Well, you can do something like this:&lt;/p&gt;
 
-&lt;div&gt;
-  &lt;pre&gt;
-    &lt;code class='ruby'&gt;class ReportController &amp;lt; ApplicationController
-  after_filter :cache_weekly_report, :only =&amp;gt; :show
-  
-  def show
-    if params[:year]
-      @year  = params[:year]
-      @month = params[:month]
-      @day   = params[:day]
-      if File.exist?(&amp;quot;#{Rails.root}/public/report/#{@year}/#{@month}/#{@day}.html&amp;quot;)
-        redirect_to reports_path(
-            :year  =&amp;gt; @year,
-            :month =&amp;gt; @month,
-            :day   =&amp;gt; @day)
-      else
-        # render report for a specific day
-      end
-    else
-      today  = Date.today
-      @year  = today.year
-      @month = today.month
-      @day   = today.day
-      
-      # render report for the current week
-    end
-  end
-  
-  protected
-  
-    def cache_weekly_report
-      cache_page(response.body,
-            &amp;quot;/report/#{@year}/#{@month}/#{@day}.html&amp;quot;) if @year
-    end
-    
-end&lt;/code&gt;
-  &lt;/pre&gt;
-&lt;/div&gt;
+&lt;div&gt;&lt;figure role=code&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;span class='line'&gt;4&lt;/span&gt;
+&lt;span class='line'&gt;5&lt;/span&gt;
+&lt;span class='line'&gt;6&lt;/span&gt;
+&lt;span class='line'&gt;7&lt;/span&gt;
+&lt;span class='line'&gt;8&lt;/span&gt;
+&lt;span class='line'&gt;9&lt;/span&gt;
+&lt;span class='line'&gt;10&lt;/span&gt;
+&lt;span class='line'&gt;11&lt;/span&gt;
+&lt;span class='line'&gt;12&lt;/span&gt;
+&lt;span class='line'&gt;13&lt;/span&gt;
+&lt;span class='line'&gt;14&lt;/span&gt;
+&lt;span class='line'&gt;15&lt;/span&gt;
+&lt;span class='line'&gt;16&lt;/span&gt;
+&lt;span class='line'&gt;17&lt;/span&gt;
+&lt;span class='line'&gt;18&lt;/span&gt;
+&lt;span class='line'&gt;19&lt;/span&gt;
+&lt;span class='line'&gt;20&lt;/span&gt;
+&lt;span class='line'&gt;21&lt;/span&gt;
+&lt;span class='line'&gt;22&lt;/span&gt;
+&lt;span class='line'&gt;23&lt;/span&gt;
+&lt;span class='line'&gt;24&lt;/span&gt;
+&lt;span class='line'&gt;25&lt;/span&gt;
+&lt;span class='line'&gt;26&lt;/span&gt;
+&lt;span class='line'&gt;27&lt;/span&gt;
+&lt;span class='line'&gt;28&lt;/span&gt;
+&lt;span class='line'&gt;29&lt;/span&gt;
+&lt;span class='line'&gt;30&lt;/span&gt;
+&lt;span class='line'&gt;31&lt;/span&gt;
+&lt;span class='line'&gt;32&lt;/span&gt;
+&lt;span class='line'&gt;33&lt;/span&gt;
+&lt;span class='line'&gt;34&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='ruby'&gt;&lt;div class='line'&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ReportController&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ApplicationController&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;n&quot;&gt;after_filter&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:cache_weekly_report&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:only&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:show&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;show&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:year&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;vi&quot;&gt;@year&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:year&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;vi&quot;&gt;@month&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:month&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;vi&quot;&gt;@day&lt;/span&gt;   &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:day&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exist?&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Rails&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;root&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/public/report/&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;vi&quot;&gt;@year&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;vi&quot;&gt;@month&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;vi&quot;&gt;@day&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.html&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;        &lt;span class=&quot;n&quot;&gt;redirect_to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;reports_path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;            &lt;span class=&quot;ss&quot;&gt;:year&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;vi&quot;&gt;@year&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;            &lt;span class=&quot;ss&quot;&gt;:month&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;vi&quot;&gt;@month&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;            &lt;span class=&quot;ss&quot;&gt;:day&lt;/span&gt;   &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;vi&quot;&gt;@day&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;        &lt;span class=&quot;c1&quot;&gt;# render report for a specific day&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;n&quot;&gt;today&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Date&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;today&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;vi&quot;&gt;@year&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;today&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;year&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;vi&quot;&gt;@month&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;today&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;month&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;vi&quot;&gt;@day&lt;/span&gt;   &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;today&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;day&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;c1&quot;&gt;# render report for the current week&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;kp&quot;&gt;protected&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;cache_weekly_report&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;n&quot;&gt;cache_page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;            &lt;span class=&quot;s2&quot;&gt;&amp;quot;/report/&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;vi&quot;&gt;@year&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;vi&quot;&gt;@month&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;vi&quot;&gt;@day&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.html&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;vi&quot;&gt;@year&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
 
 
 &lt;p&gt;The magic is in the &lt;strong&gt;after_filter&lt;/strong&gt; method &lt;strong&gt;cache_weekly_report&lt;/strong&gt;.  We basically use the same mechanism Rails page caching uses to save our new report page.  Now, calling &lt;em&gt;/report&lt;/em&gt; will generate a static report at &lt;em&gt;/report/2009/05/25&lt;/em&gt;, or whatever the current day is.&lt;/p&gt;
 
 &lt;p&gt;The last thing to do is to make sure that the reports persist through new server deployments.  That can easily be done with a symlink in your capistrano script:&lt;/p&gt;
 
-&lt;div&gt;
-  &lt;pre&gt;
-    &lt;code class='ruby'&gt;task :symlink_reports do
-  run &amp;quot;mkdir -p #{shared_path}/report; ln -nfs #{shared_path}/report #{release_path}/public/report&amp;quot;
-end
-after 'deploy:update_code', 'deploy:symlink_reports'&lt;/code&gt;
-  &lt;/pre&gt;
-&lt;/div&gt;
+&lt;div&gt;&lt;figure role=code&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;span class='line'&gt;4&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='ruby'&gt;&lt;div class='line'&gt;&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:symlink_reports&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;mkdir -p &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;shared_path&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/report; ln -nfs &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;shared_path&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/report &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;release_path&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/public/report&amp;quot;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;n&quot;&gt;after&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;deploy:update_code&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;deploy:symlink_reports&amp;#39;&lt;/span&gt;
+&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
 
 
 &lt;p&gt;And that's it!  What do you think?  I'd love to know if there are any simpler solutions to this.&lt;/p&gt;
@@ -943,11 +1207,9 @@ after 'deploy:update_code', 'deploy:symlink_reports'&lt;/code&gt;
 
 &lt;p&gt;The &lt;a href=&quot;http://code.google.com/p/growlbuildlistener/wiki/README&quot;&gt;README&lt;/a&gt; for the listener got me started - the only thing that didn't work for me is setting the build listener using the &lt;em&gt;ANT_OPT&lt;/em&gt; environment variable.  It looks like the default install of Ant on Leopard uses that environment variable as arguments to pass to the Java VM.  So instead, I just used an alias:&lt;/p&gt;
 
-&lt;div&gt;
-  &lt;pre&gt;
-    &lt;code class='ruby'&gt;alias ant='ant -listener net.slimeslurp.growl.GrowlListener'&lt;/code&gt;
-  &lt;/pre&gt;
-&lt;/div&gt;
+&lt;div&gt;&lt;figure role=code&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='ruby'&gt;&lt;div class='line'&gt;&lt;span class=&quot;k&quot;&gt;alias&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ant&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;ant -listener net.slimeslurp.growl.GrowlListener&amp;#39;&lt;/span&gt;
+&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Just add this line to your &lt;em&gt;~/.bash_login&lt;/em&gt; to use the build listener every time you build.&lt;/p&gt;
@@ -974,47 +1236,48 @@ after 'deploy:update_code', 'deploy:symlink_reports'&lt;/code&gt;
 
 &lt;p&gt;First, you need to tell TuneUp to only run in the profiler environment.  You do this by modifying &lt;em&gt;config/tuneup.rb&lt;/em&gt; (create this file if it doesn't already exist):&lt;/p&gt;
 
-&lt;div&gt;
-  &lt;pre&gt;
-    &lt;code class='ruby'&gt;Fiveruns::Tuneup.config do |config|
-  config.environments.delete('development')
-  config.environments &amp;lt;&amp;lt; 'profiler'
-end&lt;/code&gt;
-  &lt;/pre&gt;
-&lt;/div&gt;
+&lt;div&gt;&lt;figure role=code&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;span class='line'&gt;4&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='ruby'&gt;&lt;div class='line'&gt;&lt;span class=&quot;no&quot;&gt;Fiveruns&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Tuneup&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;environments&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;delete&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;development&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;environments&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;profiler&amp;#39;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Next, copy the development configuration block in &lt;em&gt;config/database.yml&lt;/em&gt; and create a new block called &lt;em&gt;profiler&lt;/em&gt;:&lt;/p&gt;
 
-&lt;div&gt;
-  &lt;pre&gt;
-    &lt;code class='yaml'&gt;profiler:
-  adapter: mysql
-  encoding: utf8
-  database: YOUR_DATABASE
-  username: YOUR_USERNAME
-  password: YOUR_PASSWORD
-  socket: /tmp/mysql.sock&lt;/code&gt;
-  &lt;/pre&gt;
-&lt;/div&gt;
+&lt;div&gt;&lt;figure role=code&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;span class='line'&gt;4&lt;/span&gt;
+&lt;span class='line'&gt;5&lt;/span&gt;
+&lt;span class='line'&gt;6&lt;/span&gt;
+&lt;span class='line'&gt;7&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='yaml'&gt;&lt;div class='line'&gt;&lt;span class=&quot;l-Scalar-Plain&quot;&gt;profiler&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;l-Scalar-Plain&quot;&gt;adapter&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;mysql&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;l-Scalar-Plain&quot;&gt;encoding&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;utf8&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;l-Scalar-Plain&quot;&gt;database&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;YOUR_DATABASE&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;l-Scalar-Plain&quot;&gt;username&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;YOUR_USERNAME&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;l-Scalar-Plain&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;YOUR_PASSWORD&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;l-Scalar-Plain&quot;&gt;socket&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;/tmp/mysql.sock&lt;/span&gt;
+&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Finally, create your profiler environment configs by copying your development configs:&lt;/p&gt;
 
-&lt;div&gt;
-  &lt;pre&gt;
-    &lt;code class='bash'&gt;cp config/environments/development.rb config/environments/profiler.rb&lt;/code&gt;
-  &lt;/pre&gt;
-&lt;/div&gt;
+&lt;div&gt;&lt;figure role=code&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;div class='line'&gt;cp config/environments/development.rb config/environments/profiler.rb
+&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
 
 
 &lt;p&gt;You're all set!  Now, to run the server with TuneUp on, just run the server in the &lt;em&gt;profiler&lt;/em&gt; environment:&lt;/p&gt;
 
-&lt;div&gt;
-  &lt;pre&gt;
-    &lt;code class='bash'&gt;script/server -e profiler&lt;/code&gt;
-  &lt;/pre&gt;
-&lt;/div&gt;
+&lt;div&gt;&lt;figure role=code&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;div class='line'&gt;script/server -e profiler
+&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Now, I have TuneUp available to me only when I'm looking to optimize performance.&lt;/p&gt;
@@ -1041,38 +1304,41 @@ end&lt;/code&gt;
     <id>http://blog.sourcebender.com/2008/07/13/problems-with-rails-fixture-labels</id>
     <content type="html">&lt;p&gt;Newer versions of Rails has a nice feature where you can use label references for fixtures.  So instead of:&lt;/p&gt;
 
-&lt;div&gt;
-  &lt;pre&gt;
-    &lt;code class='yaml'&gt;# posts.yml
-test_post:
-  user_id: 1
-  title: My Test Post&lt;/code&gt;
-  &lt;/pre&gt;
-&lt;/div&gt;
+&lt;div&gt;&lt;figure role=code&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;span class='line'&gt;4&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='yaml'&gt;&lt;div class='line'&gt;&lt;span class=&quot;c1&quot;&gt;# posts.yml&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;l-Scalar-Plain&quot;&gt;test_post&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;l-Scalar-Plain&quot;&gt;user_id&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;1&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;l-Scalar-Plain&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;My Test Post&lt;/span&gt;
+&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
 
 
 &lt;p&gt;You can do this:&lt;/p&gt;
 
-&lt;div&gt;
-  &lt;pre&gt;
-    &lt;code class='yaml'&gt;test_post:
-  user: quentin
-  title: My Test Post&lt;/code&gt;
-  &lt;/pre&gt;
-&lt;/div&gt;
+&lt;div&gt;&lt;figure role=code&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='yaml'&gt;&lt;div class='line'&gt;&lt;span class=&quot;l-Scalar-Plain&quot;&gt;test_post&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;l-Scalar-Plain&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;quentin&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;l-Scalar-Plain&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;My Test Post&lt;/span&gt;
+&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
 
 
 &lt;p&gt;However, if your model class name is in a pluralized form, you might find that label references won't work.  That's because fixtures derive their class name from the singular form of the table name by default.  Fortunately, you can fix this by adding this line to your TestHelper:&lt;/p&gt;
 
-&lt;div&gt;
-  &lt;pre&gt;
-    &lt;code class='ruby'&gt;class Test::Unit::TestCase
-
-  # Explicitly map the table name to class name
-  set_fixture_class :accounts =&amp;gt; 'accounts'
-end&lt;/code&gt;
-  &lt;/pre&gt;
-&lt;/div&gt;
+&lt;div&gt;&lt;figure role=code&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;span class='line'&gt;4&lt;/span&gt;
+&lt;span class='line'&gt;5&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='ruby'&gt;&lt;div class='line'&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Unit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;TestCase&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;c1&quot;&gt;# Explicitly map the table name to class name&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;n&quot;&gt;set_fixture_class&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:accounts&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;accounts&amp;#39;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Hopefully, this will save someone else from having to dig through the Rails fixtures internals.&lt;/p&gt;

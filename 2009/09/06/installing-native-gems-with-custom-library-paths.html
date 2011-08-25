@@ -115,13 +115,13 @@
 
 <p>A couple of days ago, <a href="http://paulstamatiou.com">Paul</a> brought to my attention that <a href="http://linuxmafia.com/faq/Admin/ld-lib-path.html">using LD_LIBRARY_PATH isn&#8217;t a good thing</a>.  While I didn&#8217;t necessarily think it was a big deal, it did peak my curiosity on how I would get this work without it.  Here&#8217;s the command I finally used to get it to work:</p>
 
-<div>
-  <pre>
-    <code class='bash'>sudo env PATH=&quot;/opt/curl/bin:$PATH&quot; gem install toland-patron \
-    -v &quot;0.4.1&quot; --source http://gems.github.com \
-    -- --with-ldflags=&quot;-Wl,-R/opt/curl/lib&quot;</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+</pre></td><td class='code' width='100%'><pre><code class='bash'><div class='line'>sudo env <span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;/opt/curl/bin:$PATH&quot;</span> gem install toland-patron <span class="se">\</span>
+</div><div class='line'>    -v <span class="s2">&quot;0.4.1&quot;</span> --source http://gems.github.com <span class="se">\</span>
+</div><div class='line'>    -- --with-ldflags<span class="o">=</span><span class="s2">&quot;-Wl,-R/opt/curl/lib&quot;</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>The key part is the <strong>&#8211;with-ldflags</strong> option at the very end.  The <strong>-Wl,-R&lt;path&gt;</strong> option adds the given path to the list of paths the linker will use to find libraries at runtime.  Hopefully, someone will find this information useful, since I couldn&#8217;t find this information myself on the &#8216;nets anywhere.</p>

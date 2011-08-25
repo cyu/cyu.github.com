@@ -158,7 +158,7 @@
         <loc>
             http://blog.sourcebender.com/2006/11/12/finding-the-package-you-need-in-ubuntu.html
         </loc>
-        <lastmod>2011-08-24T10:17:28-04:00</lastmod>
+        <lastmod>2011-08-24T22:50:16-04:00</lastmod>
     </url>
     <url>
         <loc>http://blog.sourcebender.com/2006/11/14/daily-delicious-8.html</loc>
@@ -306,7 +306,7 @@
         <loc>
             http://blog.sourcebender.com/2007/09/04/taming-beast-how-to-extend-beast-using-plugins.html
         </loc>
-        <lastmod>2011-08-24T10:17:28-04:00</lastmod>
+        <lastmod>2011-08-24T22:52:49-04:00</lastmod>
     </url>
     <url>
         <loc>http://blog.sourcebender.com/2007/09/13/a-spreadsheet-for-the-web.html</loc>
@@ -396,7 +396,7 @@
     </url>
     <url>
         <loc>http://blog.sourcebender.com/2008/07/13/problems-with-rails-fixture-labels.html</loc>
-        <lastmod>2011-08-24T10:17:28-04:00</lastmod>
+        <lastmod>2011-08-24T22:53:27-04:00</lastmod>
     </url>
     <url>
         <loc>http://blog.sourcebender.com/2008/09/07/aptana-goes-into-the-clouds.html</loc>
@@ -406,7 +406,7 @@
         <loc>
             http://blog.sourcebender.com/2008/10/05/running-fiveruns-tuneup-in-a-separate-environment.html
         </loc>
-        <lastmod>2011-08-24T10:17:28-04:00</lastmod>
+        <lastmod>2011-08-24T22:54:49-04:00</lastmod>
     </url>
     <url>
         <loc>http://blog.sourcebender.com/2008/10/07/moving-off-wpcom.html</loc>
@@ -414,7 +414,7 @@
     </url>
     <url>
         <loc>http://blog.sourcebender.com/2008/10/18/growl-notifications-for-ant.html</loc>
-        <lastmod>2011-08-24T10:17:28-04:00</lastmod>
+        <lastmod>2011-08-24T22:56:02-04:00</lastmod>
     </url>
     <url>
         <loc>http://blog.sourcebender.com/2008/11/15/turning-a-new-page.html</loc>
@@ -430,7 +430,7 @@
         <loc>
             http://blog.sourcebender.com/2009/05/24/creating-static-pages-w-rails-actionviews.html
         </loc>
-        <lastmod>2011-08-24T10:17:28-04:00</lastmod>
+        <lastmod>2011-08-24T22:57:32-04:00</lastmod>
     </url>
     <url>
         <loc>
@@ -448,21 +448,21 @@
         <loc>
             http://blog.sourcebender.com/2009/09/06/installing-native-gems-with-custom-library-paths.html
         </loc>
-        <lastmod>2011-08-24T10:17:28-04:00</lastmod>
+        <lastmod>2011-08-24T22:57:27-04:00</lastmod>
     </url>
     <url>
         <loc>
             http://blog.sourcebender.com/2010/03/26/setting-up-virtual-hosts-on-mac-osx.html
         </loc>
-        <lastmod>2011-08-24T10:17:28-04:00</lastmod>
+        <lastmod>2011-08-24T23:01:58-04:00</lastmod>
     </url>
     <url>
         <loc>http://blog.sourcebender.com/2010/06/09/introducin-rack-cors.html</loc>
-        <lastmod>2011-08-24T10:17:28-04:00</lastmod>
+        <lastmod>2011-08-24T22:58:36-04:00</lastmod>
     </url>
     <url>
         <loc>http://blog.sourcebender.com/2010/07/28/loading-couchdb-views.html</loc>
-        <lastmod>2011-08-24T10:17:28-04:00</lastmod>
+        <lastmod>2011-08-24T22:58:51-04:00</lastmod>
     </url>
     <url>
         <loc>http://blog.sourcebender.com/leaving-wordpress-for-jekyll.html</loc>
@@ -470,7 +470,7 @@
     </url>
     <url>
         <loc>http://blog.sourcebender.com/easy-storage-for-html5-applications.html</loc>
-        <lastmod>2011-08-24T10:17:28-04:00</lastmod>
+        <lastmod>2011-08-24T22:59:24-04:00</lastmod>
     </url>
     <url>
         <loc>http://blog.sourcebender.com/storio-and-backbonejs.html</loc>
@@ -478,11 +478,11 @@
     </url>
     <url>
         <loc>http://blog.sourcebender.com/building-an-html5-application-part1.html</loc>
-        <lastmod>2011-08-24T10:17:28-04:00</lastmod>
+        <lastmod>2011-08-24T22:59:59-04:00</lastmod>
     </url>
     <url>
         <loc>http://blog.sourcebender.com/building-an-html5-application-part2.html</loc>
-        <lastmod>2011-08-24T10:17:28-04:00</lastmod>
+        <lastmod>2011-08-24T23:00:52-04:00</lastmod>
     </url>
     <url>
         <loc>http://blog.sourcebender.com/building-an-html5-application-part3.html</loc>
@@ -490,11 +490,11 @@
     </url>
     <url>
         <loc>http://blog.sourcebender.com/blog/archives/</loc>
-        <lastmod>2011-08-24T22:30:42-04:00</lastmod>
+        <lastmod>2011-08-24T23:01:58-04:00</lastmod>
     </url>
     <url>
         <loc>http://blog.sourcebender.com/</loc>
-        <lastmod>2011-08-24T22:30:42-04:00</lastmod>
+        <lastmod>2011-08-24T23:01:58-04:00</lastmod>
     </url>
     <url>
         <loc>http://blog.sourcebender.com/tails/flocktails.html</loc>
@@ -506,7 +506,7 @@
     </url>
     <url>
         <loc>http://blog.sourcebender.comtails/scripting.html</loc>
-        <lastmod>2011-08-24T11:03:44-04:00</lastmod>
+        <lastmod>2011-08-24T23:03:19-04:00</lastmod>
     </url>
     <url>
         <loc>http://blog.sourcebender.comtails/scripts.html</loc>

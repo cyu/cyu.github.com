@@ -121,45 +121,66 @@
 
 <p>First, I request permission to use the Notifications API when the first timer is created.  It&#8217;s important to note that <strong>you can only request permission on a user triggered event like a mouse click or key event.</strong>  In Thymer&#8217;s case, I request permission when the Enter key is pressed to submit a new timer:</p>
 
-<div>
-  <pre>
-    <code class='javascript'>$('#add-timer-form input').keypress(function(event) {
-  if (event.which == '13') { // Enter key
-    event.preventDefault();
-    var seconds = parseInt($('#secs').val()) +
-        (parseInt($('#mins').val()) * 60) +
-        (parseInt($('#hours').val()) * 60 * 60);
-
-    Thymer.addTimer(new Timer($('#timer-name').val(), seconds));
-    $('#timer-name').val('');
-
-    // request notifications permission if API is supported.  We do
-    // this here because we can only do this on user triggered events.
-    if (window.webkitNotifications &amp;&amp;
-          window.webkitNotifications.checkPermission() != 0) {
-      window.webkitNotifications.requestPermission();
-    }
-  }
-})</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+<span class='line'>8</span>
+<span class='line'>9</span>
+<span class='line'>10</span>
+<span class='line'>11</span>
+<span class='line'>12</span>
+<span class='line'>13</span>
+<span class='line'>14</span>
+<span class='line'>15</span>
+<span class='line'>16</span>
+<span class='line'>17</span>
+<span class='line'>18</span>
+</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#add-timer-form input&#39;</span><span class="p">).</span><span class="nx">keypress</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+</div><div class='line'>  <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">which</span> <span class="o">==</span> <span class="s1">&#39;13&#39;</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// Enter key</span>
+</div><div class='line'>    <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+</div><div class='line'>    <span class="kd">var</span> <span class="nx">seconds</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#secs&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">())</span> <span class="o">+</span>
+</div><div class='line'>        <span class="p">(</span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#mins&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">())</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span> <span class="o">+</span>
+</div><div class='line'>        <span class="p">(</span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#hours&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">())</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span><span class="p">);</span>
+</div><div class='line'>
+</div><div class='line'>    <span class="nx">Thymer</span><span class="p">.</span><span class="nx">addTimer</span><span class="p">(</span><span class="k">new</span> <span class="nx">Timer</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#timer-name&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">(),</span> <span class="nx">seconds</span><span class="p">));</span>
+</div><div class='line'>    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#timer-name&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+</div><div class='line'>
+</div><div class='line'>    <span class="c1">// request notifications permission if API is supported.  We do</span>
+</div><div class='line'>    <span class="c1">// this here because we can only do this on user triggered events.</span>
+</div><div class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">webkitNotifications</span> <span class="o">&amp;&amp;</span>
+</div><div class='line'>          <span class="nb">window</span><span class="p">.</span><span class="nx">webkitNotifications</span><span class="p">.</span><span class="nx">checkPermission</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</div><div class='line'>      <span class="nb">window</span><span class="p">.</span><span class="nx">webkitNotifications</span><span class="p">.</span><span class="nx">requestPermission</span><span class="p">();</span>
+</div><div class='line'>    <span class="p">}</span>
+</div><div class='line'>  <span class="p">}</span>
+</div><div class='line'><span class="p">})</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>Then I create a notification when the timer ends:</p>
 
-<div>
-  <pre>
-    <code class='javascript'>_alarm:function() {
-  // show a notification if the browser supports it.
-  if (window.webkitNotifications &amp;&amp;
-      window.webkitNotifications.checkPermission() == 0) {
-
-    window.webkitNotifications.createNotification('clock_32x32.png',
-        'Thymer', '&quot;' + this.name + '&quot; timer has completed').show();
-  }
-}</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+<span class='line'>8</span>
+<span class='line'>9</span>
+</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="nx">_alarm</span><span class="o">:</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</div><div class='line'>  <span class="c1">// show a notification if the browser supports it.</span>
+</div><div class='line'>  <span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">webkitNotifications</span> <span class="o">&amp;&amp;</span>
+</div><div class='line'>      <span class="nb">window</span><span class="p">.</span><span class="nx">webkitNotifications</span><span class="p">.</span><span class="nx">checkPermission</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</div><div class='line'>
+</div><div class='line'>    <span class="nb">window</span><span class="p">.</span><span class="nx">webkitNotifications</span><span class="p">.</span><span class="nx">createNotification</span><span class="p">(</span><span class="s1">&#39;clock_32x32.png&#39;</span><span class="p">,</span>
+</div><div class='line'>        <span class="s1">&#39;Thymer&#39;</span><span class="p">,</span> <span class="s1">&#39;&quot;&#39;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">+</span> <span class="s1">&#39;&quot; timer has completed&#39;</span><span class="p">).</span><span class="nx">show</span><span class="p">();</span>
+</div><div class='line'>  <span class="p">}</span>
+</div><div class='line'><span class="p">}</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>Here&#8217;s what the notification looks like:</p>
@@ -179,34 +200,42 @@
 
 <p>So now I have a way to grab user&#8217;s attention when a timer completes in Chrome, but what about other browsers?  How about playing an alarm sound when the timer completes?  This turned out to be pretty easy with the <strong>&lt;audio&gt;</strong> tag:</p>
 
-<div>
-  <pre>
-    <code class='html'>&lt;audio id=alarm-sound&gt;
-  &lt;source src=alarm.mp3 type=audio/mpeg /&gt;
-  &lt;source src=alarm.ogg type=audio/ogg /&gt;
-  &lt;source src=alarm.wav type=audio/wav /&gt;
-&lt;/audio&gt;</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+</pre></td><td class='code' width='100%'><pre><code class='html'><div class='line'><span class="nt">&lt;audio</span> <span class="na">id=</span><span class="s">alarm-sound</span><span class="nt">&gt;</span>
+</div><div class='line'>  <span class="nt">&lt;source</span> <span class="na">src=</span><span class="s">alarm.mp3</span> <span class="na">type=</span><span class="s">audio/mpeg</span> <span class="nt">/&gt;</span>
+</div><div class='line'>  <span class="nt">&lt;source</span> <span class="na">src=</span><span class="s">alarm.ogg</span> <span class="na">type=</span><span class="s">audio/ogg</span> <span class="nt">/&gt;</span>
+</div><div class='line'>  <span class="nt">&lt;source</span> <span class="na">src=</span><span class="s">alarm.wav</span> <span class="na">type=</span><span class="s">audio/wav</span> <span class="nt">/&gt;</span>
+</div><div class='line'><span class="nt">&lt;/audio&gt;</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>This sets up a audio clip that I can access from JavaScript via the element id.  Since I don&#8217;t specify a <strong>controls</strong> or <strong>autoplay</strong> attribute, the audio won&#8217;t play until I want it to.  I&#8217;m also specifying the three different sources for audio (gotta love proprietary sound formats).  Between MP3 &amp; Ogg Vorbis, all modern browsers should be covered, but I&#8217;m going to throw a WAV in there for completeness anyway.  I am concerned about how this will affect my footprint when I setup offline mode for Thymer, but that&#8217;s an issue for a different post.</p>
 
 <p>Playing the audio from JavaScript is cake:</p>
 
-<div>
-  <pre>
-    <code class='javascript'>_alarm:function() {
-  // show a notification if the browser supports it.
-  if (window.webkitNotifications &amp;&amp; window.webkitNotifications.checkPermission() == 0) {
-    window.webkitNotifications.createNotification('clock_32x32.png', 'Thymer', '&quot;' + this.name + '&quot; timer has completed').show();
-  }
-
-  // play the alarm sound
-  document.getElementById('alarm-sound').play();
-}</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+<span class='line'>8</span>
+<span class='line'>9</span>
+</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="nx">_alarm</span><span class="o">:</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</div><div class='line'>  <span class="c1">// show a notification if the browser supports it.</span>
+</div><div class='line'>  <span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">webkitNotifications</span> <span class="o">&amp;&amp;</span> <span class="nb">window</span><span class="p">.</span><span class="nx">webkitNotifications</span><span class="p">.</span><span class="nx">checkPermission</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</div><div class='line'>    <span class="nb">window</span><span class="p">.</span><span class="nx">webkitNotifications</span><span class="p">.</span><span class="nx">createNotification</span><span class="p">(</span><span class="s1">&#39;clock_32x32.png&#39;</span><span class="p">,</span> <span class="s1">&#39;Thymer&#39;</span><span class="p">,</span> <span class="s1">&#39;&quot;&#39;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">+</span> <span class="s1">&#39;&quot; timer has completed&#39;</span><span class="p">).</span><span class="nx">show</span><span class="p">();</span>
+</div><div class='line'>  <span class="p">}</span>
+</div><div class='line'>
+</div><div class='line'>  <span class="c1">// play the alarm sound</span>
+</div><div class='line'>  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;alarm-sound&#39;</span><span class="p">).</span><span class="nx">play</span><span class="p">();</span>
+</div><div class='line'><span class="p">}</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>For more information about the Audio tag, I recommend <a href="http://html5doctor.com/native-audio-in-the-browser/">this article at &lt;html&gt;5doctor</a>.  In that article they have a helpful table showing the browser support for the different audio formats.</p>

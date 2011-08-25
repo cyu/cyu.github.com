@@ -120,43 +120,51 @@
 
 <p>Next, you&#8217;ll need to configure Apache with this new virtual host.  Fortunately, the default Apache config has this partially setup.  Open up <em>/etc/apache2/httpd.conf</em> and uncomment the following Include:</p>
 
-<div>
-  <pre>
-    <code class='apache'># Virtual hosts
-#Include /private/etc/apache2/extra/httpd-vhosts.conf</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+</pre></td><td class='code' width='100%'><pre><code class='apache'><div class='line'><span class="c"># Virtual hosts</span>
+</div><div class='line'><span class="c">#Include /private/etc/apache2/extra/httpd-vhosts.conf</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>Now, we need to add our virtual host to the <em>httpd-vhosts.conf </em>file referenced above.  The file already had a couple of sample configuration in it, but I commented out those and added the following:</p>
 
-<div>
-  <pre>
-    <code class='apache'>&lt;VirtualHost *:80&gt;
-    DocumentRoot &quot;/Library/WebServer/Documents&quot;
-    ServerName localhost
-&lt;/VirtualHost&gt;
-
-&lt;VirtualHost *:80&gt;
-    DocumentRoot &quot;/usr/docs/devsite.local&quot;
-    ServerName devsite.local
-&lt;/VirtualHost&gt;</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+<span class='line'>8</span>
+<span class='line'>9</span>
+</pre></td><td class='code' width='100%'><pre><code class='apache'><div class='line'><span class="nt">&lt;VirtualHost</span> <span class="s">*:80</span><span class="nt">&gt;</span>
+</div><div class='line'>    <span class="nb">DocumentRoot</span> <span class="s2">&quot;/Library/WebServer/Documents&quot;</span>
+</div><div class='line'>    <span class="nb">ServerName</span> localhost
+</div><div class='line'><span class="nt">&lt;/VirtualHost&gt;</span>
+</div><div class='line'>
+</div><div class='line'><span class="nt">&lt;VirtualHost</span> <span class="s">*:80</span><span class="nt">&gt;</span>
+</div><div class='line'>    <span class="nb">DocumentRoot</span> <span class="s2">&quot;/usr/docs/devsite.local&quot;</span>
+</div><div class='line'>    <span class="nb">ServerName</span> devsite.local
+</div><div class='line'><span class="nt">&lt;/VirtualHost&gt;</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>This first entry will map localhost to its default document location (without it http://localhost won&#8217;t work correctly).  The second entry maps my new domain.  Additionally, you&#8217;ll want to make sure files in your new docs directory have adequate access permissions.  I ended adding a new Directory section to <em>httpd-vhosts.conf </em>file:</p>
 
-<div>
-  <pre>
-    <code class='apache'>&lt;Directory &quot;/usr/docs/devsite.local&quot;&gt;
-    Options Indexes FollowSymLinks MultiViews
-    AllowOverride None
-    Order allow,deny
-    Allow from all
-&lt;/Directory&gt;</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+</pre></td><td class='code' width='100%'><pre><code class='apache'><div class='line'><span class="nt">&lt;Directory</span> <span class="s">&quot;/usr/docs/devsite.local&quot;</span><span class="nt">&gt;</span>
+</div><div class='line'>    <span class="nb">Options</span> Indexes FollowSymLinks MultiViews
+</div><div class='line'>    <span class="nb">AllowOverride</span> <span class="k">None</span>
+</div><div class='line'>    <span class="nb">Order</span> allow,deny
+</div><div class='line'>    <span class="nb">Allow</span> from <span class="k">all</span>
+</div><div class='line'><span class="nt">&lt;/Directory&gt;</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>Now all you have to do is put your web files in <em>/usr/docs/devsite.local</em>.  I originally had my new local domain map to <em>&lt;user dir&gt;/Sites/devsite.local</em>, but changed it because I would have to make sure Apache could access to all the directories leading up to those docs. So instead I just symlinked my http docs from my user directory into <em>/usr/docs.</em></p>

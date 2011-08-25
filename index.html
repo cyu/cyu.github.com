@@ -268,45 +268,66 @@
 
 <p>First, I request permission to use the Notifications API when the first timer is created.  It&#8217;s important to note that <strong>you can only request permission on a user triggered event like a mouse click or key event.</strong>  In Thymer&#8217;s case, I request permission when the Enter key is pressed to submit a new timer:</p>
 
-<div>
-  <pre>
-    <code class='javascript'>$('#add-timer-form input').keypress(function(event) {
-  if (event.which == '13') { // Enter key
-    event.preventDefault();
-    var seconds = parseInt($('#secs').val()) +
-        (parseInt($('#mins').val()) * 60) +
-        (parseInt($('#hours').val()) * 60 * 60);
-
-    Thymer.addTimer(new Timer($('#timer-name').val(), seconds));
-    $('#timer-name').val('');
-
-    // request notifications permission if API is supported.  We do
-    // this here because we can only do this on user triggered events.
-    if (window.webkitNotifications &amp;&amp;
-          window.webkitNotifications.checkPermission() != 0) {
-      window.webkitNotifications.requestPermission();
-    }
-  }
-})</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+<span class='line'>8</span>
+<span class='line'>9</span>
+<span class='line'>10</span>
+<span class='line'>11</span>
+<span class='line'>12</span>
+<span class='line'>13</span>
+<span class='line'>14</span>
+<span class='line'>15</span>
+<span class='line'>16</span>
+<span class='line'>17</span>
+<span class='line'>18</span>
+</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#add-timer-form input&#39;</span><span class="p">).</span><span class="nx">keypress</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+</div><div class='line'>  <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">which</span> <span class="o">==</span> <span class="s1">&#39;13&#39;</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// Enter key</span>
+</div><div class='line'>    <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+</div><div class='line'>    <span class="kd">var</span> <span class="nx">seconds</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#secs&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">())</span> <span class="o">+</span>
+</div><div class='line'>        <span class="p">(</span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#mins&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">())</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span> <span class="o">+</span>
+</div><div class='line'>        <span class="p">(</span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#hours&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">())</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span><span class="p">);</span>
+</div><div class='line'>
+</div><div class='line'>    <span class="nx">Thymer</span><span class="p">.</span><span class="nx">addTimer</span><span class="p">(</span><span class="k">new</span> <span class="nx">Timer</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#timer-name&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">(),</span> <span class="nx">seconds</span><span class="p">));</span>
+</div><div class='line'>    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#timer-name&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+</div><div class='line'>
+</div><div class='line'>    <span class="c1">// request notifications permission if API is supported.  We do</span>
+</div><div class='line'>    <span class="c1">// this here because we can only do this on user triggered events.</span>
+</div><div class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">webkitNotifications</span> <span class="o">&amp;&amp;</span>
+</div><div class='line'>          <span class="nb">window</span><span class="p">.</span><span class="nx">webkitNotifications</span><span class="p">.</span><span class="nx">checkPermission</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</div><div class='line'>      <span class="nb">window</span><span class="p">.</span><span class="nx">webkitNotifications</span><span class="p">.</span><span class="nx">requestPermission</span><span class="p">();</span>
+</div><div class='line'>    <span class="p">}</span>
+</div><div class='line'>  <span class="p">}</span>
+</div><div class='line'><span class="p">})</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>Then I create a notification when the timer ends:</p>
 
-<div>
-  <pre>
-    <code class='javascript'>_alarm:function() {
-  // show a notification if the browser supports it.
-  if (window.webkitNotifications &amp;&amp;
-      window.webkitNotifications.checkPermission() == 0) {
-
-    window.webkitNotifications.createNotification('clock_32x32.png',
-        'Thymer', '&quot;' + this.name + '&quot; timer has completed').show();
-  }
-}</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+<span class='line'>8</span>
+<span class='line'>9</span>
+</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="nx">_alarm</span><span class="o">:</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</div><div class='line'>  <span class="c1">// show a notification if the browser supports it.</span>
+</div><div class='line'>  <span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">webkitNotifications</span> <span class="o">&amp;&amp;</span>
+</div><div class='line'>      <span class="nb">window</span><span class="p">.</span><span class="nx">webkitNotifications</span><span class="p">.</span><span class="nx">checkPermission</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</div><div class='line'>
+</div><div class='line'>    <span class="nb">window</span><span class="p">.</span><span class="nx">webkitNotifications</span><span class="p">.</span><span class="nx">createNotification</span><span class="p">(</span><span class="s1">&#39;clock_32x32.png&#39;</span><span class="p">,</span>
+</div><div class='line'>        <span class="s1">&#39;Thymer&#39;</span><span class="p">,</span> <span class="s1">&#39;&quot;&#39;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">+</span> <span class="s1">&#39;&quot; timer has completed&#39;</span><span class="p">).</span><span class="nx">show</span><span class="p">();</span>
+</div><div class='line'>  <span class="p">}</span>
+</div><div class='line'><span class="p">}</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>Here&#8217;s what the notification looks like:</p>
@@ -326,34 +347,42 @@
 
 <p>So now I have a way to grab user&#8217;s attention when a timer completes in Chrome, but what about other browsers?  How about playing an alarm sound when the timer completes?  This turned out to be pretty easy with the <strong>&lt;audio&gt;</strong> tag:</p>
 
-<div>
-  <pre>
-    <code class='html'>&lt;audio id=alarm-sound&gt;
-  &lt;source src=alarm.mp3 type=audio/mpeg /&gt;
-  &lt;source src=alarm.ogg type=audio/ogg /&gt;
-  &lt;source src=alarm.wav type=audio/wav /&gt;
-&lt;/audio&gt;</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+</pre></td><td class='code' width='100%'><pre><code class='html'><div class='line'><span class="nt">&lt;audio</span> <span class="na">id=</span><span class="s">alarm-sound</span><span class="nt">&gt;</span>
+</div><div class='line'>  <span class="nt">&lt;source</span> <span class="na">src=</span><span class="s">alarm.mp3</span> <span class="na">type=</span><span class="s">audio/mpeg</span> <span class="nt">/&gt;</span>
+</div><div class='line'>  <span class="nt">&lt;source</span> <span class="na">src=</span><span class="s">alarm.ogg</span> <span class="na">type=</span><span class="s">audio/ogg</span> <span class="nt">/&gt;</span>
+</div><div class='line'>  <span class="nt">&lt;source</span> <span class="na">src=</span><span class="s">alarm.wav</span> <span class="na">type=</span><span class="s">audio/wav</span> <span class="nt">/&gt;</span>
+</div><div class='line'><span class="nt">&lt;/audio&gt;</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>This sets up a audio clip that I can access from JavaScript via the element id.  Since I don&#8217;t specify a <strong>controls</strong> or <strong>autoplay</strong> attribute, the audio won&#8217;t play until I want it to.  I&#8217;m also specifying the three different sources for audio (gotta love proprietary sound formats).  Between MP3 &amp; Ogg Vorbis, all modern browsers should be covered, but I&#8217;m going to throw a WAV in there for completeness anyway.  I am concerned about how this will affect my footprint when I setup offline mode for Thymer, but that&#8217;s an issue for a different post.</p>
 
 <p>Playing the audio from JavaScript is cake:</p>
 
-<div>
-  <pre>
-    <code class='javascript'>_alarm:function() {
-  // show a notification if the browser supports it.
-  if (window.webkitNotifications &amp;&amp; window.webkitNotifications.checkPermission() == 0) {
-    window.webkitNotifications.createNotification('clock_32x32.png', 'Thymer', '&quot;' + this.name + '&quot; timer has completed').show();
-  }
-
-  // play the alarm sound
-  document.getElementById('alarm-sound').play();
-}</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+<span class='line'>8</span>
+<span class='line'>9</span>
+</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="nx">_alarm</span><span class="o">:</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</div><div class='line'>  <span class="c1">// show a notification if the browser supports it.</span>
+</div><div class='line'>  <span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">webkitNotifications</span> <span class="o">&amp;&amp;</span> <span class="nb">window</span><span class="p">.</span><span class="nx">webkitNotifications</span><span class="p">.</span><span class="nx">checkPermission</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</div><div class='line'>    <span class="nb">window</span><span class="p">.</span><span class="nx">webkitNotifications</span><span class="p">.</span><span class="nx">createNotification</span><span class="p">(</span><span class="s1">&#39;clock_32x32.png&#39;</span><span class="p">,</span> <span class="s1">&#39;Thymer&#39;</span><span class="p">,</span> <span class="s1">&#39;&quot;&#39;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">+</span> <span class="s1">&#39;&quot; timer has completed&#39;</span><span class="p">).</span><span class="nx">show</span><span class="p">();</span>
+</div><div class='line'>  <span class="p">}</span>
+</div><div class='line'>
+</div><div class='line'>  <span class="c1">// play the alarm sound</span>
+</div><div class='line'>  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;alarm-sound&#39;</span><span class="p">).</span><span class="nx">play</span><span class="p">();</span>
+</div><div class='line'><span class="p">}</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>For more information about the Audio tag, I recommend <a href="http://html5doctor.com/native-audio-in-the-browser/">this article at &lt;html&gt;5doctor</a>.  In that article they have a helpful table showing the browser support for the different audio formats.</p>
@@ -391,32 +420,51 @@
 
 <p>The application I&#8217;ve decided to build is a timer application - basically, you enter a time interval (in hours, minutes, seconds), and it&#8217;ll notify you when that time has been reached.  I start things off by creating the basics of what the application would look like via HTML:</p>
 
-<div>
-  <pre>
-    <code class='html'>&lt;!doctype html&gt;
-&lt;html&gt;
-&lt;head&gt;
-&lt;title&gt;Thymer&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-  &lt;header&gt;
-    &lt;h1&gt;Thymer&lt;/h1&gt;
-  &lt;/header&gt;
-  &lt;div id=content&gt;
-    &lt;div id=add-timer-form&gt;
-      &lt;input class=text name=hours value=00 size=2&gt; :
-      &lt;input class=text name=mins value=05 size=2&gt; :
-      &lt;input class=text name=secs value=00 size=2&gt;
-      &lt;input name=name placeholder='Timer Name'&gt;
-      &lt;input type=submit value='Create Timer'&gt;
-    &lt;/div&gt;
-    &lt;ul id=timer-list&gt;&lt;/ul&gt;
-  &lt;/div&gt;
-  &lt;script src=thymer.js&gt;&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+<span class='line'>8</span>
+<span class='line'>9</span>
+<span class='line'>10</span>
+<span class='line'>11</span>
+<span class='line'>12</span>
+<span class='line'>13</span>
+<span class='line'>14</span>
+<span class='line'>15</span>
+<span class='line'>16</span>
+<span class='line'>17</span>
+<span class='line'>18</span>
+<span class='line'>19</span>
+<span class='line'>20</span>
+<span class='line'>21</span>
+<span class='line'>22</span>
+</pre></td><td class='code' width='100%'><pre><code class='html'><div class='line'><span class="cp">&lt;!doctype html&gt;</span>
+</div><div class='line'><span class="nt">&lt;html&gt;</span>
+</div><div class='line'><span class="nt">&lt;head&gt;</span>
+</div><div class='line'><span class="nt">&lt;title&gt;</span>Thymer<span class="nt">&lt;/title&gt;</span>
+</div><div class='line'><span class="nt">&lt;/head&gt;</span>
+</div><div class='line'><span class="nt">&lt;body&gt;</span>
+</div><div class='line'>  <span class="nt">&lt;header&gt;</span>
+</div><div class='line'>    <span class="nt">&lt;h1&gt;</span>Thymer<span class="nt">&lt;/h1&gt;</span>
+</div><div class='line'>  <span class="nt">&lt;/header&gt;</span>
+</div><div class='line'>  <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">content</span><span class="nt">&gt;</span>
+</div><div class='line'>    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">add-timer-form</span><span class="nt">&gt;</span>
+</div><div class='line'>      <span class="nt">&lt;input</span> <span class="na">class=</span><span class="s">text</span> <span class="na">name=</span><span class="s">hours</span> <span class="na">value=</span><span class="s">00</span> <span class="na">size=</span><span class="s">2</span><span class="nt">&gt;</span> :
+</div><div class='line'>      <span class="nt">&lt;input</span> <span class="na">class=</span><span class="s">text</span> <span class="na">name=</span><span class="s">mins</span> <span class="na">value=</span><span class="s">05</span> <span class="na">size=</span><span class="s">2</span><span class="nt">&gt;</span> :
+</div><div class='line'>      <span class="nt">&lt;input</span> <span class="na">class=</span><span class="s">text</span> <span class="na">name=</span><span class="s">secs</span> <span class="na">value=</span><span class="s">00</span> <span class="na">size=</span><span class="s">2</span><span class="nt">&gt;</span>
+</div><div class='line'>      <span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">name</span> <span class="na">placeholder=</span><span class="s">&#39;Timer Name&#39;</span><span class="nt">&gt;</span>
+</div><div class='line'>      <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">submit</span> <span class="na">value=</span><span class="s">&#39;Create Timer&#39;</span><span class="nt">&gt;</span>
+</div><div class='line'>    <span class="nt">&lt;/div&gt;</span>
+</div><div class='line'>    <span class="nt">&lt;ul</span> <span class="na">id=</span><span class="s">timer-list</span><span class="nt">&gt;&lt;/ul&gt;</span>
+</div><div class='line'>  <span class="nt">&lt;/div&gt;</span>
+</div><div class='line'>  <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">thymer.js</span><span class="nt">&gt;&lt;/script&gt;</span>
+</div><div class='line'><span class="nt">&lt;/body&gt;</span>
+</div><div class='line'><span class="nt">&lt;/html&gt;</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>Couple of notes about the above snippet:</p>
@@ -429,113 +477,213 @@
 
 <p>Next comes the <em>thymer.js</em> script.  Nothing HTML5 specific here, I&#8217;m just putting the code here for completeness.</p>
 
-<div>
-  <pre>
-    <code class='javascript'>$().ready(function(){
-  var timerList = $('#timer-list');
-  var timers = [];
-
-  var UpdateLoop = {
-    start:function() {
-      if (!this.started) {
-        this.started = true;
-        this.interval = setInterval(function(){
-          UpdateLoop.update();
-        },1000);
-      }
-    },
-    update:function() {
-      if (timers.length &gt; 0) {
-        for (var i in timers) {
-          timers[i].update();
-        }
-
-      } else {
-        clearInterval(this.interval);
-        this.interval = null;
-        this.started = false;
-      }
-    }
-  };
-
-  var Timer = function(name, seconds) {
-    this.name = name;
-    this.seconds = seconds;
-    this.started = new Date().getTime();
-    this.finished = false;
-    this.start();
-  };
-  Timer.prototype = {
-    start:function() {
-      this.el = $(&quot;&lt;li&gt;&quot; + this.buildDisplayString() + &quot;&lt;/li&gt;&quot;);
-      timerList.append(this.el);
-    },
-    update:function() {
-      if (!this.finished) {
-        if (this.check()) {
-          var timer = this;
-          var removeLink = $('&lt;a href=&quot;#&quot;&gt;remove&lt;/a&gt;').click(function(){
-            timer.remove();
-          });
-          this.el.text('ALARM!!! - ' + this.name + ' ');
-          this.el.append(removeLink);
-        } else {
-          this.el.text(this.buildDisplayString());
-        }
-      }
-    },
-    remove:function() {
-      this.el.remove();
-      for (var i in timers) {
-        if (timers[i] == this) {
-          timers.splice(i,1);
-          break;
-        }
-      }
-    },
-    check:function() {
-      var remaining = this.calculateRemaining();
-      if (remaining &lt;= 0) {
-        this.finished = true;
-        return true;
-      }
-      return false;
-    },
-    calculateRemaining:function() {
-      return this.seconds - Math.floor((new Date().getTime() - this.started) / 1000);
-    },
-    buildDisplayString:function() {
-      var s = [];
-
-      var remaining = this.calculateRemaining();
-      remaining = this.buildTimeSegment('h', 60*60, remaining, s);
-      remaining = this.buildTimeSegment('m', 60, remaining, s);
-      s.push(remaining + 's');
-
-      return s.join(' ') + ' - ' + this.name;
-    },
-    buildTimeSegment:function(suffix, divisor, secondsRemaining, segments) {
-      var units = Math.floor(secondsRemaining / divisor);
-      if (units &gt; 0) {
-        segments.push(units + suffix);
-        return secondsRemaining % divisor;
-      }
-      return secondsRemaining;
-    }
-  };
-
-  $('#add-timer-form form').submit(function(){
-    var seconds = parseInt($('#secs').val()) +
-        (parseInt($('#mins').val()) * 60) +
-        (parseInt($('#hours').val()) * 60 * 60);
-    var timer = new Timer($('#timer-name').val(), seconds)
-    timers.push(timer);
-    UpdateLoop.start();
-    return false;
-  });
-});</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+<span class='line'>8</span>
+<span class='line'>9</span>
+<span class='line'>10</span>
+<span class='line'>11</span>
+<span class='line'>12</span>
+<span class='line'>13</span>
+<span class='line'>14</span>
+<span class='line'>15</span>
+<span class='line'>16</span>
+<span class='line'>17</span>
+<span class='line'>18</span>
+<span class='line'>19</span>
+<span class='line'>20</span>
+<span class='line'>21</span>
+<span class='line'>22</span>
+<span class='line'>23</span>
+<span class='line'>24</span>
+<span class='line'>25</span>
+<span class='line'>26</span>
+<span class='line'>27</span>
+<span class='line'>28</span>
+<span class='line'>29</span>
+<span class='line'>30</span>
+<span class='line'>31</span>
+<span class='line'>32</span>
+<span class='line'>33</span>
+<span class='line'>34</span>
+<span class='line'>35</span>
+<span class='line'>36</span>
+<span class='line'>37</span>
+<span class='line'>38</span>
+<span class='line'>39</span>
+<span class='line'>40</span>
+<span class='line'>41</span>
+<span class='line'>42</span>
+<span class='line'>43</span>
+<span class='line'>44</span>
+<span class='line'>45</span>
+<span class='line'>46</span>
+<span class='line'>47</span>
+<span class='line'>48</span>
+<span class='line'>49</span>
+<span class='line'>50</span>
+<span class='line'>51</span>
+<span class='line'>52</span>
+<span class='line'>53</span>
+<span class='line'>54</span>
+<span class='line'>55</span>
+<span class='line'>56</span>
+<span class='line'>57</span>
+<span class='line'>58</span>
+<span class='line'>59</span>
+<span class='line'>60</span>
+<span class='line'>61</span>
+<span class='line'>62</span>
+<span class='line'>63</span>
+<span class='line'>64</span>
+<span class='line'>65</span>
+<span class='line'>66</span>
+<span class='line'>67</span>
+<span class='line'>68</span>
+<span class='line'>69</span>
+<span class='line'>70</span>
+<span class='line'>71</span>
+<span class='line'>72</span>
+<span class='line'>73</span>
+<span class='line'>74</span>
+<span class='line'>75</span>
+<span class='line'>76</span>
+<span class='line'>77</span>
+<span class='line'>78</span>
+<span class='line'>79</span>
+<span class='line'>80</span>
+<span class='line'>81</span>
+<span class='line'>82</span>
+<span class='line'>83</span>
+<span class='line'>84</span>
+<span class='line'>85</span>
+<span class='line'>86</span>
+<span class='line'>87</span>
+<span class='line'>88</span>
+<span class='line'>89</span>
+<span class='line'>90</span>
+<span class='line'>91</span>
+<span class='line'>92</span>
+<span class='line'>93</span>
+<span class='line'>94</span>
+<span class='line'>95</span>
+<span class='line'>96</span>
+<span class='line'>97</span>
+<span class='line'>98</span>
+<span class='line'>99</span>
+<span class='line'>100</span>
+<span class='line'>101</span>
+<span class='line'>102</span>
+<span class='line'>103</span>
+</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="nx">$</span><span class="p">().</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</div><div class='line'>  <span class="kd">var</span> <span class="nx">timerList</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#timer-list&#39;</span><span class="p">);</span>
+</div><div class='line'>  <span class="kd">var</span> <span class="nx">timers</span> <span class="o">=</span> <span class="p">[];</span>
+</div><div class='line'>
+</div><div class='line'>  <span class="kd">var</span> <span class="nx">UpdateLoop</span> <span class="o">=</span> <span class="p">{</span>
+</div><div class='line'>    <span class="nx">start</span><span class="o">:</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</div><div class='line'>      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">started</span><span class="p">)</span> <span class="p">{</span>
+</div><div class='line'>        <span class="k">this</span><span class="p">.</span><span class="nx">started</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</div><div class='line'>        <span class="k">this</span><span class="p">.</span><span class="nx">interval</span> <span class="o">=</span> <span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</div><div class='line'>          <span class="nx">UpdateLoop</span><span class="p">.</span><span class="nx">update</span><span class="p">();</span>
+</div><div class='line'>        <span class="p">},</span><span class="mi">1000</span><span class="p">);</span>
+</div><div class='line'>      <span class="p">}</span>
+</div><div class='line'>    <span class="p">},</span>
+</div><div class='line'>    <span class="nx">update</span><span class="o">:</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</div><div class='line'>      <span class="k">if</span> <span class="p">(</span><span class="nx">timers</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</div><div class='line'>        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="k">in</span> <span class="nx">timers</span><span class="p">)</span> <span class="p">{</span>
+</div><div class='line'>          <span class="nx">timers</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">update</span><span class="p">();</span>
+</div><div class='line'>        <span class="p">}</span>
+</div><div class='line'>
+</div><div class='line'>      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</div><div class='line'>        <span class="nx">clearInterval</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">interval</span><span class="p">);</span>
+</div><div class='line'>        <span class="k">this</span><span class="p">.</span><span class="nx">interval</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+</div><div class='line'>        <span class="k">this</span><span class="p">.</span><span class="nx">started</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+</div><div class='line'>      <span class="p">}</span>
+</div><div class='line'>    <span class="p">}</span>
+</div><div class='line'>  <span class="p">};</span>
+</div><div class='line'>
+</div><div class='line'>  <span class="kd">var</span> <span class="nx">Timer</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">seconds</span><span class="p">)</span> <span class="p">{</span>
+</div><div class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+</div><div class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">seconds</span> <span class="o">=</span> <span class="nx">seconds</span><span class="p">;</span>
+</div><div class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">started</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getTime</span><span class="p">();</span>
+</div><div class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">finished</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+</div><div class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">start</span><span class="p">();</span>
+</div><div class='line'>  <span class="p">};</span>
+</div><div class='line'>  <span class="nx">Timer</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="p">{</span>
+</div><div class='line'>    <span class="nx">start</span><span class="o">:</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</div><div class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">el</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;&lt;li&gt;&quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">buildDisplayString</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;&lt;/li&gt;&quot;</span><span class="p">);</span>
+</div><div class='line'>      <span class="nx">timerList</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">);</span>
+</div><div class='line'>    <span class="p">},</span>
+</div><div class='line'>    <span class="nx">update</span><span class="o">:</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</div><div class='line'>      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">finished</span><span class="p">)</span> <span class="p">{</span>
+</div><div class='line'>        <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">check</span><span class="p">())</span> <span class="p">{</span>
+</div><div class='line'>          <span class="kd">var</span> <span class="nx">timer</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+</div><div class='line'>          <span class="kd">var</span> <span class="nx">removeLink</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;a href=&quot;#&quot;&gt;remove&lt;/a&gt;&#39;</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</div><div class='line'>            <span class="nx">timer</span><span class="p">.</span><span class="nx">remove</span><span class="p">();</span>
+</div><div class='line'>          <span class="p">});</span>
+</div><div class='line'>          <span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="s1">&#39;ALARM!!! - &#39;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span><span class="p">);</span>
+</div><div class='line'>          <span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">removeLink</span><span class="p">);</span>
+</div><div class='line'>        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</div><div class='line'>          <span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">buildDisplayString</span><span class="p">());</span>
+</div><div class='line'>        <span class="p">}</span>
+</div><div class='line'>      <span class="p">}</span>
+</div><div class='line'>    <span class="p">},</span>
+</div><div class='line'>    <span class="nx">remove</span><span class="o">:</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</div><div class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">remove</span><span class="p">();</span>
+</div><div class='line'>      <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="k">in</span> <span class="nx">timers</span><span class="p">)</span> <span class="p">{</span>
+</div><div class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nx">timers</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">==</span> <span class="k">this</span><span class="p">)</span> <span class="p">{</span>
+</div><div class='line'>          <span class="nx">timers</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+</div><div class='line'>          <span class="k">break</span><span class="p">;</span>
+</div><div class='line'>        <span class="p">}</span>
+</div><div class='line'>      <span class="p">}</span>
+</div><div class='line'>    <span class="p">},</span>
+</div><div class='line'>    <span class="nx">check</span><span class="o">:</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</div><div class='line'>      <span class="kd">var</span> <span class="nx">remaining</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">calculateRemaining</span><span class="p">();</span>
+</div><div class='line'>      <span class="k">if</span> <span class="p">(</span><span class="nx">remaining</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</div><div class='line'>        <span class="k">this</span><span class="p">.</span><span class="nx">finished</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</div><div class='line'>        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+</div><div class='line'>      <span class="p">}</span>
+</div><div class='line'>      <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+</div><div class='line'>    <span class="p">},</span>
+</div><div class='line'>    <span class="nx">calculateRemaining</span><span class="o">:</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</div><div class='line'>      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">seconds</span> <span class="o">-</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">((</span><span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getTime</span><span class="p">()</span> <span class="o">-</span> <span class="k">this</span><span class="p">.</span><span class="nx">started</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">);</span>
+</div><div class='line'>    <span class="p">},</span>
+</div><div class='line'>    <span class="nx">buildDisplayString</span><span class="o">:</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</div><div class='line'>      <span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="p">[];</span>
+</div><div class='line'>
+</div><div class='line'>      <span class="kd">var</span> <span class="nx">remaining</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">calculateRemaining</span><span class="p">();</span>
+</div><div class='line'>      <span class="nx">remaining</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">buildTimeSegment</span><span class="p">(</span><span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="mi">60</span><span class="o">*</span><span class="mi">60</span><span class="p">,</span> <span class="nx">remaining</span><span class="p">,</span> <span class="nx">s</span><span class="p">);</span>
+</div><div class='line'>      <span class="nx">remaining</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">buildTimeSegment</span><span class="p">(</span><span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="nx">remaining</span><span class="p">,</span> <span class="nx">s</span><span class="p">);</span>
+</div><div class='line'>      <span class="nx">s</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">remaining</span> <span class="o">+</span> <span class="s1">&#39;s&#39;</span><span class="p">);</span>
+</div><div class='line'>
+</div><div class='line'>      <span class="k">return</span> <span class="nx">s</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; - &#39;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+</div><div class='line'>    <span class="p">},</span>
+</div><div class='line'>    <span class="nx">buildTimeSegment</span><span class="o">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">suffix</span><span class="p">,</span> <span class="nx">divisor</span><span class="p">,</span> <span class="nx">secondsRemaining</span><span class="p">,</span> <span class="nx">segments</span><span class="p">)</span> <span class="p">{</span>
+</div><div class='line'>      <span class="kd">var</span> <span class="nx">units</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">secondsRemaining</span> <span class="o">/</span> <span class="nx">divisor</span><span class="p">);</span>
+</div><div class='line'>      <span class="k">if</span> <span class="p">(</span><span class="nx">units</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</div><div class='line'>        <span class="nx">segments</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">units</span> <span class="o">+</span> <span class="nx">suffix</span><span class="p">);</span>
+</div><div class='line'>        <span class="k">return</span> <span class="nx">secondsRemaining</span> <span class="o">%</span> <span class="nx">divisor</span><span class="p">;</span>
+</div><div class='line'>      <span class="p">}</span>
+</div><div class='line'>      <span class="k">return</span> <span class="nx">secondsRemaining</span><span class="p">;</span>
+</div><div class='line'>    <span class="p">}</span>
+</div><div class='line'>  <span class="p">};</span>
+</div><div class='line'>
+</div><div class='line'>  <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#add-timer-form form&#39;</span><span class="p">).</span><span class="nx">submit</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</div><div class='line'>    <span class="kd">var</span> <span class="nx">seconds</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#secs&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">())</span> <span class="o">+</span>
+</div><div class='line'>        <span class="p">(</span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#mins&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">())</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span> <span class="o">+</span>
+</div><div class='line'>        <span class="p">(</span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#hours&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">())</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span><span class="p">);</span>
+</div><div class='line'>    <span class="kd">var</span> <span class="nx">timer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Timer</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#timer-name&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">(),</span> <span class="nx">seconds</span><span class="p">)</span>
+</div><div class='line'>    <span class="nx">timers</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">timer</span><span class="p">);</span>
+</div><div class='line'>    <span class="nx">UpdateLoop</span><span class="p">.</span><span class="nx">start</span><span class="p">();</span>
+</div><div class='line'>    <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+</div><div class='line'>  <span class="p">});</span>
+</div><div class='line'><span class="p">});</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>I now have a basic timer application.  Now for the HTML5 goodness.</p>
@@ -544,70 +692,116 @@
 
 <p>First, I update the <em>Timer</em> object so it can be converted to/from a save state:</p>
 
-<div>
-  <pre>
-    <code class='javascript'>var Timer = function(name, seconds, started, finished) {
-  this.name = name;
-  this.seconds = seconds;
-  this.started = started ? started : new Date().getTime();
-  this.finished = finished || false;
-  this.start();
-};
-Timer.prototype = {
-  // the rest of the Timer prototype...
-
-  toObject:function() {
-    return {
-      name: this.name,
-      seconds: this.seconds,
-      started: this.started,
-      finished: this.finished
-    };
-  }
-}</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+<span class='line'>8</span>
+<span class='line'>9</span>
+<span class='line'>10</span>
+<span class='line'>11</span>
+<span class='line'>12</span>
+<span class='line'>13</span>
+<span class='line'>14</span>
+<span class='line'>15</span>
+<span class='line'>16</span>
+<span class='line'>17</span>
+<span class='line'>18</span>
+<span class='line'>19</span>
+</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="kd">var</span> <span class="nx">Timer</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">seconds</span><span class="p">,</span> <span class="nx">started</span><span class="p">,</span> <span class="nx">finished</span><span class="p">)</span> <span class="p">{</span>
+</div><div class='line'>  <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+</div><div class='line'>  <span class="k">this</span><span class="p">.</span><span class="nx">seconds</span> <span class="o">=</span> <span class="nx">seconds</span><span class="p">;</span>
+</div><div class='line'>  <span class="k">this</span><span class="p">.</span><span class="nx">started</span> <span class="o">=</span> <span class="nx">started</span> <span class="o">?</span> <span class="nx">started</span> <span class="o">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getTime</span><span class="p">();</span>
+</div><div class='line'>  <span class="k">this</span><span class="p">.</span><span class="nx">finished</span> <span class="o">=</span> <span class="nx">finished</span> <span class="o">||</span> <span class="kc">false</span><span class="p">;</span>
+</div><div class='line'>  <span class="k">this</span><span class="p">.</span><span class="nx">start</span><span class="p">();</span>
+</div><div class='line'><span class="p">};</span>
+</div><div class='line'><span class="nx">Timer</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="p">{</span>
+</div><div class='line'>  <span class="c1">// the rest of the Timer prototype...</span>
+</div><div class='line'>
+</div><div class='line'>  <span class="nx">toObject</span><span class="o">:</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</div><div class='line'>    <span class="k">return</span> <span class="p">{</span>
+</div><div class='line'>      <span class="nx">name</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span>
+</div><div class='line'>      <span class="nx">seconds</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">seconds</span><span class="p">,</span>
+</div><div class='line'>      <span class="nx">started</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">started</span><span class="p">,</span>
+</div><div class='line'>      <span class="nx">finished</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">finished</span>
+</div><div class='line'>    <span class="p">};</span>
+</div><div class='line'>  <span class="p">}</span>
+</div><div class='line'><span class="p">}</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>Then I save the timer array every time a new timer is created, and load the stored timers when the application starts:</p>
 
-<div>
-  <pre>
-    <code class='javascript'>$('#add-timer-form form').submit(function(){
-  var seconds = parseInt($('#secs').val()) +
-      (parseInt($('#mins').val()) * 60) +
-      (parseInt($('#hours').val()) * 60 * 60);
-
-  var timer = new Timer($('#timer-name').val(), seconds)
-  timers.push(timer);
-
-  // store timers
-  if ('localStorage' in window) {
-    var arr = [];
-    for (var i in timers) {
-      arr.push(timers[i].toObject());
-    }
-    window.localStorage.setItem('timers', JSON.stringify(arr));
-  }
-
-  UpdateLoop.start();
-  return false;
-});
-
-// load stored timers
-if ('localStorage' in window) {
-  var timersData = window.localStorage.getItem('timers');
-  if (timersData) {
-    var timersData = JSON.parse(timersData);
-    for (var i in timersData) {
-      var t = timersData[i];
-      timers.push(new Timer(t.name, t.seconds, t.started, t.finished));
-    }
-    UpdateLoop.start();
-  }
-}</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+<span class='line'>8</span>
+<span class='line'>9</span>
+<span class='line'>10</span>
+<span class='line'>11</span>
+<span class='line'>12</span>
+<span class='line'>13</span>
+<span class='line'>14</span>
+<span class='line'>15</span>
+<span class='line'>16</span>
+<span class='line'>17</span>
+<span class='line'>18</span>
+<span class='line'>19</span>
+<span class='line'>20</span>
+<span class='line'>21</span>
+<span class='line'>22</span>
+<span class='line'>23</span>
+<span class='line'>24</span>
+<span class='line'>25</span>
+<span class='line'>26</span>
+<span class='line'>27</span>
+<span class='line'>28</span>
+<span class='line'>29</span>
+<span class='line'>30</span>
+<span class='line'>31</span>
+<span class='line'>32</span>
+<span class='line'>33</span>
+</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#add-timer-form form&#39;</span><span class="p">).</span><span class="nx">submit</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</div><div class='line'>  <span class="kd">var</span> <span class="nx">seconds</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#secs&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">())</span> <span class="o">+</span>
+</div><div class='line'>      <span class="p">(</span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#mins&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">())</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span> <span class="o">+</span>
+</div><div class='line'>      <span class="p">(</span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#hours&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">())</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span><span class="p">);</span>
+</div><div class='line'>
+</div><div class='line'>  <span class="kd">var</span> <span class="nx">timer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Timer</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#timer-name&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">(),</span> <span class="nx">seconds</span><span class="p">)</span>
+</div><div class='line'>  <span class="nx">timers</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">timer</span><span class="p">);</span>
+</div><div class='line'>
+</div><div class='line'>  <span class="c1">// store timers</span>
+</div><div class='line'>  <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;localStorage&#39;</span> <span class="k">in</span> <span class="nb">window</span><span class="p">)</span> <span class="p">{</span>
+</div><div class='line'>    <span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[];</span>
+</div><div class='line'>    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="k">in</span> <span class="nx">timers</span><span class="p">)</span> <span class="p">{</span>
+</div><div class='line'>      <span class="nx">arr</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">timers</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">toObject</span><span class="p">());</span>
+</div><div class='line'>    <span class="p">}</span>
+</div><div class='line'>    <span class="nb">window</span><span class="p">.</span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s1">&#39;timers&#39;</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">arr</span><span class="p">));</span>
+</div><div class='line'>  <span class="p">}</span>
+</div><div class='line'>
+</div><div class='line'>  <span class="nx">UpdateLoop</span><span class="p">.</span><span class="nx">start</span><span class="p">();</span>
+</div><div class='line'>  <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+</div><div class='line'><span class="p">});</span>
+</div><div class='line'>
+</div><div class='line'><span class="c1">// load stored timers</span>
+</div><div class='line'><span class="k">if</span> <span class="p">(</span><span class="s1">&#39;localStorage&#39;</span> <span class="k">in</span> <span class="nb">window</span><span class="p">)</span> <span class="p">{</span>
+</div><div class='line'>  <span class="kd">var</span> <span class="nx">timersData</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s1">&#39;timers&#39;</span><span class="p">);</span>
+</div><div class='line'>  <span class="k">if</span> <span class="p">(</span><span class="nx">timersData</span><span class="p">)</span> <span class="p">{</span>
+</div><div class='line'>    <span class="kd">var</span> <span class="nx">timersData</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">timersData</span><span class="p">);</span>
+</div><div class='line'>    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="k">in</span> <span class="nx">timersData</span><span class="p">)</span> <span class="p">{</span>
+</div><div class='line'>      <span class="kd">var</span> <span class="nx">t</span> <span class="o">=</span> <span class="nx">timersData</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+</div><div class='line'>      <span class="nx">timers</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="k">new</span> <span class="nx">Timer</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span> <span class="nx">t</span><span class="p">.</span><span class="nx">seconds</span><span class="p">,</span> <span class="nx">t</span><span class="p">.</span><span class="nx">started</span><span class="p">,</span> <span class="nx">t</span><span class="p">.</span><span class="nx">finished</span><span class="p">));</span>
+</div><div class='line'>    <span class="p">}</span>
+</div><div class='line'>    <span class="nx">UpdateLoop</span><span class="p">.</span><span class="nx">start</span><span class="p">();</span>
+</div><div class='line'>  <span class="p">}</span>
+</div><div class='line'><span class="p">}</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>Some notes about the <strong>Local Storage API</strong>:</p>
@@ -692,36 +886,46 @@ if ('localStorage' in window) {
 
 <p>So what if you can write an application, still all in client-side JavaScript, but store data centrally so it can be accessible on all devices and browsers?  This is what <a href="http://stor.io">Stor.IO</a> does.  Here&#8217;s some example code:</p>
 
-<div>
-  <pre>
-    <code class='javascript'>&lt;script src=&quot;http://stor.io/app_storage.js&quot;&gt;&lt;/script&gt;
-&lt;script&gt;
-  window.appStorage.$.connect({email: 'my@emailaddress.com'});
-  //window.appStorage.$.connect({twitter:true}); // use Twitter OAuth
-  window.appStorage.setItem('foo', 'bar');
-  window.appStorage.getItem('foo'); // &quot;bar&quot;
-  window.appStorage.foo; // &quot;bar&quot;
-&lt;/script&gt;</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+<span class='line'>8</span>
+</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">src</span><span class="o">=</span><span class="s2">&quot;http://stor.io/app_storage.js&quot;</span><span class="o">&gt;&lt;</span><span class="err">/script&gt;</span>
+</div><div class='line'><span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+</div><div class='line'>  <span class="nb">window</span><span class="p">.</span><span class="nx">appStorage</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">connect</span><span class="p">({</span><span class="nx">email</span><span class="o">:</span> <span class="s1">&#39;my@emailaddress.com&#39;</span><span class="p">});</span>
+</div><div class='line'>  <span class="c1">//window.appStorage.$.connect({twitter:true}); // use Twitter OAuth</span>
+</div><div class='line'>  <span class="nb">window</span><span class="p">.</span><span class="nx">appStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">);</span>
+</div><div class='line'>  <span class="nb">window</span><span class="p">.</span><span class="nx">appStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">);</span> <span class="c1">// &quot;bar&quot;</span>
+</div><div class='line'>  <span class="nb">window</span><span class="p">.</span><span class="nx">appStorage</span><span class="p">.</span><span class="nx">foo</span><span class="p">;</span> <span class="c1">// &quot;bar&quot;</span>
+</div><div class='line'><span class="o">&lt;</span><span class="err">/script&gt;</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>Including the <em>app_storage.js</em> script creates the <strong>appStorage</strong> object on the browser window.  Next, you call the <em>connect</em> method on the server object (<em>$</em>), passing in the identity of the user.  Currently, an email-only method of authenticating is available, as well as Twitter OAuth.   Once connected, the appStorage API behaves essentially like the localStorage API.  And it doesn&#8217;t force you to store strings like localStorage does, meaning you don&#8217;t need to serialize/deserialize objects to/from JSON.</p>
 
 <p>For reading data from Stor.IO, you&#8217;ll need to wait on the server to identify the user and retrieve their data, and there&#8217;s a <em>ready()</em> handler available for that:</p>
 
-<div>
-  <pre>
-    <code class='javascript'>&lt;script&gt;
-window.appStorage.$.ready(function(){
-  var tasks = window.appStorage.tasks;
-  for (var i=0; i&lt;tasks.length; i++) {
-    console.log(tasks[i].text);
-  }
-});
-&lt;/script&gt;</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+<span class='line'>8</span>
+</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+</div><div class='line'><span class="nb">window</span><span class="p">.</span><span class="nx">appStorage</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</div><div class='line'>  <span class="kd">var</span> <span class="nx">tasks</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">appStorage</span><span class="p">.</span><span class="nx">tasks</span><span class="p">;</span>
+</div><div class='line'>  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">tasks</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</div><div class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">tasks</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">text</span><span class="p">);</span>
+</div><div class='line'>  <span class="p">}</span>
+</div><div class='line'><span class="p">});</span>
+</div><div class='line'><span class="o">&lt;</span><span class="err">/script&gt;</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>Underneath, how Stor.IO works is that it creates an iframe and uses the <a href="http://ajaxian.com/archives/cross-window-messaging-with-html-5-postmessage">postMessage API</a> to work around the same origin policy that handicaps Ajax calls.  The server is Sinatra app with the data being stored in MongoDB.  The data is isolated by the user identity and the application path, which is a substring the current URL up to the first directory path, so http://localhost/app1 and http://localhost/app2 will actually hold different data sets.</p>
@@ -804,16 +1008,19 @@ window.appStorage.$.ready(function(){
 
 <p><a title="loader.js" href="http://gist.github.com/492124">Here&#8217;s the code</a>.  The script expects a <em>designs/</em> folder at the same level as the loader script, with a subfolder for each design document underneath.  A design folder should have a <em>.js</em> file for each view.  A view file looks like this:</p>
 
-<div>
-  <pre>
-    <code class='javascript'>design.view = {
-    map: function(doc) {
-        emit(doc.created_at, null);
-    },
-    reduce: '_count'
-};</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="nx">design</span><span class="p">.</span><span class="nx">view</span> <span class="o">=</span> <span class="p">{</span>
+</div><div class='line'>    <span class="nx">map</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">doc</span><span class="p">)</span> <span class="p">{</span>
+</div><div class='line'>        <span class="nx">emit</span><span class="p">(</span><span class="nx">doc</span><span class="p">.</span><span class="nx">created_at</span><span class="p">,</span> <span class="kc">null</span><span class="p">);</span>
+</div><div class='line'>    <span class="p">},</span>
+</div><div class='line'>    <span class="nx">reduce</span><span class="o">:</span> <span class="s1">&#39;_count&#39;</span>
+</div><div class='line'><span class="p">};</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p><a href="http://wiki.apache.org/couchdb/Document_Update_Handlers">CouchDB document update handlers</a> are supported as well by assigning a function to <strong>design.update</strong>.  Once your view files are ready, just run <strong>loader.js</strong> with the CouchDB database URL as the parameter:</p>
@@ -856,31 +1063,49 @@ window.appStorage.$.ready(function(){
 
 <p>Searching around, I found an CORS extension for Sinatra, which happened to be the framework I was using.  However, the extension didn&#8217;t properly implement the spec, nor did it support CORS preflighting (required for more complex AJAX requests).  So I rolled my own, but as a Rack Middleware.  Here&#8217;s an example of a Rackup that shows it in action (this example uses <a title="Rack::CORS Rubygem" href="http://rubygems.org/gems/rack-cors">Rack::CORS</a> in Sinatra app, but should be able to use it in any Rack compatible framework):</p>
 
-<div>
-  <pre>
-    <code class='ruby'>require 'sinatra'
-require 'rack/cors'
-
-use Rack::Cors do |config|
-  config.allow do |allow|
-    allow.origins '*'
-    allow.resource '/file/list_all/', :headers =&amp;gt; :any
-    allow.resource '/file/at/*',
-        :methods =&amp;gt; [:get, :post, :put, :delete],
-        :headers =&amp;gt; :any,
-        :max_age =&amp;gt; 0
-  end
-end
-
-get '/file/list_all/' do
-  #...
-end
-
-get '/file/at/*' do
-  #...
-end</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+<span class='line'>8</span>
+<span class='line'>9</span>
+<span class='line'>10</span>
+<span class='line'>11</span>
+<span class='line'>12</span>
+<span class='line'>13</span>
+<span class='line'>14</span>
+<span class='line'>15</span>
+<span class='line'>16</span>
+<span class='line'>17</span>
+<span class='line'>18</span>
+<span class='line'>19</span>
+<span class='line'>20</span>
+<span class='line'>21</span>
+</pre></td><td class='code' width='100%'><pre><code class='ruby'><div class='line'><span class="nb">require</span> <span class="s1">&#39;sinatra&#39;</span>
+</div><div class='line'><span class="nb">require</span> <span class="s1">&#39;rack/cors&#39;</span>
+</div><div class='line'>
+</div><div class='line'><span class="n">use</span> <span class="no">Rack</span><span class="o">::</span><span class="no">Cors</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+</div><div class='line'>  <span class="n">config</span><span class="o">.</span><span class="n">allow</span> <span class="k">do</span> <span class="o">|</span><span class="n">allow</span><span class="o">|</span>
+</div><div class='line'>    <span class="n">allow</span><span class="o">.</span><span class="n">origins</span> <span class="s1">&#39;*&#39;</span>
+</div><div class='line'>    <span class="n">allow</span><span class="o">.</span><span class="n">resource</span> <span class="s1">&#39;/file/list_all/&#39;</span><span class="p">,</span> <span class="ss">:headers</span> <span class="o">=&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="ss">:any</span>
+</div><div class='line'>    <span class="n">allow</span><span class="o">.</span><span class="n">resource</span> <span class="s1">&#39;/file/at/*&#39;</span><span class="p">,</span>
+</div><div class='line'>        <span class="ss">:methods</span> <span class="o">=&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="o">[</span><span class="ss">:get</span><span class="p">,</span> <span class="ss">:post</span><span class="p">,</span> <span class="ss">:put</span><span class="p">,</span> <span class="ss">:delete</span><span class="o">]</span><span class="p">,</span>
+</div><div class='line'>        <span class="ss">:headers</span> <span class="o">=&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="ss">:any</span><span class="p">,</span>
+</div><div class='line'>        <span class="ss">:max_age</span> <span class="o">=&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="mi">0</span>
+</div><div class='line'>  <span class="k">end</span>
+</div><div class='line'><span class="k">end</span>
+</div><div class='line'>
+</div><div class='line'><span class="n">get</span> <span class="s1">&#39;/file/list_all/&#39;</span> <span class="k">do</span>
+</div><div class='line'>  <span class="c1">#...</span>
+</div><div class='line'><span class="k">end</span>
+</div><div class='line'>
+</div><div class='line'><span class="n">get</span> <span class="s1">&#39;/file/at/*&#39;</span> <span class="k">do</span>
+</div><div class='line'>  <span class="c1">#...</span>
+</div><div class='line'><span class="k">end</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>To get going with Rack::CORS, just install the rack-cors Gem.  To check out the source, see <a href="http://github.com/cyu/rack-cors">the project on Github</a>.</p>
@@ -931,43 +1156,51 @@ end</code>
 
 <p>Next, you&#8217;ll need to configure Apache with this new virtual host.  Fortunately, the default Apache config has this partially setup.  Open up <em>/etc/apache2/httpd.conf</em> and uncomment the following Include:</p>
 
-<div>
-  <pre>
-    <code class='apache'># Virtual hosts
-#Include /private/etc/apache2/extra/httpd-vhosts.conf</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+</pre></td><td class='code' width='100%'><pre><code class='apache'><div class='line'><span class="c"># Virtual hosts</span>
+</div><div class='line'><span class="c">#Include /private/etc/apache2/extra/httpd-vhosts.conf</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>Now, we need to add our virtual host to the <em>httpd-vhosts.conf </em>file referenced above.  The file already had a couple of sample configuration in it, but I commented out those and added the following:</p>
 
-<div>
-  <pre>
-    <code class='apache'>&lt;VirtualHost *:80&gt;
-    DocumentRoot &quot;/Library/WebServer/Documents&quot;
-    ServerName localhost
-&lt;/VirtualHost&gt;
-
-&lt;VirtualHost *:80&gt;
-    DocumentRoot &quot;/usr/docs/devsite.local&quot;
-    ServerName devsite.local
-&lt;/VirtualHost&gt;</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+<span class='line'>8</span>
+<span class='line'>9</span>
+</pre></td><td class='code' width='100%'><pre><code class='apache'><div class='line'><span class="nt">&lt;VirtualHost</span> <span class="s">*:80</span><span class="nt">&gt;</span>
+</div><div class='line'>    <span class="nb">DocumentRoot</span> <span class="s2">&quot;/Library/WebServer/Documents&quot;</span>
+</div><div class='line'>    <span class="nb">ServerName</span> localhost
+</div><div class='line'><span class="nt">&lt;/VirtualHost&gt;</span>
+</div><div class='line'>
+</div><div class='line'><span class="nt">&lt;VirtualHost</span> <span class="s">*:80</span><span class="nt">&gt;</span>
+</div><div class='line'>    <span class="nb">DocumentRoot</span> <span class="s2">&quot;/usr/docs/devsite.local&quot;</span>
+</div><div class='line'>    <span class="nb">ServerName</span> devsite.local
+</div><div class='line'><span class="nt">&lt;/VirtualHost&gt;</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>This first entry will map localhost to its default document location (without it http://localhost won&#8217;t work correctly).  The second entry maps my new domain.  Additionally, you&#8217;ll want to make sure files in your new docs directory have adequate access permissions.  I ended adding a new Directory section to <em>httpd-vhosts.conf </em>file:</p>
 
-<div>
-  <pre>
-    <code class='apache'>&lt;Directory &quot;/usr/docs/devsite.local&quot;&gt;
-    Options Indexes FollowSymLinks MultiViews
-    AllowOverride None
-    Order allow,deny
-    Allow from all
-&lt;/Directory&gt;</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+</pre></td><td class='code' width='100%'><pre><code class='apache'><div class='line'><span class="nt">&lt;Directory</span> <span class="s">&quot;/usr/docs/devsite.local&quot;</span><span class="nt">&gt;</span>
+</div><div class='line'>    <span class="nb">Options</span> Indexes FollowSymLinks MultiViews
+</div><div class='line'>    <span class="nb">AllowOverride</span> <span class="k">None</span>
+</div><div class='line'>    <span class="nb">Order</span> allow,deny
+</div><div class='line'>    <span class="nb">Allow</span> from <span class="k">all</span>
+</div><div class='line'><span class="nt">&lt;/Directory&gt;</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>Now all you have to do is put your web files in <em>/usr/docs/devsite.local</em>.  I originally had my new local domain map to <em>&lt;user dir&gt;/Sites/devsite.local</em>, but changed it because I would have to make sure Apache could access to all the directories leading up to those docs. So instead I just symlinked my http docs from my user directory into <em>/usr/docs.</em></p>
@@ -1003,13 +1236,13 @@ end</code>
 
 <p>A couple of days ago, <a href="http://paulstamatiou.com">Paul</a> brought to my attention that <a href="http://linuxmafia.com/faq/Admin/ld-lib-path.html">using LD_LIBRARY_PATH isn&#8217;t a good thing</a>.  While I didn&#8217;t necessarily think it was a big deal, it did peak my curiosity on how I would get this work without it.  Here&#8217;s the command I finally used to get it to work:</p>
 
-<div>
-  <pre>
-    <code class='bash'>sudo env PATH=&quot;/opt/curl/bin:$PATH&quot; gem install toland-patron \
-    -v &quot;0.4.1&quot; --source http://gems.github.com \
-    -- --with-ldflags=&quot;-Wl,-R/opt/curl/lib&quot;</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+</pre></td><td class='code' width='100%'><pre><code class='bash'><div class='line'>sudo env <span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;/opt/curl/bin:$PATH&quot;</span> gem install toland-patron <span class="se">\</span>
+</div><div class='line'>    -v <span class="s2">&quot;0.4.1&quot;</span> --source http://gems.github.com <span class="se">\</span>
+</div><div class='line'>    -- --with-ldflags<span class="o">=</span><span class="s2">&quot;-Wl,-R/opt/curl/lib&quot;</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>The key part is the <strong>&#8211;with-ldflags</strong> option at the very end.  The <strong>-Wl,-R&lt;path&gt;</strong> option adds the given path to the list of paths the linker will use to find libraries at runtime.  Hopefully, someone will find this information useful, since I couldn&#8217;t find this information myself on the &#8216;nets anywhere.</p>

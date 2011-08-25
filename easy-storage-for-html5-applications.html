@@ -117,36 +117,46 @@
 
 <p>So what if you can write an application, still all in client-side JavaScript, but store data centrally so it can be accessible on all devices and browsers?  This is what <a href="http://stor.io">Stor.IO</a> does.  Here&#8217;s some example code:</p>
 
-<div>
-  <pre>
-    <code class='javascript'>&lt;script src=&quot;http://stor.io/app_storage.js&quot;&gt;&lt;/script&gt;
-&lt;script&gt;
-  window.appStorage.$.connect({email: 'my@emailaddress.com'});
-  //window.appStorage.$.connect({twitter:true}); // use Twitter OAuth
-  window.appStorage.setItem('foo', 'bar');
-  window.appStorage.getItem('foo'); // &quot;bar&quot;
-  window.appStorage.foo; // &quot;bar&quot;
-&lt;/script&gt;</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+<span class='line'>8</span>
+</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">src</span><span class="o">=</span><span class="s2">&quot;http://stor.io/app_storage.js&quot;</span><span class="o">&gt;&lt;</span><span class="err">/script&gt;</span>
+</div><div class='line'><span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+</div><div class='line'>  <span class="nb">window</span><span class="p">.</span><span class="nx">appStorage</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">connect</span><span class="p">({</span><span class="nx">email</span><span class="o">:</span> <span class="s1">&#39;my@emailaddress.com&#39;</span><span class="p">});</span>
+</div><div class='line'>  <span class="c1">//window.appStorage.$.connect({twitter:true}); // use Twitter OAuth</span>
+</div><div class='line'>  <span class="nb">window</span><span class="p">.</span><span class="nx">appStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">);</span>
+</div><div class='line'>  <span class="nb">window</span><span class="p">.</span><span class="nx">appStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">);</span> <span class="c1">// &quot;bar&quot;</span>
+</div><div class='line'>  <span class="nb">window</span><span class="p">.</span><span class="nx">appStorage</span><span class="p">.</span><span class="nx">foo</span><span class="p">;</span> <span class="c1">// &quot;bar&quot;</span>
+</div><div class='line'><span class="o">&lt;</span><span class="err">/script&gt;</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>Including the <em>app_storage.js</em> script creates the <strong>appStorage</strong> object on the browser window.  Next, you call the <em>connect</em> method on the server object (<em>$</em>), passing in the identity of the user.  Currently, an email-only method of authenticating is available, as well as Twitter OAuth.   Once connected, the appStorage API behaves essentially like the localStorage API.  And it doesn&#8217;t force you to store strings like localStorage does, meaning you don&#8217;t need to serialize/deserialize objects to/from JSON.</p>
 
 <p>For reading data from Stor.IO, you&#8217;ll need to wait on the server to identify the user and retrieve their data, and there&#8217;s a <em>ready()</em> handler available for that:</p>
 
-<div>
-  <pre>
-    <code class='javascript'>&lt;script&gt;
-window.appStorage.$.ready(function(){
-  var tasks = window.appStorage.tasks;
-  for (var i=0; i&lt;tasks.length; i++) {
-    console.log(tasks[i].text);
-  }
-});
-&lt;/script&gt;</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+<span class='line'>8</span>
+</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+</div><div class='line'><span class="nb">window</span><span class="p">.</span><span class="nx">appStorage</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</div><div class='line'>  <span class="kd">var</span> <span class="nx">tasks</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">appStorage</span><span class="p">.</span><span class="nx">tasks</span><span class="p">;</span>
+</div><div class='line'>  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">tasks</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</div><div class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">tasks</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">text</span><span class="p">);</span>
+</div><div class='line'>  <span class="p">}</span>
+</div><div class='line'><span class="p">});</span>
+</div><div class='line'><span class="o">&lt;</span><span class="err">/script&gt;</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>Underneath, how Stor.IO works is that it creates an iframe and uses the <a href="http://ajaxian.com/archives/cross-window-messaging-with-html-5-postmessage">postMessage API</a> to work around the same origin policy that handicaps Ajax calls.  The server is Sinatra app with the data being stored in MongoDB.  The data is isolated by the user identity and the application path, which is a substring the current URL up to the first directory path, so http://localhost/app1 and http://localhost/app2 will actually hold different data sets.</p>

@@ -529,36 +529,59 @@
 
 <p>Here&#8217;s what&#8217;s the plugin class should look like:</p>
 
-<div>
-  <pre>
-    <code class='ruby'>module Beast
-  module Plugins
-    class StyleEditor &lt; Beast::Plugin
-      author 'Calvin Yu - boardista.com'
-      version '0001'
-      homepage 'http://boardista.com'
-      notes 'Style Editing Support'
-
-      %w( controllers helpers models ).each do |dir|
-        path = File.join(plugin_path, 'app', dir)
-        Dependencies.load_paths &amp;lt;&amp;lt; File.expand_path(path) if File.exist?(path)
-      end
-
-      def initialize
-        super
-        ApplicationController.prepend_view_path File.join(StyleEditor::plugin_path, 'app', 'views')
-        # Patch Beast code here.
-      end
-
-      def install
-        super
-        # Run any install processes here.
-      end
-    end # end StyleEditor class
-  end # end Plugins module
-end # end Beast module</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+<span class='line'>8</span>
+<span class='line'>9</span>
+<span class='line'>10</span>
+<span class='line'>11</span>
+<span class='line'>12</span>
+<span class='line'>13</span>
+<span class='line'>14</span>
+<span class='line'>15</span>
+<span class='line'>16</span>
+<span class='line'>17</span>
+<span class='line'>18</span>
+<span class='line'>19</span>
+<span class='line'>20</span>
+<span class='line'>21</span>
+<span class='line'>22</span>
+<span class='line'>23</span>
+<span class='line'>24</span>
+<span class='line'>25</span>
+<span class='line'>26</span>
+</pre></td><td class='code' width='100%'><pre><code class='ruby'><div class='line'><span class="k">module</span> <span class="nn">Beast</span>
+</div><div class='line'>  <span class="k">module</span> <span class="nn">Plugins</span>
+</div><div class='line'>    <span class="k">class</span> <span class="nc">StyleEditor</span> <span class="o">&lt;</span> <span class="no">Beast</span><span class="o">::</span><span class="no">Plugin</span>
+</div><div class='line'>      <span class="n">author</span> <span class="s1">&#39;Calvin Yu - boardista.com&#39;</span>
+</div><div class='line'>      <span class="n">version</span> <span class="s1">&#39;0001&#39;</span>
+</div><div class='line'>      <span class="n">homepage</span> <span class="s1">&#39;http://boardista.com&#39;</span>
+</div><div class='line'>      <span class="n">notes</span> <span class="s1">&#39;Style Editing Support&#39;</span>
+</div><div class='line'>
+</div><div class='line'>      <span class="sx">%w( controllers helpers models )</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">dir</span><span class="o">|</span>
+</div><div class='line'>        <span class="n">path</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">plugin_path</span><span class="p">,</span> <span class="s1">&#39;app&#39;</span><span class="p">,</span> <span class="n">dir</span><span class="p">)</span>
+</div><div class='line'>        <span class="no">Dependencies</span><span class="o">.</span><span class="n">load_paths</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="no">File</span><span class="o">.</span><span class="n">expand_path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">if</span> <span class="no">File</span><span class="o">.</span><span class="n">exist?</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+</div><div class='line'>      <span class="k">end</span>
+</div><div class='line'>
+</div><div class='line'>      <span class="k">def</span> <span class="nf">initialize</span>
+</div><div class='line'>        <span class="k">super</span>
+</div><div class='line'>        <span class="no">ApplicationController</span><span class="o">.</span><span class="n">prepend_view_path</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">StyleEditor</span><span class="o">::</span><span class="n">plugin_path</span><span class="p">,</span> <span class="s1">&#39;app&#39;</span><span class="p">,</span> <span class="s1">&#39;views&#39;</span><span class="p">)</span>
+</div><div class='line'>        <span class="c1"># Patch Beast code here.</span>
+</div><div class='line'>      <span class="k">end</span>
+</div><div class='line'>
+</div><div class='line'>      <span class="k">def</span> <span class="nf">install</span>
+</div><div class='line'>        <span class="k">super</span>
+</div><div class='line'>        <span class="c1"># Run any install processes here.</span>
+</div><div class='line'>      <span class="k">end</span>
+</div><div class='line'>    <span class="k">end</span> <span class="c1"># end StyleEditor class</span>
+</div><div class='line'>  <span class="k">end</span> <span class="c1"># end Plugins module</span>
+</div><div class='line'><span class="k">end</span> <span class="c1"># end Beast module</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>You can see what <a href="http://svn.codeeg.com/beast/style_editor/lib/beast/plugins/style_editor.rb">the final source looks like here</a>.  Here are some things to note about this class:</p>
@@ -577,12 +600,11 @@ end # end Beast module</code>
 
 <p>I needed to create some new routes for my <em>StylesController</em>, so I used the <em>route</em> method of the <em>Beast::Plugin</em> class to install them:</p>
 
-<div>
-  <pre>
-    <code class='ruby'># add this within the class scope of the StyleEditor
-route :resources, 'styles'</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+</pre></td><td class='code' width='100%'><pre><code class='ruby'><div class='line'><span class="c1"># add this within the class scope of the StyleEditor</span>
+</div><div class='line'><span class="n">route</span> <span class="ss">:resources</span><span class="p">,</span> <span class="s1">&#39;styles&#39;</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>I&#8217;m using the RESTful syntax to creating routes here, but you can also use <em>:connect</em> and named routes as well.</p>
@@ -592,31 +614,49 @@ route :resources, 'styles'</code>
 
 <p>To update the Beast Schema, all I needed to do is to create a Schema class within the scope of your plugin class:</p>
 
-<div>
-  <pre>
-    <code class='ruby'>class Schema &lt; ActiveRecord::Migration
-  def self.install
-    create_table :style_options do |t|
-      t.string :name
-      t.string :value
-      t.integer :style_id
-    end
-
-    create_table :styles do |t|
-      t.string :name
-      t.string :template_name
-      t.boolean :active
-      t.timestamps
-    end
-  end
-
-  def self.uninstall
-    drop_table :styles
-    drop_table :style_options
-  end
-end # end Schema class</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+<span class='line'>8</span>
+<span class='line'>9</span>
+<span class='line'>10</span>
+<span class='line'>11</span>
+<span class='line'>12</span>
+<span class='line'>13</span>
+<span class='line'>14</span>
+<span class='line'>15</span>
+<span class='line'>16</span>
+<span class='line'>17</span>
+<span class='line'>18</span>
+<span class='line'>19</span>
+<span class='line'>20</span>
+<span class='line'>21</span>
+</pre></td><td class='code' width='100%'><pre><code class='ruby'><div class='line'><span class="k">class</span> <span class="nc">Schema</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span>
+</div><div class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">install</span>
+</div><div class='line'>    <span class="n">create_table</span> <span class="ss">:style_options</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+</div><div class='line'>      <span class="n">t</span><span class="o">.</span><span class="n">string</span> <span class="ss">:name</span>
+</div><div class='line'>      <span class="n">t</span><span class="o">.</span><span class="n">string</span> <span class="ss">:value</span>
+</div><div class='line'>      <span class="n">t</span><span class="o">.</span><span class="n">integer</span> <span class="ss">:style_id</span>
+</div><div class='line'>    <span class="k">end</span>
+</div><div class='line'>
+</div><div class='line'>    <span class="n">create_table</span> <span class="ss">:styles</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+</div><div class='line'>      <span class="n">t</span><span class="o">.</span><span class="n">string</span> <span class="ss">:name</span>
+</div><div class='line'>      <span class="n">t</span><span class="o">.</span><span class="n">string</span> <span class="ss">:template_name</span>
+</div><div class='line'>      <span class="n">t</span><span class="o">.</span><span class="n">boolean</span> <span class="ss">:active</span>
+</div><div class='line'>      <span class="n">t</span><span class="o">.</span><span class="n">timestamps</span>
+</div><div class='line'>    <span class="k">end</span>
+</div><div class='line'>  <span class="k">end</span>
+</div><div class='line'>
+</div><div class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">uninstall</span>
+</div><div class='line'>    <span class="n">drop_table</span> <span class="ss">:styles</span>
+</div><div class='line'>    <span class="n">drop_table</span> <span class="ss">:style_options</span>
+</div><div class='line'>  <span class="k">end</span>
+</div><div class='line'><span class="k">end</span> <span class="c1"># end Schema class</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>The code in <em>install/uninstall</em> methods will work just like the <em>up/down</em> methods in a typical migration class.  There is an issue where there&#8217;s no support for handling db changes overtime &#8211; hopefully someone will find a nice way to handle this (any takers?).</p>
@@ -626,11 +666,9 @@ end # end Schema class</code>
 
 <p>At some point, you&#8217;ll want to do some quick tests to make sure your plugin changes are working as you expect them to, and try to test them from the console.  If you have tried to this already, you&#8217;ll quickly find that your changes for some reason won&#8217;t work.  Don&#8217;t fret, the reason why it doesn&#8217;t work is because the plugins aren&#8217;t initialize until the <em>Dispatcher</em> receives its first request.  So, if you do want to test your changes in the console, you&#8217;ll need to run this command first:</p>
 
-<div>
-  <pre>
-    <code class='ruby'>Dispatcher.send :prepare_application</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class='ruby'><div class='line'><span class="no">Dispatcher</span><span class="o">.</span><span class="n">send</span> <span class="ss">:prepare_application</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 
@@ -640,11 +678,9 @@ end # end Schema class</code>
 
 <p>Once you&#8217;re done with your plugin, you&#8217;ll need to install it.  This step is pretty easy.  First, install your beast plugins into <em>vendor/beast</em>, then run the plugin install method:</p>
 
-<div>
-  <pre>
-    <code class='bash'>script/runner 'Beast::Plugins::StyleEditor.install'</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class='bash'><div class='line'>script/runner <span class="s1">&#39;Beast::Plugins::StyleEditor.install&#39;</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>Some plugins might have some additional installation instructions, so I would suggest looking at the <em>README</em> file (and if you&#8217;re developing on a plugin, make sure to put your install instructions in the README).</p>

@@ -275,20 +275,16 @@
 
   <div class="entry-content"><p>I just discovered the handy <strong>apt-file</strong> command in Ubuntu today while trying to resolve the dependencies need to install <a title="Hpricot" href="http://code.whytheluckystiff.net/hpricot/">Hpricot</a>.  With this utility, you call search through all the packages in your repositories (installed and not installed) for a given file.  For example:</p>
 
-<div>
-  <pre>
-    <code class='bash'>apt-file search stdlib.h</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class='bash'><div class='line'>apt-file search stdlib.h
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 <p>Will return a list of packages with that header file.  In order for this command to work though, you&#8217;ll need to at least have ran this command once:</p>
 
-<div>
-  <pre>
-    <code class='bash'>sudo apt-file update</code>
-  </pre>
-</div>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class='bash'><div class='line'>sudo apt-file update
+</div></code></pre></td></tr></table></div></figure></div>
 
 
 
