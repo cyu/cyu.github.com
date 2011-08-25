@@ -1,0 +1,286 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Don't Forget to Plant It!: 25 Things I Hate about Maven</title>
+  <meta name="author" content="Calvin Yu">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://blog.sourcebender.com/2008/06/28/25-things-i-hate-about-maven.html"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Don't Forget to Plant It!" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-21276166-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Don't Forget to Plant It!</a></h1>
+  
+    <h2>.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:blog.sourcebender.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry">
+  
+  <header>
+    
+      <h1 class="entry-title">25 Things I Hate About Maven</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-06-28 00:00:00 -0400" pubdate  updated >Jun 28<span>th</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+<div class="entry-content"><p>I&#8217;ve been doing a lot of work with Maven recently, and having a miserable time of it.  Earlier this week I was ranting about it on a mailing list I was on, when I thought it would be therapeutic to try to list 100 things that irks me about Maven 2 that I&#8217;ve personally ran into.  So, I didn&#8217;t come close - I only came up with 25.  But I do feel much better now.</p>
+
+<p>Here goes, in no particular order:</p>
+
+<ol>
+    <li>The Maven AntRun tasks allows you run ant from within Maven, but you have very limited access to the POM.</li>
+    <li>If you have a multi-module project configuration, changing the version of the root project requires you to change all the versions of the sub-modules</li>
+    <li>Maven Ant Tasks doesn&#8217;t resolve transitive dependencies exactly the same as a regular Maven project does.</li>
+    <li>Maven manages adding all the dependencies you need&#8230; and then some.  You end up probably spending the same amount of time having to exclude the dependencies you don&#8217;t need, especially in EAR/WAR setups</li>
+    <li>You pretty much have to declare the versions of every Maven plugin you use, or risk your build breaking when someone updates the plugin.</li>
+    <li>You can&#8217;t create a &#8216;macro goal&#8217; that is a chain of multiple goals</li>
+    <li>Your custom plugins might not work if it is organized as a sub-module of a project.  Inexplicably, if you run the build inside that sub-module it works.  (Might just be a problem with Ant-based plugins)</li>
+    <li>Maven goes out of its way to not use Ant.  So, some things that work correctly in Ant don&#8217;t in Maven (for example, building GNU compliant tarball with the assembly plugin)</li>
+    <li>You can activate build profiles based on OS, file existence, and environment variables in Maven, but how do you disable them?</li>
+    <li>You can configure the build to deploy additional artifacts (e.g. javadoc and sources), but it won&#8217;t use the repository or snapshot repository configured for your project</li>
+    <li>Figuring out how a build works from reading plugin declarations is not easier than reading an Ant script</li>
+    <li>Good luck trying to find the artifact that you need to fix your NoClassDefFoundError</li>
+    <li>Passing Maven properties to your AntRun configuration?  Bah! who needs that?</li>
+    <li>What happened to my Maven 1.x pre/post-goals?  How is attaching plugins to build phases a better solution?</li>
+    <li>Multi-module projects is like having old school recursive Makefiles</li>
+    <li>Why can&#8217;t I define variables other than artifactId, groupId, and version to be substituted when building from an archetype?</li>
+    <li>Why can&#8217;t all the files in archetype-resources be included in the archetype?  Why do I have to define them all in an archetype.xml as well?</li>
+    <li>Versions of dependencies with classifiers are not be inheritable</li>
+    <li>Extending a build is difficult without creating a plugin, which requires creating yet another project</li>
+    <li>Customizations to the build always seems to take a few takes of trial and error before you can get them working.</li>
+    <li>Configurations specified for an Ant-based plugin doesn&#8217;t work if they&#8217;re specified at the execution level or the build profile level.  They will work if you specify them globally</li>
+    <li>Maintaining updates of plugins and what bugs are fixed in what version and what Maven version it&#8217;s compatible with is a PITA.</li>
+    <li>Documentation sucks.  Pretty much everything out there is surface deep.  There&#8217;s 50/50 chance that features that are skimmed over in the docs won&#8217;t work as expected</li>
+    <li>Why does the site:deploy and site:stage-deploy behave so differently for multi-module projects?</li>
+    <li>Why are build profiles inheritable?</li>
+</ol>
+
+
+<p>So I imagine some of the explanation are vague, but my experience is that it is par for the course when you deal with builds in Maven.  Sometimes there&#8217;s seemingly no rhyme or reason for why things don&#8217;t work, and by the time you do find a workaround that does, you just don&#8217;t want to spend anymore time figuring why your previous approaches didn&#8217;t work.  I supposed the open source thing to do is to help fix the problem, but honestly, I just don&#8217;t love Maven that much.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Calvin Yu</span></span>
+
+      
+
+
+
+
+<time datetime="2008-06-28 00:00:00 -0400" pubdate  updated >Jun 28<span>th</span>, 2008</time>
+
+
+
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.sourcebender.com/2008/06/28/25-things-i-hate-about-maven.html" data-via="cyu" data-counturl="http://blog.sourcebender.com/2008/06/28/25-things-i-hate-about-maven.html" >Tweet</a>
+  
+  
+  <g:plusone size="medium"></g:plusone>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"><div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'dontforgettoplantit';
+  var disqus_identifier = 'http://blog.sourcebender.com/2008/06/28/25-things-i-hate-about-maven.html';
+  var disqus_url = 'http://blog.sourcebender.com/2008/06/28/25-things-i-hate-about-maven.html';
+  //var disqus_developer = 1;
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside role=sidebar>
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/building-an-html5-application-part3.html">Building an HTML5 Application, Part 3: Let&#8217;s Take this Offline</a>
+      </li>
+    
+      <li class="post">
+        <a href="/building-an-html5-application-part2.html">Building an HTML5 Application, Part 2: Web Notifications &amp; &lt;Audio&gt;</a>
+      </li>
+    
+      <li class="post">
+        <a href="/building-an-html5-application-part1.html">Building an HTML5 Application, Part 1: Local Storage</a>
+      </li>
+    
+      <li class="post">
+        <a href="/storio-and-backbonejs.html">Stor.IO and Backbone.js</a>
+      </li>
+    
+      <li class="post">
+        <a href="/easy-storage-for-html5-applications.html">Easy Storage for HTML5 Applications</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("cyu", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/cyu" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @cyu</a>
+  
+</section>
+
+
+
+<section>
+  <h1>My Pinboard</h1>
+  <ul id="pinboard_linkroll">Fetching linkroll&#8230;</ul>
+  <p><a href="http://pinboard.in/u:cyu">My Pinboard Bookmarks &raquo;</a></p>
+</section>
+<script type="text/javascript">
+  var linkroll = 'pinboard_linkroll'; //id target for pinboard list
+  var pinboard_user = "cyu"; //id target for pinboard list
+  var pinboard_count = 3; //id target for pinboard list
+  (function(){
+    var pinboardInit = document.createElement('script');
+    pinboardInit.type = 'text/javascript';
+    pinboardInit.async = true;
+    pinboardInit.src = '/javascripts/pinboard.js';
+    document.getElementsByTagName('head')[0].appendChild(pinboardInit);
+  })();
+</script>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer><p>
+  Copyright &copy; 2011 - Calvin Yu -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

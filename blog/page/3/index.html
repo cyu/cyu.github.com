@@ -1,0 +1,616 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Don't Forget to Plant It!</title>
+  <meta name="author" content="Calvin Yu">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://blog.sourcebender.com/blog/page/3/index.html"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Don't Forget to Plant It!" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-21276166-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Don't Forget to Plant It!</a></h1>
+  
+    <h2>.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:blog.sourcebender.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/06/28/25-things-i-hate-about-maven.html">25 Things I Hate About Maven</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-06-28 00:00:00 -0400" pubdate  updated >Jun 28<span>th</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I&#8217;ve been doing a lot of work with Maven recently, and having a miserable time of it.  Earlier this week I was ranting about it on a mailing list I was on, when I thought it would be therapeutic to try to list 100 things that irks me about Maven 2 that I&#8217;ve personally ran into.  So, I didn&#8217;t come close - I only came up with 25.  But I do feel much better now.</p>
+
+<p>Here goes, in no particular order:</p>
+
+<ol>
+    <li>The Maven AntRun tasks allows you run ant from within Maven, but you have very limited access to the POM.</li>
+    <li>If you have a multi-module project configuration, changing the version of the root project requires you to change all the versions of the sub-modules</li>
+    <li>Maven Ant Tasks doesn&#8217;t resolve transitive dependencies exactly the same as a regular Maven project does.</li>
+    <li>Maven manages adding all the dependencies you need&#8230; and then some.  You end up probably spending the same amount of time having to exclude the dependencies you don&#8217;t need, especially in EAR/WAR setups</li>
+    <li>You pretty much have to declare the versions of every Maven plugin you use, or risk your build breaking when someone updates the plugin.</li>
+    <li>You can&#8217;t create a &#8216;macro goal&#8217; that is a chain of multiple goals</li>
+    <li>Your custom plugins might not work if it is organized as a sub-module of a project.  Inexplicably, if you run the build inside that sub-module it works.  (Might just be a problem with Ant-based plugins)</li>
+    <li>Maven goes out of its way to not use Ant.  So, some things that work correctly in Ant don&#8217;t in Maven (for example, building GNU compliant tarball with the assembly plugin)</li>
+    <li>You can activate build profiles based on OS, file existence, and environment variables in Maven, but how do you disable them?</li>
+    <li>You can configure the build to deploy additional artifacts (e.g. javadoc and sources), but it won&#8217;t use the repository or snapshot repository configured for your project</li>
+    <li>Figuring out how a build works from reading plugin declarations is not easier than reading an Ant script</li>
+    <li>Good luck trying to find the artifact that you need to fix your NoClassDefFoundError</li>
+    <li>Passing Maven properties to your AntRun configuration?  Bah! who needs that?</li>
+    <li>What happened to my Maven 1.x pre/post-goals?  How is attaching plugins to build phases a better solution?</li>
+    <li>Multi-module projects is like having old school recursive Makefiles</li>
+    <li>Why can&#8217;t I define variables other than artifactId, groupId, and version to be substituted when building from an archetype?</li>
+    <li>Why can&#8217;t all the files in archetype-resources be included in the archetype?  Why do I have to define them all in an archetype.xml as well?</li>
+    <li>Versions of dependencies with classifiers are not be inheritable</li>
+    <li>Extending a build is difficult without creating a plugin, which requires creating yet another project</li>
+    <li>Customizations to the build always seems to take a few takes of trial and error before you can get them working.</li>
+    <li>Configurations specified for an Ant-based plugin doesn&#8217;t work if they&#8217;re specified at the execution level or the build profile level.  They will work if you specify them globally</li>
+    <li>Maintaining updates of plugins and what bugs are fixed in what version and what Maven version it&#8217;s compatible with is a PITA.</li>
+    <li>Documentation sucks.  Pretty much everything out there is surface deep.  There&#8217;s 50/50 chance that features that are skimmed over in the docs won&#8217;t work as expected</li>
+    <li>Why does the site:deploy and site:stage-deploy behave so differently for multi-module projects?</li>
+    <li>Why are build profiles inheritable?</li>
+</ol>
+
+
+<p>So I imagine some of the explanation are vague, but my experience is that it is par for the course when you deal with builds in Maven.  Sometimes there&#8217;s seemingly no rhyme or reason for why things don&#8217;t work, and by the time you do find a workaround that does, you just don&#8217;t want to spend anymore time figuring why your previous approaches didn&#8217;t work.  I supposed the open source thing to do is to help fix the problem, but honestly, I just don&#8217;t love Maven that much.</p>
+</div>
+  
+  
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/06/18/build-a-comparison-chart-with-tablefy.html">Build a Comparison Chart With Tablefy</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-06-18 00:00:00 -0400" pubdate  updated >Jun 18<span>th</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I found <a href="http://www.tablefy.com/tables/edit/608">Tablefy</a> via Lifehacker last night, which is an application that is very much like <a href="/2006/09/02/interesting-app-ideas.html">one of the ideas I wrote about</a> almost 2 years ago.  It&#8217;s still rough around the edges (the petfinder captcha is a first for me and is pretty cool, although klunky), but I&#8217;m looking forward to using it and seeing what kind of usage can come out of it.</p>
+</div>
+  
+  
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/06/10/troubleshooting-performance-problems.html">Troubleshooting Performance Problems</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-06-10 00:00:00 -0400" pubdate  updated >Jun 10<span>th</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Skribit&#8217;s downtime last Monday got me thinking about my past experience with performance tuning.  I&#8217;ve troubleshot a lot of performance problems in the past, and here are some things I&#8217;ve noticed:</p>
+
+<p><strong>It&#8217;s Never Just Because Pure Load.</strong>  I&#8217;ve used this excuse many times before and still mutter it today, but I never truly believe it.  If you hear yourself saying this, it should be setting off red flags in the back of your head.  Look harder.  Why is it never because of load?  Because we don&#8217;t write perfect software.  Deadlines happen, we can&#8217;t always predict how users will use the site, and we sometimes we don&#8217;t know how things should be designed until later.  Basically, shit happens.  Chances are there&#8217;s something in the software that&#8217;s misbehaving under load.</p>
+
+<p><strong>There are Long Term and Short Term Solutions.</strong>  Depending on the immediacy of the performance problems, you might want to tackle the short term solutions first.  It&#8217;s hard to fix the long term solution quickly and correctly when you have unhappy customers.</p>
+
+<p><strong>Know the Performance Problems You&#8217;re Solving.</strong>  Don&#8217;t just guess at what the problem might be, try to figure out how to identify it.  Check the logs and maybe the resulting data created.  Try to predict how your site should behave when the problem is occurring and prove it out.  Even if this takes some time, you want to make sure your changes fix the problem, and that if performance problem still exists afterwards at least you know you&#8217;ve correctly fixed one problem.</p>
+
+<p><strong>Caching is Great for Hammering out Performance Issues.</strong>  I usually use caching as the first line of defense against load.  Others like to tweak database indices, code, and/or configuration first, but my experience has been that caching gives you the most bang for your buck.  However, caching is like cleaning up your room by stuffing everything into your closet - if you don&#8217;t go back and clean things up later, things will eventually come crashing down.</p>
+</div>
+  
+  
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/06/09/moving-to-wordpresscom.html">Moving to Wordpress.com</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-06-09 00:00:00 -0400" pubdate  updated >Jun 9<span>th</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I took the time today and moved my blog from a self-hosted Wordpress Installation to Wordpress.com.  I did this for mainly two reasons:</p>
+
+<ol>
+    <li>I was tired of keeping up with the constant WP upgrades.  It seems like everything I get around to installing on update, I would have to upgrade a few days later.</li>
+    <li>The service I was hosting my blog on, Media Temple&#8217;s Grid Service, seemed horribly slow, especially when it came to the administration screens.  My blog is also the only think I&#8217;m really running on Media Temple (gs), so if I could move my blog I can eventually reclaim that $20/month.</li>
+</ol>
+
+
+<p>I&#8217;ve been holding off on moving because of the lack of <a title="Social Suggestion Software" href="http://skribit.com">Skribit</a> support on <a href="http://wordpress.com">Wordpress.com</a>.  However, our most recent Skribit update now provides a comprehensive set of RSS feeds that are available for use with the RSS sidebar widget provided by WP.com.  We&#8217;ve also made a change so that bloggers can add their blog without having to add the Skribit widget on their blog, so link to my <a title="Skribit Page for Don't Forget to Plant it!" href="http://skribit.com/blogs/don-t-forget-to-plant-it">Skribit blog profile page</a>.</p>
+
+<p>Moving to WP.com wasn&#8217;t exactly a seamless process, for a couple of reasons:</p>
+
+<ul>
+    <li>I needed to buy credits to map my domain to WP.com, but the buy credits button wasn&#8217;t available until you point your DNS server to WP.com.  This didn&#8217;t sit well me, since there could be potential downtime between the time I point my server over to WP.com and when the credits become available for me to use.  It was even more disconcerting to read that credits might not show up for use immediately after purchase.  Fortunately, I was able to find another place on the site to purchase credits (on the page allowing you to gift credits), and the credits did showed up immediately after purchase.</li>
+    <li>There&#8217;s no apparent way to import uploads from your old server, so I had to mainly upload them.  Fortunately, I&#8217;m not exactly a prolific blogger.</li>
+    <li>I used the old Ultimate Tag Warrior plugin before WP had tagging functionality built-in, so I lost the tags for all my older posts.</li>
+    <li>I haven&#8217;t been able to figure out how to import my <a href="http://intensedebate.com">Intense Debate</a> comments into my new blog (if anyone else have done this before on a WP.com blog, I&#8217;d love some pointers).</li>
+    <li>WP.com doesn&#8217;t have any FeedBurner support, so although I&#8217;m using the FeedBurner RSS link on the sidebar, I still have no control over the auto-discovery link that&#8217;s in the page header.  I imagine I can fix this if I upgrade my WP.com service though.</li>
+</ul>
+
+
+<p>I&#8217;m not sure how all my changes will affect the RSS feeds, so I apologize for any feed spam.  And there&#8217;s still some more images to upload, and I still have to change my header image.</p>
+
+<p> </p>
+</div>
+  
+  
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/04/30/pumping-on-your-stereo-by-supergrass.html">Pumping on Your Stereo by Supergrass</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-04-30 00:00:00 -0400" pubdate  updated >Apr 30<span>th</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><iframe title="YouTube video player" width="480" height="390" src="http://www.youtube.com/embed/fgqIZBhRrRY" frameborder="0" allowfullscreen></iframe>
+
+</div>
+  
+  
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/04/17/some-google-appengine-thoughts.html">Some Google AppEngine Thoughts</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-04-17 00:00:00 -0400" pubdate  updated >Apr 17<span>th</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I&#8217;m still waiting to get into the GAE beta, but I wanted to share a couple of thoughts about why I think GAE is significant beyond grid computing and making it cheaper for developers to build applications.</p>
+
+<p><strong>A New Way of Building Web Applications</strong></p>
+
+<p>Today, when we build applications developers have to pretty much understand the full stack from top to bottom.  If you&#8217;re a PHP person, you need to know LAMP.  If you&#8217;re a Java person, you need to know J2EE, the Application Server, etc.  GAE removes that need - all you need to know is how to code your application logic, GAE handles the data storage, scaling, deployment, web serving, etc for you.  It is the <strong>ultimate application server</strong>.</p>
+
+<p>This model can work very well outside of grid environments.  What if companies have their own app engines, which allows their developers to code to application units with push button ability to deploy to development, staging, production?</p>
+
+<p>Well, isn&#8217;t this just a Java WAR file you ask?  No, because WAR files aren&#8217;t opinionated.  You want to use MySQL/Oracle/PostgreSQL?  You want to use EJB/Spring/POJOs?  You can do that with WAR files.  You can&#8217;t do that with GAE.  Options are great, but they limit your ability to make assumptions, and assumptions makes development easier.  That&#8217;s what Rails means by convention over configuration.  Most application developers shouldn&#8217;t really have to care about these issues anyway.</p>
+
+<p>By making assumptions about all these applications, I can make it easier deploy the application to multiple environments.  I can apply sweeping changes that can improve performance for all applications.  Infrastructure support for different applications won&#8217;t require different knowledge sets.</p>
+
+<p><strong>Inverting the Facebook Applications Platform</strong></p>
+
+<p>Another interesting aspect of GAE is that by leveraging Google Accounts, GAE has created a platform that can ultimately be the inverted version of the Facebook Application Platform.  The Facebook platform takes a &#8216;Department Store&#8217; model, where applications are housed inside of the Facebook website.  Applications have limited styling capabilities, and pretty much has to adhere to the Facebook look and feel.</p>
+
+<p>In contrast, GAE is more like the &#8216;Mall&#8217; of social applications.  Applications can have their own unique storefronts (which allows them to better create a brand), while still taking advantage of the facilities provided by Google.</p>
+
+<p>Granted, Google hasn&#8217;t yet integrated those social features required to compete with Facebook, and there aren&#8217;t any signs that it will.  But considering how Google has GData&#8217;d every significant service they have, I can&#8217;t imagine this not being far behind.</p>
+</div>
+  
+  
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/04/02/why-are-all-instant-messengers-the-same.html">Why Are All Instant Messengers the Same?</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-04-02 00:00:00 -0400" pubdate  updated >Apr 2<span>nd</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This pass weekend, my wonderful wife got me a shiny new MacBook Pro for our anniversary.  If you&#8217;ve ever seen my old laptop, you know it&#8217;s been a long time coming.</p>
+
+<p>I&#8217;m now looking for a IM application for the Mac (I&#8217;m testing out Adium now), and thought I&#8217;d write about how IM applications have grow stagnate of late.   I know, we now have the ability to instant message people from a browser or mobile phone, but outside of that, everything else have been aesthetic bells, whistle, doo-hickeys, and thingamabobs.</p>
+
+<p>It&#8217;s time for someone to revisit what it means to instant message someone.  The current model is definitely flawed and is failing as an effective tool communication.  This is why we have services like twitter Today.  Here are some of the flaws of current instant messenger applications:</p>
+
+<p><strong>Roster Lists Suck</strong></p>
+
+<p>In the early days of IMs, roster lists were sufficient.  But now, everybody&#8217;s on the internet.  As a result, my roster list is now long and unmanageable.   Scrolling through my roster list now would be like if I had to scroll my whole address book to find the exact person I want to send an email to.  There should be an easier way find the person I want to instant message.</p>
+
+<p>Also, the roster list is a poor representation of how we connect with people today.  Instant communication today is such a major part of what we do online today, so it&#8217;s amazing to me that it is constraint to such a small and confined window.</p>
+
+<p><strong>I Want a Connect to People, not their Identities</strong></p>
+
+<p>Most clients treat contacts on different IM networks differently.   IM applications should treat all my buddies identities as one.  Adium seems to do this pretty well.  IM should be about connecting with real people, and separating them by what network they&#8217;re coming from is impersonal.</p>
+
+<p><strong>The Concept of Instant Messaging should be Expanded</strong></p>
+
+<p>Services like Twitter and Jaiku suggest that there is a communications gap that instant messaging currently doesn&#8217;t provide.  Instant messaging networks are getting more and more inter-operable.  Instant messaging applications should be looked at as a conduit for all informal communication.  Users don&#8217;t care what network they&#8217;re using to communicate - they care that they can connect to the person they want when they want.</p>
+</div>
+  
+  
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/03/29/love-in-the-time-of-a-recession.html">Love in the Time of a Recession</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-03-29 00:00:00 -0400" pubdate  updated >Mar 29<span>th</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Before I read <a href="http://sethgodin.typepad.com/seths_blog/2008/03/opportunity-of.html">Seth Godin post about opportunities during an economic downturn</a>, I was running the some pretty similar thoughts through my head.While the natural (and maybe correct) tendency during bad economic times like we are in now to is to tighten the purse strings, it&#8217;s important to remember that your customers are probably doing the same thing as well.  They might be looking for alternatives  to things they normally pay a lot for when times were better.  And when things do get better, will they find that they really missed what they were previously paying for?For small startups, this is a great time - if you can <a href="http://www.localprice.com">provide lower cost</a> <a href="http://easyautosales.com">alternatives to existing offerings</a>, right now you have an active audience.  The companies that can figure out how to exploit that will be the ones that lead us out of this recession.</p>
+</div>
+  
+  
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/03/20/github-sourceforge-20.html">Github: Sourceforge 2.0?</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-03-20 00:00:00 -0400" pubdate  updated >Mar 20<span>th</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>While I sitting through <a href="http://files.jnewland.com/git.pdf">Jesse&#8217;s git presentation</a> during the atlrug meetup last week,  I migrated my <a href="https://github.com/cyu/beast-plugins/tree/master" title="Beast Plugins repo on Github">Beast Plugins</a> from my own Subversion repository to <a href="http://github.com" title="git repository hosting">github</a>.</p>
+
+<p>One thing in Jesse&#8217;s presentation that I didn&#8217;t necessarily agree with is that github is characterized as the MySpace for hackers.  That&#8217;s not exactly accurate - it understates the tangible value of github.  At the end of the day, MySpace only really provides an emotional value, whereas github provides very real and measurable benefits.  In that sense, it is more like the <a href="http://del.icio.us">delicious</a> for hackers.</p>
+
+<p>What I like about github is how it has taken the open source model to a social source model.  While current open source made the source public accessible, contributing to the source was still a pretty closed model.  Submitting patches to projects required using an obscure patching utility and was managed by some centralized authority that could reject your patches.  With github that changes - submitting patches is as easy as clicking a link, and if original maintainer doesn&#8217;t want to incorporate your changes, you can fork their code while still keeping your fork up to date with the original.  This allows everyone to have their voice, and not force users to have to be accepted in order to be heard. While this might seem a little chaotic - you could possibly have hundreds forks of a project - it does create a model that is more organic and Darwin-esque, which will only make the final product stronger.</p>
+
+<p>While I still have some concerns about git itself (the different vocabulary, how applicable it is to the enterprise), I definitely see it as being a catalyst for the next generation open source.</p>
+</div>
+  
+  
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/03/13/skribit-marchin-on.html">Skribit March&#8217;in On&#8230;</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-03-13 00:00:00 -0400" pubdate  updated >Mar 13<span>th</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>(pun intended.)</p>
+
+<p><a href="http://skribit.com"><img class="aligncenter size-full wp-image-103" src="/images/wp/logo_small1.png" alt="Skribit Logo" width="216" height="54" /></a></p>
+
+<p>So a couple of weeks ago, we knocked out our third release of <a title="Blog Suggestions" href="http://skribit.com">Skribit</a> into production.  The Skribit team has done <a title="Skribit in Public Beta" href="http://skribit.com/blog/2008/03/09/skribit-in-public-beta/">a great job</a> <a title="Skribit In Open Beta" href="http://blog.weatherby.net/2008/03/skribit-in-open.html">of covering</a> <a title="skribit reloaded" href="http://rkischuk.wordpress.com/2008/03/03/skribit-reloaded/">what is in the latest release</a>, so I don&#8217;t it isn&#8217;t necessary to cover what we&#8217;ve added here.</p>
+
+<p>So what is the real value of Skribit?  Before Skribit, things look a lot like this:</p>
+
+<p><img class="aligncenter size-full wp-image-104" src="/images/wp/before-skribit.png" alt="" width="454" height="72" /></p>
+
+<p>Bloggers posted and readers read the posts and commented on the post.  Occasionally, comments will lead into more posts, but still, bloggers for the most part led the conversation.  Sometimes you&#8217;ll get emails, instant messages or direct conversations asking you to write about something, but they only come from people who can reach you directly.  Also, you have no idea if the rest of your readers are interested in that same subject.</p>
+
+<p>With Skribit, things now look more like this:</p>
+
+<p><img class="aligncenter size-full wp-image-105" src="/images/wp/after-skribit.png" alt="" width="461" height="78" /></p>
+
+<p>By using Skribit and taking in suggestions, bloggers can now have their readers lead conversations, as well as gain better understand who their reader are.</p>
+
+<p>Another thing important about this release is that it&#8217;s a declaration Skribit hasn&#8217;t croaked (oops) and we&#8217;re still hoppin&#8217; (yep, sorry!) along.  And beyond the initial idea of Skribit we&#8217;ve developed the plan will make Skribit a real awesome product.</p>
+
+<p>So please, go sign up on Skribit and join in the conversation.  And let us know what you think!</p>
+</div>
+  
+  
+
+
+  </article>
+
+<nav role="pagination">
+  <div>
+    
+      <a class="prev" href="/blog/page/4/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/2/">Newer &rarr;</a>
+    
+  </div>
+</nav>
+
+<script type="text/javascript">
+    var disqus_shortname = 'dontforgettoplantit';
+    (function () {
+      var s = document.createElement('script'); s.async = true;
+      s.type = 'text/javascript';
+      s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+      (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+
+</div>
+<aside role=sidebar>
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/building-an-html5-application-part3.html">Building an HTML5 Application, Part 3: Let&#8217;s Take this Offline</a>
+      </li>
+    
+      <li class="post">
+        <a href="/building-an-html5-application-part2.html">Building an HTML5 Application, Part 2: Web Notifications &amp; &lt;Audio&gt;</a>
+      </li>
+    
+      <li class="post">
+        <a href="/building-an-html5-application-part1.html">Building an HTML5 Application, Part 1: Local Storage</a>
+      </li>
+    
+      <li class="post">
+        <a href="/storio-and-backbonejs.html">Stor.IO and Backbone.js</a>
+      </li>
+    
+      <li class="post">
+        <a href="/easy-storage-for-html5-applications.html">Easy Storage for HTML5 Applications</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("cyu", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/cyu" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @cyu</a>
+  
+</section>
+
+
+
+<section>
+  <h1>My Pinboard</h1>
+  <ul id="pinboard_linkroll">Fetching linkroll&#8230;</ul>
+  <p><a href="http://pinboard.in/u:cyu">My Pinboard Bookmarks &raquo;</a></p>
+</section>
+<script type="text/javascript">
+  var linkroll = 'pinboard_linkroll'; //id target for pinboard list
+  var pinboard_user = "cyu"; //id target for pinboard list
+  var pinboard_count = 3; //id target for pinboard list
+  (function(){
+    var pinboardInit = document.createElement('script');
+    pinboardInit.type = 'text/javascript';
+    pinboardInit.async = true;
+    pinboardInit.src = '/javascripts/pinboard.js';
+    document.getElementsByTagName('head')[0].appendChild(pinboardInit);
+  })();
+</script>
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer><p>
+  Copyright &copy; 2011 - Calvin Yu -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

@@ -1,0 +1,310 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Don't Forget to Plant It!: Which web framework is right for your business?</title>
+  <meta name="author" content="Calvin Yu">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://blog.sourcebender.com/2007/05/18/which-web-framework-is-right-for-your-business.html"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Don't Forget to Plant It!" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-21276166-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Don't Forget to Plant It!</a></h1>
+  
+    <h2>.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:blog.sourcebender.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry">
+  
+  <header>
+    
+      <h1 class="entry-title">Which Web Framework Is Right for Your Business?</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-05-18 00:00:00 -0400" pubdate  updated >May 18<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+<div class="entry-content"><p><a title="Which web framework is right for your business?" href="http://blog.jeffhaynie.us/which-web-framework-is-right-for-your-business.html">Jeff&#8217;s follow up answers</a> for <a href="http://web.meetup.com/32/">Thursday&#8217;s Web Entrepreneurs meetup</a> was good idea, so I&#8217;d thought I lay out some of my answers from a Java perspective.  I think Jeff is spot on when he talks about how someone should choose a web framework for their business &#8211; rely on your technology team to chose the right one.  There isn&#8217;t one great framework out there that, by itself, will give you any significant business advantage (however, having a great technology team with a framework <strong>that&#8217;s right for them</strong> will).</p>
+
+<p><strong>What kind of websites is your technology best suited for?  Which is it not so well suited for?</strong></p>
+
+<p>Java is best suited for enterprise-level websites, which includes websites that are highly transactional and requires integration to legacy systems or multiple data sources.  That isn&#8217;t to say that you can&#8217;t built small websites with it (although its rather uncommon).  One of Java&#8217;s advantages to building a website is that there is a Java library for just about everything you can ever imagine doing on a website, and a you&#8217;ll find that a good number of them are free.</p>
+
+<p>I don&#8217;t think that there&#8217;s any kind of websites Java is not well suited for (hold on&#8230; let me finish), but I do think there are other web frameworks that are much better suited for simple, database-driven websites.  The reason is that Java is traditionally used to serve a diverse set of enterprise needs, its can be very cumbersome to setup and maintain, as there are lots of pieces to put together and configuration that has to take place.</p>
+
+<p><strong>What famous web2.0 sites are using your technology?</strong></p>
+
+<p>This was a tricky one.  The only one I found was <a title="Zillow" href="http://www.zillow.com">Zillow</a>.  <a title="eBay" href="http://www.ebay.com">eBay</a> is another website that uses Java, and has web2.0-ish features.</p>
+
+<p><strong>What does it cost to use your technology (e.g. hardware, software and support)?</strong></p>
+
+<p>The Java platform is (just recently) open source and free.  There are production-ready, free versions of server software as well as commercial versions if you need support.  As for people cost, the Java talent pool is probably the largest of any of the other technologies, especially in Atlanta.   Having said that, traditional Java setups can run you quite a bit of money, and you would be competing with enterprises for top Java talent.  There is also more overhead when dealing with Java as oppose to more streamlined alternatives like the other technologies.</p>
+
+<p><strong>How steep is the learning curve for newcomers?</strong></p>
+
+<p>In retrospect, and after some discussion with the panelists, I&#8217;ll concede that Java has a steeper learning curve than many of the other platforms on the panel, especially when you include the server setup, configuration and other aspects of putting together a Java website.</p>
+
+<p><strong>How easy have you found it to find skilled people?  How about in Atlanta?</strong></p>
+
+<p>Since Atlanta is the home of so many large enterprises, the demand for Java talent (<a href="http://www.indeed.com/jobtrends?q=atlanta+java+programming%2C+atlanta+ruby+programming%2C+atlanta+python+programming%2C+atlanta+asp+programming%2C+atlanta+php+programming&amp;l=">as shown here</a>) is great, therefore there is large pool of Java talent of varying skill ranges to pull from.  Of course, the demand also means that the best Java talents get top dollar salaries.</p>
+
+<p><strong>How much support is there for your technology? Who have you found to be reliable?</strong></p>
+
+<p>Support is great for Java &#8211; you have options that are free (in forums, blogs), as well as commercial server products with support.  Also, you&#8217;ll often find that you can buy support for a good number of open sourced Java products.<strong>What issues (if any) did you encounter being an evangelist for your technology in your organization?  How did you overcome them?</strong></p>
+
+<p>Since Java is often considered a standard in the enterprise, I&#8217;ve never had a problem evangelizing Java in organizations.</p>
+
+<p><strong>What add-ons, plug-ins, tools, etc. would you recommend using?</strong></p>
+
+<ul>
+    <li><a href="http://ant.apache.org">Ant </a></li>
+    <li><a href="http://tomcat.apache.org">Tomcat</a></li>
+    <li><a href="http://lucene.apache.org">Lucene</a></li>
+    <li><a href="http://getahead.ltd.uk/dwr/">DWR</a></li>
+</ul>
+
+
+<p>With the recent popularity of Ruby on Rails, there&#8217;s been many efforts in the Java community in adopting the parts of that framework into Java.  Here are a couple of those frameworks.</p>
+
+<ul>
+    <li><a href="https://trails.dev.java.net/">Trails</a></li>
+    <li><a href="http://grails.codehaus.org/">Grails</a></li>
+</ul>
+
+
+<p><strong>What are some sites youâ€™d recommend?</strong></p>
+
+<ul>
+    <li>Javadocs: <a href="http://java.sun.com/javase/6/docs/api/" target="_blank">http://java.sun.com/javase/6/docs/api/</a></li>
+    <li>Java.Net: <a href="http://www.java.net/" target="_blank">http://www.java.net/</a></li>
+    <li>Java Ranch: <a href="http://www.javaranch.com/" target="_blank">http://www.javaranch.com/</a></li>
+</ul>
+
+
+<p>During the Q&amp;A session, Alan asked which language I felt learning would make a better programmer.  My answer was Ruby, and in fact, while I do work on Java during the day, I work with Ruby on Rails on nights and weekends.  IMO, the speed of development trumps all other concerns during the early stages of the game.  And while performance concerns with RoR are valid ones, having to scale is usually a good problem to have, and I&#8217;m confident on my ability to work them out.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Calvin Yu</span></span>
+
+      
+
+
+
+
+<time datetime="2007-05-18 00:00:00 -0400" pubdate  updated >May 18<span>th</span>, 2007</time>
+
+
+
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.sourcebender.com/2007/05/18/which-web-framework-is-right-for-your-business.html" data-via="cyu" data-counturl="http://blog.sourcebender.com/2007/05/18/which-web-framework-is-right-for-your-business.html" >Tweet</a>
+  
+  
+  <g:plusone size="medium"></g:plusone>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"><div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'dontforgettoplantit';
+  var disqus_identifier = 'http://blog.sourcebender.com/2007/05/18/which-web-framework-is-right-for-your-business.html';
+  var disqus_url = 'http://blog.sourcebender.com/2007/05/18/which-web-framework-is-right-for-your-business.html';
+  //var disqus_developer = 1;
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside role=sidebar>
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/building-an-html5-application-part3.html">Building an HTML5 Application, Part 3: Let&#8217;s Take this Offline</a>
+      </li>
+    
+      <li class="post">
+        <a href="/building-an-html5-application-part2.html">Building an HTML5 Application, Part 2: Web Notifications &amp; &lt;Audio&gt;</a>
+      </li>
+    
+      <li class="post">
+        <a href="/building-an-html5-application-part1.html">Building an HTML5 Application, Part 1: Local Storage</a>
+      </li>
+    
+      <li class="post">
+        <a href="/storio-and-backbonejs.html">Stor.IO and Backbone.js</a>
+      </li>
+    
+      <li class="post">
+        <a href="/easy-storage-for-html5-applications.html">Easy Storage for HTML5 Applications</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("cyu", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/cyu" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @cyu</a>
+  
+</section>
+
+
+
+<section>
+  <h1>My Pinboard</h1>
+  <ul id="pinboard_linkroll">Fetching linkroll&#8230;</ul>
+  <p><a href="http://pinboard.in/u:cyu">My Pinboard Bookmarks &raquo;</a></p>
+</section>
+<script type="text/javascript">
+  var linkroll = 'pinboard_linkroll'; //id target for pinboard list
+  var pinboard_user = "cyu"; //id target for pinboard list
+  var pinboard_count = 3; //id target for pinboard list
+  (function(){
+    var pinboardInit = document.createElement('script');
+    pinboardInit.type = 'text/javascript';
+    pinboardInit.async = true;
+    pinboardInit.src = '/javascripts/pinboard.js';
+    document.getElementsByTagName('head')[0].appendChild(pinboardInit);
+  })();
+</script>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer><p>
+  Copyright &copy; 2011 - Calvin Yu -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

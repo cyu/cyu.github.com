@@ -1,0 +1,368 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Don't Forget to Plant It!: Building an HTML5 Application, Part 3: Let's Take this Offline</title>
+  <meta name="author" content="Calvin Yu">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://blog.sourcebender.com/building-an-html5-application-part3.html"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Don't Forget to Plant It!" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-21276166-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Don't Forget to Plant It!</a></h1>
+  
+    <h2>.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:blog.sourcebender.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry">
+  
+  <header>
+    
+      <h1 class="entry-title">Building an HTML5 Application, Part 3: Let&#8217;s Take This Offline</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2011-04-28 00:00:00 -0400" pubdate  updated >Apr 28<span>th</span>, 2011</time>
+
+
+</p>
+    
+  </header>
+
+
+<div class="entry-content"><p><em>Here&#8217;s <a href="2011-03-29-building-an-html5-application-part1.html">Part 1</a> and <a href="2011-04-05-building-an-html5-application-part2.html">Part 2</a> of this series.</em></p>
+
+<p>So after taking a break to spend time with family (yay!) and doing taxes (bleh!), I was able to spend some time on Thymer again.  It&#8217;s time to get it working offline.</p>
+
+<p>Since it doesn&#8217;t require a server, Thymer is a perfect candidate to be an offline application.  In HTML5 you do this by telling the browser what files it should store locally so they are available offline.  You do this in a file called the <strong>Cache Manifest</strong> file.  The <a href="https://github.com/cyu/thymer/blob/part3/thymer.appcache">one for Thymer</a> looks like this:</p>
+
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+<span class='line'>8</span>
+<span class='line'>9</span>
+<span class='line'>10</span>
+<span class='line'>11</span>
+<span class='line'>12</span>
+</pre></td><td class='code' width='100%'><pre><code class='bash'><div class='line'>CACHE MANIFEST
+</div><div class='line'><span class="c"># Revision: 10</span>
+</div><div class='line'>alarm.mp3
+</div><div class='line'>alarm.ogg
+</div><div class='line'>alarm.wav
+</div><div class='line'>clock_32x32.png
+</div><div class='line'>index.html
+</div><div class='line'>jquery-1.5.2.min.js
+</div><div class='line'>minus_12x3.png
+</div><div class='line'>reload_12x14.png
+</div><div class='line'>thymer.css
+</div><div class='line'>thymer.js
+</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>In this file, I list all the files I&#8217;m going to need when offline.  It&#8217;s important to note that files listed here must follow the <strong>same origin policy</strong>, meaning the files must be served from the same domain.  I ran into this since I was using a Google hosted version of jQuery, and had to switch to self-hosting instead.</p>
+
+<p>Another important thing to note is the second line of the manifest, where I specify the revision of the manifest in a comment.  Browsers will only update their offline cache when the manifest changes, and not when the files listed in the manifest change.  Common practice then is to update the revision number in the manifest to notify browsers to update their cache.</p>
+
+<p>I ended up creating <a href="https://github.com/cyu/thymer/blob/part3/Rakefile">a rake task to generate the cache manifest</a>, updating the file list when new files are added and incrementing the revision number on any changes.  To update the manifest, I just run the manifest task:</p>
+
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class='bash'><div class='line'>rake thymer.appcache
+</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>Once the manifest file is created, I need to reference that manifest from the page. You do this by setting the <strong>manifest</strong> attribute on the <em>html</em> element:</p>
+
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+</pre></td><td class='code' width='100%'><pre><code class='html'><div class='line'><span class="cp">&lt;!doctype html&gt;</span>
+</div><div class='line'><span class="nt">&lt;html</span> <span class="na">manifest=</span><span class="s">&quot;thymer.appcache&quot;</span><span class="nt">&gt;</span>
+</div></code></pre></td></tr></table></div></figure></div>
+
+
+<h2>Handling Updates in the Browser</h2>
+
+<p>Some browsers must be explicitly told to update the application cache when it sees an update. Here&#8217;s how that is done:</p>
+
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+<span class='line'>8</span>
+<span class='line'>9</span>
+<span class='line'>10</span>
+<span class='line'>11</span>
+<span class='line'>12</span>
+<span class='line'>13</span>
+</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="c1">// check for updates</span>
+</div><div class='line'><span class="k">if</span> <span class="p">(</span><span class="s1">&#39;applicationCache&#39;</span> <span class="k">in</span> <span class="nb">window</span><span class="p">)</span> <span class="p">{</span>
+</div><div class='line'>  <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#update-button&#39;</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</div><div class='line'>    <span class="c1">// Ensure the browser uses the latest version of the code</span>
+</div><div class='line'>    <span class="nb">window</span><span class="p">.</span><span class="nx">applicationCache</span><span class="p">.</span><span class="nx">swapCache</span><span class="p">();</span>
+</div><div class='line'>    <span class="c1">// Reload the application</span>
+</div><div class='line'>    <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">reload</span><span class="p">();</span>
+</div><div class='line'>  <span class="p">});</span>
+</div><div class='line'>
+</div><div class='line'>  <span class="nb">window</span><span class="p">.</span><span class="nx">applicationCache</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;updateready&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</div><div class='line'>    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#update&quot;</span><span class="p">).</span><span class="nx">show</span><span class="p">();</span>
+</div><div class='line'>  <span class="p">},</span> <span class="kc">false</span><span class="p">);</span>
+</div><div class='line'><span class="p">}</span>
+</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>In the above code, I just show a short message with a link to <em>swapCache()</em> and reload when a new update is available.  Note that in some browsers, the update doesn&#8217;t happen until <em>swapCache()</em> is called, while others it&#8217;s automatic and all you really have to do is reload.</p>
+
+<p>In JavaScript, you can detect your current offline/online status with <em>navigator.onLine</em>.  You can also listen to <em>offline</em> and <em>online</em> events in the document body.  For Thymer, I decided to check the manifest for updates when the browser comes back online:</p>
+
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="c1">// Check for updates when the browser comes back online</span>
+</div><div class='line'><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">).</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;online&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+</div><div class='line'>  <span class="nb">window</span><span class="p">.</span><span class="nx">applicationCache</span><span class="p">.</span><span class="nx">update</span><span class="p">();</span>
+</div><div class='line'><span class="p">});</span>
+</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>In testing, it looks like listening for <em>online</em> event doesn&#8217;t yet work in Chrome or Safari.</p>
+
+<h2>Other Notes</h2>
+
+<ul>
+<li><p>When serving the manifest file, make sure it is served with a <em>Content-Type</em> header of &#8216;text/cache-manifest&#8217;.</p></li>
+<li><p>A lot of references and tutorials I found often named the manifest file <em>cache.manifest</em>, but it looks like <em>.appcache</em> will ultimately be <a href="http://www.w3.org/TR/html5/iana.html#text-cache-manifest">the standard extension</a>.  This make sense, since the latter will probably have a lesser chance of name collisions with other file types.</p></li>
+<li><p>I ended up declaring all versions of my audio file in the manifest, which is less that optimal since browsers would only use one of the three sources.  I could dynamically generate the manifest based on User Agent, but that&#8217;s less than ideal.</p></li>
+<li><p>You can browse the contents of the offline cache in FF by going to <strong>about:cache</strong> from the address bar. In Chrome, you can see it for the current page under the Resources tab from within the Web Inspector.  Didn&#8217;t see where this information was available in Safari.</p></li>
+</ul>
+
+
+<h2>That&#8217;s a Wrap</h2>
+
+<p>That&#8217;s it for Offline mode.  In the next and most likely the final post in this series, I&#8217;m going to get Thymer onto the Chrome web store.  If you want to learn more about Offline mode, HTML5Rocks has curated a <a href="http://www.html5rocks.com/features/offline">bunch of articles related to offline</a>.  And here is <a href="https://github.com/cyu/thymer/tree/part3">the source code</a> referenced by this post.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Calvin Yu</span></span>
+
+      
+
+
+
+
+<time datetime="2011-04-28 00:00:00 -0400" pubdate  updated >Apr 28<span>th</span>, 2011</time>
+
+
+
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.sourcebender.com/building-an-html5-application-part3.html" data-via="cyu" data-counturl="http://blog.sourcebender.com/building-an-html5-application-part3.html" >Tweet</a>
+  
+  
+  <g:plusone size="medium"></g:plusone>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"><div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'dontforgettoplantit';
+  var disqus_identifier = 'http://blog.sourcebender.com/building-an-html5-application-part3.html';
+  var disqus_url = 'http://blog.sourcebender.com/building-an-html5-application-part3.html';
+  //var disqus_developer = 1;
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside role=sidebar>
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/building-an-html5-application-part3.html">Building an HTML5 Application, Part 3: Let&#8217;s Take this Offline</a>
+      </li>
+    
+      <li class="post">
+        <a href="/building-an-html5-application-part2.html">Building an HTML5 Application, Part 2: Web Notifications &amp; &lt;Audio&gt;</a>
+      </li>
+    
+      <li class="post">
+        <a href="/building-an-html5-application-part1.html">Building an HTML5 Application, Part 1: Local Storage</a>
+      </li>
+    
+      <li class="post">
+        <a href="/storio-and-backbonejs.html">Stor.IO and Backbone.js</a>
+      </li>
+    
+      <li class="post">
+        <a href="/easy-storage-for-html5-applications.html">Easy Storage for HTML5 Applications</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("cyu", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/cyu" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @cyu</a>
+  
+</section>
+
+
+
+<section>
+  <h1>My Pinboard</h1>
+  <ul id="pinboard_linkroll">Fetching linkroll&#8230;</ul>
+  <p><a href="http://pinboard.in/u:cyu">My Pinboard Bookmarks &raquo;</a></p>
+</section>
+<script type="text/javascript">
+  var linkroll = 'pinboard_linkroll'; //id target for pinboard list
+  var pinboard_user = "cyu"; //id target for pinboard list
+  var pinboard_count = 3; //id target for pinboard list
+  (function(){
+    var pinboardInit = document.createElement('script');
+    pinboardInit.type = 'text/javascript';
+    pinboardInit.async = true;
+    pinboardInit.src = '/javascripts/pinboard.js';
+    document.getElementsByTagName('head')[0].appendChild(pinboardInit);
+  })();
+</script>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer><p>
+  Copyright &copy; 2011 - Calvin Yu -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

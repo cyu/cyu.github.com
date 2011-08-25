@@ -1,1 +1,1124 @@
-My Octopress Page is coming soon &hellip;
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Don't Forget to Plant It!</title>
+  <meta name="author" content="Calvin Yu">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://blog.sourcebender.com/index.html"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Don't Forget to Plant It!" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-21276166-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Don't Forget to Plant It!</a></h1>
+  
+    <h2>.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:blog.sourcebender.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/building-an-html5-application-part3.html">Building an HTML5 Application, Part 3: Let&#8217;s Take This Offline</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2011-04-28 00:00:00 -0400" pubdate  updated >Apr 28<span>th</span>, 2011</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><em>Here&#8217;s <a href="2011-03-29-building-an-html5-application-part1.html">Part 1</a> and <a href="2011-04-05-building-an-html5-application-part2.html">Part 2</a> of this series.</em></p>
+
+<p>So after taking a break to spend time with family (yay!) and doing taxes (bleh!), I was able to spend some time on Thymer again.  It&#8217;s time to get it working offline.</p>
+
+<p>Since it doesn&#8217;t require a server, Thymer is a perfect candidate to be an offline application.  In HTML5 you do this by telling the browser what files it should store locally so they are available offline.  You do this in a file called the <strong>Cache Manifest</strong> file.  The <a href="https://github.com/cyu/thymer/blob/part3/thymer.appcache">one for Thymer</a> looks like this:</p>
+
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+<span class='line'>8</span>
+<span class='line'>9</span>
+<span class='line'>10</span>
+<span class='line'>11</span>
+<span class='line'>12</span>
+</pre></td><td class='code' width='100%'><pre><code class='bash'><div class='line'>CACHE MANIFEST
+</div><div class='line'><span class="c"># Revision: 10</span>
+</div><div class='line'>alarm.mp3
+</div><div class='line'>alarm.ogg
+</div><div class='line'>alarm.wav
+</div><div class='line'>clock_32x32.png
+</div><div class='line'>index.html
+</div><div class='line'>jquery-1.5.2.min.js
+</div><div class='line'>minus_12x3.png
+</div><div class='line'>reload_12x14.png
+</div><div class='line'>thymer.css
+</div><div class='line'>thymer.js
+</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>In this file, I list all the files I&#8217;m going to need when offline.  It&#8217;s important to note that files listed here must follow the <strong>same origin policy</strong>, meaning the files must be served from the same domain.  I ran into this since I was using a Google hosted version of jQuery, and had to switch to self-hosting instead.</p>
+
+<p>Another important thing to note is the second line of the manifest, where I specify the revision of the manifest in a comment.  Browsers will only update their offline cache when the manifest changes, and not when the files listed in the manifest change.  Common practice then is to update the revision number in the manifest to notify browsers to update their cache.</p>
+
+<p>I ended up creating <a href="https://github.com/cyu/thymer/blob/part3/Rakefile">a rake task to generate the cache manifest</a>, updating the file list when new files are added and incrementing the revision number on any changes.  To update the manifest, I just run the manifest task:</p>
+
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class='bash'><div class='line'>rake thymer.appcache
+</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>Once the manifest file is created, I need to reference that manifest from the page. You do this by setting the <strong>manifest</strong> attribute on the <em>html</em> element:</p>
+
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+</pre></td><td class='code' width='100%'><pre><code class='html'><div class='line'><span class="cp">&lt;!doctype html&gt;</span>
+</div><div class='line'><span class="nt">&lt;html</span> <span class="na">manifest=</span><span class="s">&quot;thymer.appcache&quot;</span><span class="nt">&gt;</span>
+</div></code></pre></td></tr></table></div></figure></div>
+
+
+<h2>Handling Updates in the Browser</h2>
+
+<p>Some browsers must be explicitly told to update the application cache when it sees an update. Here&#8217;s how that is done:</p>
+
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+<span class='line'>8</span>
+<span class='line'>9</span>
+<span class='line'>10</span>
+<span class='line'>11</span>
+<span class='line'>12</span>
+<span class='line'>13</span>
+</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="c1">// check for updates</span>
+</div><div class='line'><span class="k">if</span> <span class="p">(</span><span class="s1">&#39;applicationCache&#39;</span> <span class="k">in</span> <span class="nb">window</span><span class="p">)</span> <span class="p">{</span>
+</div><div class='line'>  <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#update-button&#39;</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</div><div class='line'>    <span class="c1">// Ensure the browser uses the latest version of the code</span>
+</div><div class='line'>    <span class="nb">window</span><span class="p">.</span><span class="nx">applicationCache</span><span class="p">.</span><span class="nx">swapCache</span><span class="p">();</span>
+</div><div class='line'>    <span class="c1">// Reload the application</span>
+</div><div class='line'>    <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">reload</span><span class="p">();</span>
+</div><div class='line'>  <span class="p">});</span>
+</div><div class='line'>
+</div><div class='line'>  <span class="nb">window</span><span class="p">.</span><span class="nx">applicationCache</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;updateready&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</div><div class='line'>    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#update&quot;</span><span class="p">).</span><span class="nx">show</span><span class="p">();</span>
+</div><div class='line'>  <span class="p">},</span> <span class="kc">false</span><span class="p">);</span>
+</div><div class='line'><span class="p">}</span>
+</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>In the above code, I just show a short message with a link to <em>swapCache()</em> and reload when a new update is available.  Note that in some browsers, the update doesn&#8217;t happen until <em>swapCache()</em> is called, while others it&#8217;s automatic and all you really have to do is reload.</p>
+
+<p>In JavaScript, you can detect your current offline/online status with <em>navigator.onLine</em>.  You can also listen to <em>offline</em> and <em>online</em> events in the document body.  For Thymer, I decided to check the manifest for updates when the browser comes back online:</p>
+
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+</pre></td><td class='code' width='100%'><pre><code class='javascript'><div class='line'><span class="c1">// Check for updates when the browser comes back online</span>
+</div><div class='line'><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">).</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;online&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+</div><div class='line'>  <span class="nb">window</span><span class="p">.</span><span class="nx">applicationCache</span><span class="p">.</span><span class="nx">update</span><span class="p">();</span>
+</div><div class='line'><span class="p">});</span>
+</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>In testing, it looks like listening for <em>online</em> event doesn&#8217;t yet work in Chrome or Safari.</p>
+
+<h2>Other Notes</h2>
+
+<ul>
+<li><p>When serving the manifest file, make sure it is served with a <em>Content-Type</em> header of &#8216;text/cache-manifest&#8217;.</p></li>
+<li><p>A lot of references and tutorials I found often named the manifest file <em>cache.manifest</em>, but it looks like <em>.appcache</em> will ultimately be <a href="http://www.w3.org/TR/html5/iana.html#text-cache-manifest">the standard extension</a>.  This make sense, since the latter will probably have a lesser chance of name collisions with other file types.</p></li>
+<li><p>I ended up declaring all versions of my audio file in the manifest, which is less that optimal since browsers would only use one of the three sources.  I could dynamically generate the manifest based on User Agent, but that&#8217;s less than ideal.</p></li>
+<li><p>You can browse the contents of the offline cache in FF by going to <strong>about:cache</strong> from the address bar. In Chrome, you can see it for the current page under the Resources tab from within the Web Inspector.  Didn&#8217;t see where this information was available in Safari.</p></li>
+</ul>
+
+
+<h2>That&#8217;s a Wrap</h2>
+
+<p>That&#8217;s it for Offline mode.  In the next and most likely the final post in this series, I&#8217;m going to get Thymer onto the Chrome web store.  If you want to learn more about Offline mode, HTML5Rocks has curated a <a href="http://www.html5rocks.com/features/offline">bunch of articles related to offline</a>.  And here is <a href="https://github.com/cyu/thymer/tree/part3">the source code</a> referenced by this post.</p>
+</div>
+  
+  
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/building-an-html5-application-part2.html">Building an HTML5 Application, Part 2: Web Notifications &amp; &lt;Audio&gt;</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2011-04-05 00:00:00 -0400" pubdate  updated >Apr 5<span>th</span>, 2011</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This is part 2 in a series of posts walking through my experiences building <a href="http://blog.sourcebender.com/thymer">Thymer</a>, a single-page web application using HTML5 and related technologies.  In <a href="building-an-html5-application-part1.html">my first post</a>, I got the basics of the application working and used the Local <strong>Storage API</strong> to store timers between browser refreshes.  In this article, I&#8217;m going to talk about the <strong>Notification API</strong> and the <strong>&lt;audio&gt;</strong> tag.</p>
+
+<h2>The Notification API</h2>
+
+<p>Since my last post, I&#8217;ve made some minor fixes and UI tweaks to get Thymer feeling more like a usable application, but Thymer really wasn&#8217;t going to be useful unless it can grab a user&#8217;s attention when a timer ends.  Recently Gmail introduced a new feature in Chrome where I get a nice little Growl-like notification whenever I received a Google Talk message.  This was done using something called the Notification API.  I wanted to see how easy it would be use this API to show a notification when a timer completes.</p>
+
+<p>The Notification API is currently just a <a href="http://www.chromium.org/developers/design-documents/desktop-notifications/api-specification">draft spec</a>, and it&#8217;s support is currently only limited to Chrome.  Once the API gets wider adoption, there&#8217;s a very good chance the API will change (at the minimum to rename the <em>window.webkitNotifications</em> object).  Getting it working was super easy, basically by following <a href="http://www.html5rocks.com/tutorials/notifications/quick/">this tutorial here</a>.</p>
+
+<p>First, I request permission to use the Notifications API when the first timer is created.  It&#8217;s important to note that <strong>you can only request permission on a user triggered event like a mouse click or key event.</strong>  In Thymer&#8217;s case, I request permission when the Enter key is pressed to submit a new timer:</p>
+
+<div>
+  <pre>
+    <code class='javascript'>$('#add-timer-form input').keypress(function(event) {
+  if (event.which == '13') { // Enter key
+    event.preventDefault();
+    var seconds = parseInt($('#secs').val()) +
+        (parseInt($('#mins').val()) * 60) +
+        (parseInt($('#hours').val()) * 60 * 60);
+
+    Thymer.addTimer(new Timer($('#timer-name').val(), seconds));
+    $('#timer-name').val('');
+
+    // request notifications permission if API is supported.  We do
+    // this here because we can only do this on user triggered events.
+    if (window.webkitNotifications &amp;&amp;
+          window.webkitNotifications.checkPermission() != 0) {
+      window.webkitNotifications.requestPermission();
+    }
+  }
+})</code>
+  </pre>
+</div>
+
+
+<p>Then I create a notification when the timer ends:</p>
+
+<div>
+  <pre>
+    <code class='javascript'>_alarm:function() {
+  // show a notification if the browser supports it.
+  if (window.webkitNotifications &amp;&amp;
+      window.webkitNotifications.checkPermission() == 0) {
+
+    window.webkitNotifications.createNotification('clock_32x32.png',
+        'Thymer', '&quot;' + this.name + '&quot; timer has completed').show();
+  }
+}</code>
+  </pre>
+</div>
+
+
+<p>Here&#8217;s what the notification looks like:</p>
+
+<p><img src="images/thymer-notification.jpg" alt="Thymer Notification in Chrome"></p>
+
+<p>Some notes about the Notifications API:</p>
+
+<ol>
+<li>I had issues with <em>requestPermission()</em> when using the <em>file://</em> protocol where my permission got set as if I denied permission and didn&#8217;t give me a way to reset it.  If you&#8217;re testing locally I recommend serving your page via localhost.</li>
+<li>Once you approve or deny the notification permission, users will not receive the permission infobar again when you call <em>requestPermission()</em>.  You can reset the permission in Chrome from <strong>Preferences</strong> > <strong>Under the Hood</strong> > <strong>Content Settings</strong> (Under <em>Privacy</em>).</li>
+<li>The image parameter in <em>createNotification()</em> is not optional.  Passing <strong>null</strong> will show a broken image.</li>
+</ol>
+
+
+<h2>The Audio Tag</h2>
+
+<p>So now I have a way to grab user&#8217;s attention when a timer completes in Chrome, but what about other browsers?  How about playing an alarm sound when the timer completes?  This turned out to be pretty easy with the <strong>&lt;audio&gt;</strong> tag:</p>
+
+<div>
+  <pre>
+    <code class='html'>&lt;audio id=alarm-sound&gt;
+  &lt;source src=alarm.mp3 type=audio/mpeg /&gt;
+  &lt;source src=alarm.ogg type=audio/ogg /&gt;
+  &lt;source src=alarm.wav type=audio/wav /&gt;
+&lt;/audio&gt;</code>
+  </pre>
+</div>
+
+
+<p>This sets up a audio clip that I can access from JavaScript via the element id.  Since I don&#8217;t specify a <strong>controls</strong> or <strong>autoplay</strong> attribute, the audio won&#8217;t play until I want it to.  I&#8217;m also specifying the three different sources for audio (gotta love proprietary sound formats).  Between MP3 &amp; Ogg Vorbis, all modern browsers should be covered, but I&#8217;m going to throw a WAV in there for completeness anyway.  I am concerned about how this will affect my footprint when I setup offline mode for Thymer, but that&#8217;s an issue for a different post.</p>
+
+<p>Playing the audio from JavaScript is cake:</p>
+
+<div>
+  <pre>
+    <code class='javascript'>_alarm:function() {
+  // show a notification if the browser supports it.
+  if (window.webkitNotifications &amp;&amp; window.webkitNotifications.checkPermission() == 0) {
+    window.webkitNotifications.createNotification('clock_32x32.png', 'Thymer', '&quot;' + this.name + '&quot; timer has completed').show();
+  }
+
+  // play the alarm sound
+  document.getElementById('alarm-sound').play();
+}</code>
+  </pre>
+</div>
+
+
+<p>For more information about the Audio tag, I recommend <a href="http://html5doctor.com/native-audio-in-the-browser/">this article at &lt;html&gt;5doctor</a>.  In that article they have a helpful table showing the browser support for the different audio formats.</p>
+
+<p>This concludes Part 2 of this series.  You can <a href="https://github.com/cyu/thymer/tree/part2">see the final code for this part here</a>.  You can also see the final application on <a href="https://github.com/cyu/thymer">the master branch</a> as well as play with a <a href="http://blog.sourcebender.com/thymer">running version of Thymer here</a>.  In part 3, I&#8217;m going to configure Thymer to run in offline mode by creating a cache manifest.</p>
+</div>
+  
+  
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/building-an-html5-application-part1.html">Building an HTML5 Application, Part 1: Local Storage</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2011-03-29 00:00:00 -0400" pubdate  updated >Mar 29<span>th</span>, 2011</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>So far, I&#8217;ve <a href="easy-storage-for-html5-applications.html">dabble with pieces of HTML5</a>, having build the rite-of-passage Todo application - now it&#8217;s time to jump in and build a more complete application.  In a series of posts, I&#8217;m going to build an HTML5 application from scratch and document my experiences along the way.  Let&#8217;s start off by exploring HTML5&#8217;s Web Storage feature.</p>
+
+<p>The application I&#8217;ve decided to build is a timer application - basically, you enter a time interval (in hours, minutes, seconds), and it&#8217;ll notify you when that time has been reached.  I start things off by creating the basics of what the application would look like via HTML:</p>
+
+<div>
+  <pre>
+    <code class='html'>&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Thymer&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;header&gt;
+    &lt;h1&gt;Thymer&lt;/h1&gt;
+  &lt;/header&gt;
+  &lt;div id=content&gt;
+    &lt;div id=add-timer-form&gt;
+      &lt;input class=text name=hours value=00 size=2&gt; :
+      &lt;input class=text name=mins value=05 size=2&gt; :
+      &lt;input class=text name=secs value=00 size=2&gt;
+      &lt;input name=name placeholder='Timer Name'&gt;
+      &lt;input type=submit value='Create Timer'&gt;
+    &lt;/div&gt;
+    &lt;ul id=timer-list&gt;&lt;/ul&gt;
+  &lt;/div&gt;
+  &lt;script src=thymer.js&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code>
+  </pre>
+</div>
+
+
+<p>Couple of notes about the above snippet:</p>
+
+<ol>
+<li><p>The <em>doctype</em> and lack of attribute quoting are standard to the spec.  One of the key points of HTML5 was identify the lowest common denominator between the popular browsers and based the spec around them.  In this case, the doctype of <em>html</em> was the minimum needed to be a valid doctype and attribute values do not need to be quoted unless there are whitespace in the value.</p></li>
+<li><p>Line #21: I&#8217;m using the new <em>placeholder</em> attribute which puts a placeholder text in the text input when the input is empty and doesn&#8217;t have value.  Once you put focus on that text input and enter a value, the place holder text goes away.</p></li>
+</ol>
+
+
+<p>Next comes the <em>thymer.js</em> script.  Nothing HTML5 specific here, I&#8217;m just putting the code here for completeness.</p>
+
+<div>
+  <pre>
+    <code class='javascript'>$().ready(function(){
+  var timerList = $('#timer-list');
+  var timers = [];
+
+  var UpdateLoop = {
+    start:function() {
+      if (!this.started) {
+        this.started = true;
+        this.interval = setInterval(function(){
+          UpdateLoop.update();
+        },1000);
+      }
+    },
+    update:function() {
+      if (timers.length &gt; 0) {
+        for (var i in timers) {
+          timers[i].update();
+        }
+
+      } else {
+        clearInterval(this.interval);
+        this.interval = null;
+        this.started = false;
+      }
+    }
+  };
+
+  var Timer = function(name, seconds) {
+    this.name = name;
+    this.seconds = seconds;
+    this.started = new Date().getTime();
+    this.finished = false;
+    this.start();
+  };
+  Timer.prototype = {
+    start:function() {
+      this.el = $(&quot;&lt;li&gt;&quot; + this.buildDisplayString() + &quot;&lt;/li&gt;&quot;);
+      timerList.append(this.el);
+    },
+    update:function() {
+      if (!this.finished) {
+        if (this.check()) {
+          var timer = this;
+          var removeLink = $('&lt;a href=&quot;#&quot;&gt;remove&lt;/a&gt;').click(function(){
+            timer.remove();
+          });
+          this.el.text('ALARM!!! - ' + this.name + ' ');
+          this.el.append(removeLink);
+        } else {
+          this.el.text(this.buildDisplayString());
+        }
+      }
+    },
+    remove:function() {
+      this.el.remove();
+      for (var i in timers) {
+        if (timers[i] == this) {
+          timers.splice(i,1);
+          break;
+        }
+      }
+    },
+    check:function() {
+      var remaining = this.calculateRemaining();
+      if (remaining &lt;= 0) {
+        this.finished = true;
+        return true;
+      }
+      return false;
+    },
+    calculateRemaining:function() {
+      return this.seconds - Math.floor((new Date().getTime() - this.started) / 1000);
+    },
+    buildDisplayString:function() {
+      var s = [];
+
+      var remaining = this.calculateRemaining();
+      remaining = this.buildTimeSegment('h', 60*60, remaining, s);
+      remaining = this.buildTimeSegment('m', 60, remaining, s);
+      s.push(remaining + 's');
+
+      return s.join(' ') + ' - ' + this.name;
+    },
+    buildTimeSegment:function(suffix, divisor, secondsRemaining, segments) {
+      var units = Math.floor(secondsRemaining / divisor);
+      if (units &gt; 0) {
+        segments.push(units + suffix);
+        return secondsRemaining % divisor;
+      }
+      return secondsRemaining;
+    }
+  };
+
+  $('#add-timer-form form').submit(function(){
+    var seconds = parseInt($('#secs').val()) +
+        (parseInt($('#mins').val()) * 60) +
+        (parseInt($('#hours').val()) * 60 * 60);
+    var timer = new Timer($('#timer-name').val(), seconds)
+    timers.push(timer);
+    UpdateLoop.start();
+    return false;
+  });
+});</code>
+  </pre>
+</div>
+
+
+<p>I now have a basic timer application.  Now for the HTML5 goodness.</p>
+
+<p>For any desktop to be truly useful (desktop or web), it needs to be able to remember state from the last time you ran the application.  For desktop applications, there are many different ways to do this, but web applications have always been limited to cookie or server-based storage.  In HTML5, there are actually a few options for storing data, with the most commonly supported one being the <strong>Local Storage API</strong>.  Local Storage API is a simple API that allows you to store data as key/value pairs.  For my Thymer application, I&#8217;m going to store the timer array so any created timers will be persisted across browser reloads.</p>
+
+<p>First, I update the <em>Timer</em> object so it can be converted to/from a save state:</p>
+
+<div>
+  <pre>
+    <code class='javascript'>var Timer = function(name, seconds, started, finished) {
+  this.name = name;
+  this.seconds = seconds;
+  this.started = started ? started : new Date().getTime();
+  this.finished = finished || false;
+  this.start();
+};
+Timer.prototype = {
+  // the rest of the Timer prototype...
+
+  toObject:function() {
+    return {
+      name: this.name,
+      seconds: this.seconds,
+      started: this.started,
+      finished: this.finished
+    };
+  }
+}</code>
+  </pre>
+</div>
+
+
+<p>Then I save the timer array every time a new timer is created, and load the stored timers when the application starts:</p>
+
+<div>
+  <pre>
+    <code class='javascript'>$('#add-timer-form form').submit(function(){
+  var seconds = parseInt($('#secs').val()) +
+      (parseInt($('#mins').val()) * 60) +
+      (parseInt($('#hours').val()) * 60 * 60);
+
+  var timer = new Timer($('#timer-name').val(), seconds)
+  timers.push(timer);
+
+  // store timers
+  if ('localStorage' in window) {
+    var arr = [];
+    for (var i in timers) {
+      arr.push(timers[i].toObject());
+    }
+    window.localStorage.setItem('timers', JSON.stringify(arr));
+  }
+
+  UpdateLoop.start();
+  return false;
+});
+
+// load stored timers
+if ('localStorage' in window) {
+  var timersData = window.localStorage.getItem('timers');
+  if (timersData) {
+    var timersData = JSON.parse(timersData);
+    for (var i in timersData) {
+      var t = timersData[i];
+      timers.push(new Timer(t.name, t.seconds, t.started, t.finished));
+    }
+    UpdateLoop.start();
+  }
+}</code>
+  </pre>
+</div>
+
+
+<p>Some notes about the <strong>Local Storage API</strong>:</p>
+
+<ol>
+<li><p><em>localStorage</em> only stores string values, so use <em>JSON.stringify()</em> and <em>JSON.parse()</em> to convert your data to/from JSON.</p></li>
+<li><p>In addition to <em>setItem</em> and <em>getItem</em>, there are also <em>clear</em> and <em>removeItem</em> functions available.</p></li>
+<li><p>You can also access stored values directly as properties on the <em>localStorage</em> object (e.g. <em>window.localStorage.timers</em>).</p></li>
+<li><p>Values are stored to an <em>origin</em>, which is the combination of <strong>scheme (http/https) + host + port</strong>.  This means other pages on that server could access those stored values, so attention should be paid to avoid naming collisions.</p></li>
+<li><p>Origin pinning also means that if a page can be viewed via multiple domains (www.example.com and example.com for example), you won&#8217;t be able to access stored values between those two domains.  Consider using permanent redirects to get users under one domain.</p></li>
+<li><p>Local Storage doesn&#8217;t seem to work in Firefox with pages served via the <em>file://</em> protocol - you&#8217;ll need to serve your page from a web server when testing locally.</p></li>
+</ol>
+
+
+<p>So that&#8217;s it for the part 1.  A lot of this is common knowledge for those who have already read up on HTML5, but now that we&#8217;ve setup the basic of the application, we can move on to more interesting aspects of HTML5.  In part 2, I&#8217;ll cover playing audio natively and using Chrome&#8217;s notification API.</p>
+
+<p>You can get <a href="https://github.com/cyu/thymer/tree/part1">the final code for Part I here</a>.  If you&#8217;re interested in going deeper into HTML5, I highly recommend visiting Mark Pilgrim&#8217;s <a href="http://diveintohtml5.org/">Dive Into HTML5</a> and getting his <em>HTML5: Up and Running</em> book.</p>
+</div>
+  
+  
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/storio-and-backbonejs.html">Stor.IO and Backbone.js</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2011-03-08 00:00:00 -0500" pubdate  updated >Mar 8<span>th</span>, 2011</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://documentcloud.github.com/backbone/">Backbone.js</a> is a nice JavaScript framework that provides some basic structure to your JavaScript application.  What&#8217;s nice about it is that it does this while at the same time being flexible and letting you make some design decisions on your own.  One of those is how you choose store you data.</p>
+
+<p>While looking at Backbone&#8217;s extensive documentation, I couldn&#8217;t help but notice that they had an example todo application that used localStorage as a backing store.  And since the <a href="easy-storage-for-html5-applications.html">Stor.IO</a> API so closely resembles the localStorage API, it was easy to adapt the example application to use Stor.IO as a backend.  Here&#8217;s the <a href="http://github.com/cyu/storio-backbone-todos">Github Project</a>.  And you can <a href="http://cyu.github.com/storio-backbone-todos">play around with the application here</a>.</p>
+
+<p>In other news, I&#8217;ve setup <a href="https://convore.com/storio/">a group on Convore to discuss Stor.IO</a>.  I&#8217;m on there pretty regularly, so there&#8217;s a good chance you&#8217;ll find me there if you have questions.</p>
+</div>
+  
+  
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/easy-storage-for-html5-applications.html">Easy Storage for HTML5 Applications</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2011-02-22 00:00:00 -0500" pubdate  updated >Feb 22<span>nd</span>, 2011</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I&#8217;m a big believer that HTML5 will be a game changer.  It reminds me of the introduction of <a href="http://en.wikipedia.org/wiki/Dhtml">DHTML</a> over a decade ago, and although DHTML the term never really caught on, it definitely paved the way to the eventual discovery of Ajax and an integral part of what is considered standard web application practice today.</p>
+
+<p>A core component of HTML5 is the <a href="http://diveintohtml5.org/storage.html">localStorage API</a>.  With it, you can write a fairly useful application &mdash; all in JavaScript.  There are limitations however: without server-side storage, your data is trapped to that browser, and with the diversity of devices we use today (laptop, smartphones and tablets), applications need to be available wherever you have a browser.</p>
+
+<p>So what if you can write an application, still all in client-side JavaScript, but store data centrally so it can be accessible on all devices and browsers?  This is what <a href="http://stor.io">Stor.IO</a> does.  Here&#8217;s some example code:</p>
+
+<div>
+  <pre>
+    <code class='javascript'>&lt;script src=&quot;http://stor.io/app_storage.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+  window.appStorage.$.connect({email: 'my@emailaddress.com'});
+  //window.appStorage.$.connect({twitter:true}); // use Twitter OAuth
+  window.appStorage.setItem('foo', 'bar');
+  window.appStorage.getItem('foo'); // &quot;bar&quot;
+  window.appStorage.foo; // &quot;bar&quot;
+&lt;/script&gt;</code>
+  </pre>
+</div>
+
+
+<p>Including the <em>app_storage.js</em> script creates the <strong>appStorage</strong> object on the browser window.  Next, you call the <em>connect</em> method on the server object (<em>$</em>), passing in the identity of the user.  Currently, an email-only method of authenticating is available, as well as Twitter OAuth.   Once connected, the appStorage API behaves essentially like the localStorage API.  And it doesn&#8217;t force you to store strings like localStorage does, meaning you don&#8217;t need to serialize/deserialize objects to/from JSON.</p>
+
+<p>For reading data from Stor.IO, you&#8217;ll need to wait on the server to identify the user and retrieve their data, and there&#8217;s a <em>ready()</em> handler available for that:</p>
+
+<div>
+  <pre>
+    <code class='javascript'>&lt;script&gt;
+window.appStorage.$.ready(function(){
+  var tasks = window.appStorage.tasks;
+  for (var i=0; i&lt;tasks.length; i++) {
+    console.log(tasks[i].text);
+  }
+});
+&lt;/script&gt;</code>
+  </pre>
+</div>
+
+
+<p>Underneath, how Stor.IO works is that it creates an iframe and uses the <a href="http://ajaxian.com/archives/cross-window-messaging-with-html-5-postmessage">postMessage API</a> to work around the same origin policy that handicaps Ajax calls.  The server is Sinatra app with the data being stored in MongoDB.  The data is isolated by the user identity and the application path, which is a substring the current URL up to the first directory path, so http://localhost/app1 and http://localhost/app2 will actually hold different data sets.</p>
+
+<p>To flush out the initial implementation, I wrote a very rudimentary <a href="http://blog.sourcebender.com/todojs">todo application</a>.  It&#8217;s actually hosted on Github pages, so you can see how everything works from the <a href="http://github.com/cyu/todojs">project page</a>.  Even better is that you can fork the project and immediately have groundwork on your own todo application, with hosting courtesy of Github.</p>
+
+<p>Please give it a shot and join the <a href="http://groups.google.com/group/storio">Google Group</a> if you have questions or are interested in further development.</p>
+</div>
+  
+  
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/leaving-wordpress-for-jekyll.html">Leaving WordPress for Jekyll</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2011-02-12 00:00:00 -0500" pubdate  updated >Feb 12<span>th</span>, 2011</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Taking <a href="http://paulstamatiou.com/how-to-wordpress-to-jekyll">inspiration from Paul</a>, I&#8217;ve switched my blog from a self-hosted WordPress one to a static HTML site using <a href="http://github.com/mojombo/jekyll">Jekyll</a>.  I didn&#8217;t initially look at Jekyll because it seemed like the migration process was going to take a lot of work, but eventually settled on it because:</p>
+
+<ol>
+<li>I couldn&#8217;t easily migrate my blog data to Tumblr, and</li>
+<li>Although I was able to migrate to Posterous, the customization options was limited and buggy at times.  Also, some of the HTML it generated (i.e. comments) looked pretty gnarly to style.</li>
+</ol>
+
+
+<p>So I gave Jekyll a shot, and came out quite happy with the results.  The migration script to convert my WP data worked as well as expected, and since the results were plain text it was easy to make the necessary tweaks to complete the migration.</p>
+
+<p>In the switch over, I elected not to migrate all the sidebar widgets, instead putting the focus primarily on the articles.  At the end of the day, that&#8217;s really want I want people to get out of this site.</p>
+
+<p><em>Apologies to my RSS subscribers (all 70 of you) who will likely see all my posts as new posts.</em></p>
+</div>
+  
+  
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/07/28/loading-couchdb-views.html">Loading CouchDB Views From Source Files</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2010-07-28 00:00:00 -0400" pubdate  updated >Jul 28<span>th</span>, 2010</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I&#8217;ve been doing a lot work with CouchDB lately for Socialytics, and which means writing map/reduce functions in JavaScript for building views.  I was beginning to have a healthy set of views, it made sense to have this code in version control and be able to load these views to a CouchDB instance via the command line.  Not finding anything like this on the interwebs, I decided to come with something on my own.</p>
+
+<p>My first pass at it was a Ruby implementation, but was fragile since it found the map and reduce functions via regular expressions.  This past weekend I decided to give a go with a new implementation using <a href="http://nodejs.org">Node.js</a>.  Since I&#8217;m now using JavaScript, I no longer had to use regular expressions to sniff out the map/reduce functions - I can just load the scripts up as code.  Another additional benefit is that now the view code got parsed, so I find syntax errors before the are loaded to Couch.</p>
+
+<p><a title="loader.js" href="http://gist.github.com/492124">Here&#8217;s the code</a>.  The script expects a <em>designs/</em> folder at the same level as the loader script, with a subfolder for each design document underneath.  A design folder should have a <em>.js</em> file for each view.  A view file looks like this:</p>
+
+<div>
+  <pre>
+    <code class='javascript'>design.view = {
+    map: function(doc) {
+        emit(doc.created_at, null);
+    },
+    reduce: '_count'
+};</code>
+  </pre>
+</div>
+
+
+<p><a href="http://wiki.apache.org/couchdb/Document_Update_Handlers">CouchDB document update handlers</a> are supported as well by assigning a function to <strong>design.update</strong>.  Once your view files are ready, just run <strong>loader.js</strong> with the CouchDB database URL as the parameter:</p>
+
+<pre>node db/couchdb/loader.js http://localhost:5984/myDatabase</pre>
+
+
+<p>So what do you think?  Does something like this exist already?  Is there a better way to do this?</p>
+</div>
+  
+  
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/06/09/introducin-rack-cors.html">Introducing Rack::CORS</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2010-06-09 00:00:00 -0400" pubdate  updated >Jun 9<span>th</span>, 2010</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Recently, I&#8217;ve been working on an HTML5 project that needed to need to retrieve data from a different origin, and decided to look at using CORS.</p>
+
+<p>CORS, or Cross-Origin Resource Sharing is a specification that allows web applications to make AJAX calls cross-origin without resorting to workarounds such as <a title="Wikipedia write up on JSONP" href="http://en.wikipedia.org/wiki/JSON#JSONP">JSONP</a>.</p>
+
+<p>Searching around, I found an CORS extension for Sinatra, which happened to be the framework I was using.  However, the extension didn&#8217;t properly implement the spec, nor did it support CORS preflighting (required for more complex AJAX requests).  So I rolled my own, but as a Rack Middleware.  Here&#8217;s an example of a Rackup that shows it in action (this example uses <a title="Rack::CORS Rubygem" href="http://rubygems.org/gems/rack-cors">Rack::CORS</a> in Sinatra app, but should be able to use it in any Rack compatible framework):</p>
+
+<div>
+  <pre>
+    <code class='ruby'>require 'sinatra'
+require 'rack/cors'
+
+use Rack::Cors do |config|
+  config.allow do |allow|
+    allow.origins '*'
+    allow.resource '/file/list_all/', :headers =&amp;gt; :any
+    allow.resource '/file/at/*',
+        :methods =&amp;gt; [:get, :post, :put, :delete],
+        :headers =&amp;gt; :any,
+        :max_age =&amp;gt; 0
+  end
+end
+
+get '/file/list_all/' do
+  #...
+end
+
+get '/file/at/*' do
+  #...
+end</code>
+  </pre>
+</div>
+
+
+<p>To get going with Rack::CORS, just install the rack-cors Gem.  To check out the source, see <a href="http://github.com/cyu/rack-cors">the project on Github</a>.</p>
+
+<p>If you want to learn more about CORS, here are some good links I found along the way:</p>
+
+<ul>
+    <li>The <a title="Cross-Origin Resource Sharing Working Draft" href="http://www.w3.org/TR/access-control/">W3C Working Draft on CORS</a>, for good night time reading.</li>
+    <li>A <a title="Cross-domain Ajax with Cross-Origin Resource Sharing" href="http://www.nczonline.net/blog/2010/05/25/cross-domain-ajax-with-cross-origin-resource-sharing/">good article about CORS</a> that summarizes the CORS spec.</li>
+    <li>You can <a title="CORS Support Tests" href="http://rdfa.digitalbazaar.com/tests/cors/">check if your browsers support CORS here</a>.  This site records all pass/fails so you&#8217;ll be able to see a list of CORS supported (and not supported) browsers.</li>
+    <li>The <a title="Cross Origin Resource Sharing with Sinatra" href="http://britg.com/2009/12/29/cross-origin-resource-sharing-with-sinatra/">Sinatra CORS Extension</a> I found.</li>
+</ul>
+
+</div>
+  
+  
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/03/26/setting-up-virtual-hosts-on-mac-osx.html">Setting Up Virtual Hosts on Mac OSX</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2010-03-26 00:00:00 -0400" pubdate  updated >Mar 26<span>th</span>, 2010</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I&#8217;ve been juggling a few different web projects lately, and decided to setup different virtual hosts on my Mac so that I can easily work with them.  Googling around gave me a lot of different answers, none of which seem to work completely.  This is what finally worked for me (on Snow Leopard).</p>
+
+<p>First, add a new local domain to your <em>/etc/hosts</em> file:</p>
+
+<pre>127.0.0.1       localhost devsite.local</pre>
+
+
+<p>Next, you&#8217;ll need to configure Apache with this new virtual host.  Fortunately, the default Apache config has this partially setup.  Open up <em>/etc/apache2/httpd.conf</em> and uncomment the following Include:</p>
+
+<div>
+  <pre>
+    <code class='apache'># Virtual hosts
+#Include /private/etc/apache2/extra/httpd-vhosts.conf</code>
+  </pre>
+</div>
+
+
+<p>Now, we need to add our virtual host to the <em>httpd-vhosts.conf </em>file referenced above.  The file already had a couple of sample configuration in it, but I commented out those and added the following:</p>
+
+<div>
+  <pre>
+    <code class='apache'>&lt;VirtualHost *:80&gt;
+    DocumentRoot &quot;/Library/WebServer/Documents&quot;
+    ServerName localhost
+&lt;/VirtualHost&gt;
+
+&lt;VirtualHost *:80&gt;
+    DocumentRoot &quot;/usr/docs/devsite.local&quot;
+    ServerName devsite.local
+&lt;/VirtualHost&gt;</code>
+  </pre>
+</div>
+
+
+<p>This first entry will map localhost to its default document location (without it http://localhost won&#8217;t work correctly).  The second entry maps my new domain.  Additionally, you&#8217;ll want to make sure files in your new docs directory have adequate access permissions.  I ended adding a new Directory section to <em>httpd-vhosts.conf </em>file:</p>
+
+<div>
+  <pre>
+    <code class='apache'>&lt;Directory &quot;/usr/docs/devsite.local&quot;&gt;
+    Options Indexes FollowSymLinks MultiViews
+    AllowOverride None
+    Order allow,deny
+    Allow from all
+&lt;/Directory&gt;</code>
+  </pre>
+</div>
+
+
+<p>Now all you have to do is put your web files in <em>/usr/docs/devsite.local</em>.  I originally had my new local domain map to <em>&lt;user dir&gt;/Sites/devsite.local</em>, but changed it because I would have to make sure Apache could access to all the directories leading up to those docs. So instead I just symlinked my http docs from my user directory into <em>/usr/docs.</em></p>
+</div>
+  
+  
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/09/06/installing-native-gems-with-custom-library-paths.html">Installing Native Gems With Custom Library Paths</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2009-09-06 00:00:00 -0400" pubdate  updated >Sep 6<span>th</span>, 2009</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>A few weeks ago, I started using the <a href="http://github.com/toland/patron/tree/master">Patron</a> Gem for Skribit and ran into an issue on our CentOS production servers which uses a very old version of libcurl.  I got it working by compiling a new version of libcurl and building the Gem against those binaries.  Since I didn&#8217;t want to overwrite the libcurl that CentOS provided, I installed the binaries in another location instead, and updated the <strong>LD_LIBRARY_PATH</strong> environment variable so Rails could properly load the Gem.</p>
+
+<p>A couple of days ago, <a href="http://paulstamatiou.com">Paul</a> brought to my attention that <a href="http://linuxmafia.com/faq/Admin/ld-lib-path.html">using LD_LIBRARY_PATH isn&#8217;t a good thing</a>.  While I didn&#8217;t necessarily think it was a big deal, it did peak my curiosity on how I would get this work without it.  Here&#8217;s the command I finally used to get it to work:</p>
+
+<div>
+  <pre>
+    <code class='bash'>sudo env PATH=&quot;/opt/curl/bin:$PATH&quot; gem install toland-patron \
+    -v &quot;0.4.1&quot; --source http://gems.github.com \
+    -- --with-ldflags=&quot;-Wl,-R/opt/curl/lib&quot;</code>
+  </pre>
+</div>
+
+
+<p>The key part is the <strong>&#8211;with-ldflags</strong> option at the very end.  The <strong>-Wl,-R&lt;path&gt;</strong> option adds the given path to the list of paths the linker will use to find libraries at runtime.  Hopefully, someone will find this information useful, since I couldn&#8217;t find this information myself on the &#8216;nets anywhere.</p>
+</div>
+  
+  
+
+
+  </article>
+
+<nav role="pagination">
+  <div>
+    
+      <a class="prev" href="/blog/page/2/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+  </div>
+</nav>
+
+<script type="text/javascript">
+    var disqus_shortname = 'dontforgettoplantit';
+    (function () {
+      var s = document.createElement('script'); s.async = true;
+      s.type = 'text/javascript';
+      s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+      (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+
+</div>
+<aside role=sidebar>
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/building-an-html5-application-part3.html">Building an HTML5 Application, Part 3: Let&#8217;s Take this Offline</a>
+      </li>
+    
+      <li class="post">
+        <a href="/building-an-html5-application-part2.html">Building an HTML5 Application, Part 2: Web Notifications &amp; &lt;Audio&gt;</a>
+      </li>
+    
+      <li class="post">
+        <a href="/building-an-html5-application-part1.html">Building an HTML5 Application, Part 1: Local Storage</a>
+      </li>
+    
+      <li class="post">
+        <a href="/storio-and-backbonejs.html">Stor.IO and Backbone.js</a>
+      </li>
+    
+      <li class="post">
+        <a href="/easy-storage-for-html5-applications.html">Easy Storage for HTML5 Applications</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("cyu", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/cyu" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @cyu</a>
+  
+</section>
+
+
+
+<section>
+  <h1>My Pinboard</h1>
+  <ul id="pinboard_linkroll">Fetching linkroll&#8230;</ul>
+  <p><a href="http://pinboard.in/u:cyu">My Pinboard Bookmarks &raquo;</a></p>
+</section>
+<script type="text/javascript">
+  var linkroll = 'pinboard_linkroll'; //id target for pinboard list
+  var pinboard_user = "cyu"; //id target for pinboard list
+  var pinboard_count = 3; //id target for pinboard list
+  (function(){
+    var pinboardInit = document.createElement('script');
+    pinboardInit.type = 'text/javascript';
+    pinboardInit.async = true;
+    pinboardInit.src = '/javascripts/pinboard.js';
+    document.getElementsByTagName('head')[0].appendChild(pinboardInit);
+  })();
+</script>
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer><p>
+  Copyright &copy; 2011 - Calvin Yu -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

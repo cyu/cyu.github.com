@@ -1,0 +1,352 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Don't Forget to Plant It!: Creating a Tails Script</title>
+  <meta name="author" content="Calvin Yu">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://blog.sourcebender.com/tails/scripting.html"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Don't Forget to Plant It!" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-21276166-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Don't Forget to Plant It!</a></h1>
+  
+    <h2>.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:blog.sourcebender.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article>
+  
+  <header>
+    <h1 class="entry-title">Creating a Tails Script</h1>
+    
+  </header>
+  
+  <p>A Tails Script is basically a very simple JavaScript file ending with the <em>tails.js</em> extension.  To get started, you can build from the <a href="http://codeeg.com/tails/scripts/sample.tails.js">sample Tails script here</a>.</p>
+
+<p>Like a Greasemonkey user script, a Tails Script has a metadata section describing how to install the plugin.  The metadata section starts with the <em>// ==TailsScript==</em> comment and ends with the <em>// ==/TailsScript==</em> comment.  Metadata values are defined the comment format:</p>
+
+<div>
+  <pre>
+    <code class='javascript'>// @name value</code>
+  </pre>
+</div>
+
+
+<p>The supported metadata values are:</p>
+
+<ul>
+<li><strong>name</strong> - The name of the script.  This will be the text of the link if a URL is rendered.</li>
+<li><strong>namespace</strong> - The namespace of the script.</li>
+<li><strong>description</strong> - A description of the script.  This will be displayed in the script management window.</li>
+<li><strong>include</strong> - The microformats that this script can operate on.  Add multiple include lines for each microformat you support.</li>
+</ul>
+
+
+<p>When a Tails Script is executed, the contents of the script is loaded within a JavaScript <em>Hash</em> object, so functions and variables must be defined with the <em>name: (variable | function)</em> syntax and separated by commas.</p>
+
+<p>The only method that Tails requires in the script is the <strong>getURL</strong> function.  This function does not have any parameters and should return the URL of the link to render in the Tails view.  Not returning anything or returning <em>null</em> will result in the the link not rendering in the view.  The method can access the current microformat object by accessing the <strong>object</strong> instance variable:</p>
+
+<div>
+  <pre>
+    <code class='javascript'>getURL: function() { if (this.object.__name == 'hcard'){ /* generate URL... */ } }</code>
+  </pre>
+</div>
+
+
+<p>In addition to <strong>getURL()</strong>, you can also specify the following function to further customize the behavior of your script:</p>
+
+<ul>
+<li><strong>getLabel()</strong> - Returns the label for the generated link.  If this method is not defined, the script name will be used instead.</li>
+</ul>
+
+
+<p>The following instance variables are available to the script in addition to <strong>object</strong>:</p>
+
+<ul>
+<li><strong>sourceURL</strong> - The URL of the web page containing the current microformat.</li>
+<li><strong>label</strong> - The name of the script.</li>
+</ul>
+
+
+<h2>Data Object Members</h2>
+
+<p>The parsed microformat objects always contain the following member:</p>
+
+<ul>
+<li><strong>__name</strong> - The name of the microformat (hcard, hcalendar, etc.)</li>
+</ul>
+
+
+<p>The following section lists the members variables/functions that might be available for that particular microformat.  Although the specs might specify that some values are required, Tails is pretty forgiving and will more than likely create an object for it anyway.  Just to be safe you should make sure that value is available before accessing it.</p>
+
+<p>For the one-worded object members, you can access them with the standard <em>object.name</em> syntax (example: <em>object.fn</em>); However, since multi-word names are usually separated by a dash (-), you&#8217;ll need to use the <em>object[&#8220;name&#8221;]</em> syntax instead (example: <em>object[&#8220;family-name&#8221;]</em>).</p>
+
+<h2>hAtom</h2>
+
+<ul>
+<li><strong>Basic member variables</strong> -  entry-title, entry-content, entry-summary, bookmark</li>
+<li><strong>JavaScript Date values</strong> - updated_date, published_date</li>
+<li><strong>author_hcard</strong> - Post author as an hCard object (see <strong>hCard</strong> spec below).</li>
+<li><strong>getTagString()</strong> - Returns a comma seperated list of tag names.</li>
+</ul>
+
+
+<h2>hCalendar</h2>
+
+<ul>
+<li><strong>Basic member variables</strong> - dtstart, dtend, summary, location, comment, description, contact, sequence, priority, dtstamp, last-modified, created, recurrence-id, attendee, organizer, url</li>
+<li><strong>JavaScript Date values</strong> - dtstart_date, dtend_date</li>
+<li><strong>location_hcard</strong> - The location as an hCard object (see <strong>hCard</strong> spec below).</li>
+</ul>
+
+
+<h2>hCard</h2>
+
+<ul>
+<li><strong>Basic member variables</strong> - n, fn, given-name, family-name, title, note, org, locality, region, street-address, postal-code, country-name, email, logo, photo, url</li>
+<li><strong>tel</strong> - An array of telephone numbers (or <em>undefined</em> if none were specified).  Each object in the array will at least a <strong>value</strong> member, and maybe a <strong>type</strong> member if specified.</li>
+<li><strong>toAddressString()</strong> - Method returning a prettied up version the address (street-address, locality, region, postal-code, country.</li>
+<li><strong>toStreetAddressLocalityRegionAndPostalCodeString()</strong> - Method returning a prettied up string containing street-address, locality, region, postal-code values.</li>
+<li><strong>toLocalityAndRegionString()</strong> - Method returning a prettied up string containing locality, region values.</li>
+<li><strong>toLocalityRegionAndPostalCodeString()</strong> - Method returning a prettied up string containing locality, region, postal-code values.</li>
+<li><strong>toLocalityRegionAndCountryString()</strong> - Method returning a prettied up string containing locality, region, country values.</li>
+<li><strong>toLocalityRegionPostalCodeAndCountryString()</strong> - Method returning a prettied up string containing locality, region, postal-code, country values.</li>
+</ul>
+
+
+<h2>hResume</h2>
+
+<ul>
+<li><strong>Basic member variable</strong> - summary</li>
+<li><strong>contact_hcard</strong> - hCard of the person described in the resume.</li>
+<li><strong>education</strong> - An array or hCalendar events.</li>
+<li><strong>experience</strong> - An array or hCalendar events.</li>
+<li><strong>skill </strong>- An array of skills (String objects).</li>
+<li><strong>affiliation</strong> - An array of hCards.</li>
+<li><strong>publications</strong> - An array of publications (String objects).</li>
+</ul>
+
+
+<h2>hReview</h2>
+
+<ul>
+<li><strong>Basic member variables</strong> - rating, description, summary, type, version, dtreviewed, url</li>
+<li><strong>JavaScript Date values</strong> - dtreviewed_date</li>
+<li><strong>item</strong> - <em>item_hcard</em> variable will be available if an hCard is present and <em>item_hcalendar</em> variable for hCalendar.  Otherwise, <em>item.fn</em>, <em>item.photo</em>, or <em>item.url</em> if available.  Finally, if none of those values are present, <em>item</em> will be a string of the node&#8217;s contents.</li>
+<li><strong>reviewer</strong> - hCard object of the reviewer</li>
+</ul>
+
+
+<h2>xFolk</h2>
+
+<ul>
+<li><strong>Basic member variable </strong>- description</li>
+<li><strong>taggedlink</strong> - Object representing the bookmarked link, containing object members <em>name</em> and <em>url</em>.</li>
+<li><strong>tags</strong> - An array of tags.  Each tag object will have object members<em> name</em> and <em>url</em>.</li>
+</ul>
+
+
+<h2>geo</h2>
+
+<ul>
+<li><strong>Basic member variables </strong>- lattitude, longitude, lattitude_label, longitude_label, label.</li>
+</ul>
+
+
+  
+    <footer>
+      
+      
+        <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.sourcebender.com/tails/scripting.html" data-via="cyu" data-counturl="http://blog.sourcebender.com/tails/scripting.html" >Tweet</a>
+  
+  
+  <g:plusone size="medium"></g:plusone>
+  
+</div>
+
+      
+    </footer>
+  
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"><div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'dontforgettoplantit';
+  var disqus_identifier = 'http://blog.sourcebender.com/tails/scripting.html';
+  var disqus_url = 'http://blog.sourcebender.com/tails/scripting.html';
+  //var disqus_developer = 1;
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside role=sidebar>
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/building-an-html5-application-part3.html">Building an HTML5 Application, Part 3: Let&#8217;s Take this Offline</a>
+      </li>
+    
+      <li class="post">
+        <a href="/building-an-html5-application-part2.html">Building an HTML5 Application, Part 2: Web Notifications &amp; &lt;Audio&gt;</a>
+      </li>
+    
+      <li class="post">
+        <a href="/building-an-html5-application-part1.html">Building an HTML5 Application, Part 1: Local Storage</a>
+      </li>
+    
+      <li class="post">
+        <a href="/storio-and-backbonejs.html">Stor.IO and Backbone.js</a>
+      </li>
+    
+      <li class="post">
+        <a href="/easy-storage-for-html5-applications.html">Easy Storage for HTML5 Applications</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("cyu", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/cyu" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @cyu</a>
+  
+</section>
+
+
+
+<section>
+  <h1>My Pinboard</h1>
+  <ul id="pinboard_linkroll">Fetching linkroll&#8230;</ul>
+  <p><a href="http://pinboard.in/u:cyu">My Pinboard Bookmarks &raquo;</a></p>
+</section>
+<script type="text/javascript">
+  var linkroll = 'pinboard_linkroll'; //id target for pinboard list
+  var pinboard_user = "cyu"; //id target for pinboard list
+  var pinboard_count = 3; //id target for pinboard list
+  (function(){
+    var pinboardInit = document.createElement('script');
+    pinboardInit.type = 'text/javascript';
+    pinboardInit.async = true;
+    pinboardInit.src = '/javascripts/pinboard.js';
+    document.getElementsByTagName('head')[0].appendChild(pinboardInit);
+  })();
+</script>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer><p>
+  Copyright &copy; 2011 - Calvin Yu -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

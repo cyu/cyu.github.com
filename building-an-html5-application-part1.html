@@ -1,0 +1,490 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Don't Forget to Plant It!: Building an HTML5 Application, Part 1: Local Storage</title>
+  <meta name="author" content="Calvin Yu">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://blog.sourcebender.com/building-an-html5-application-part1.html"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Don't Forget to Plant It!" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-21276166-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Don't Forget to Plant It!</a></h1>
+  
+    <h2>.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:blog.sourcebender.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry">
+  
+  <header>
+    
+      <h1 class="entry-title">Building an HTML5 Application, Part 1: Local Storage</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2011-03-29 00:00:00 -0400" pubdate  updated >Mar 29<span>th</span>, 2011</time>
+
+
+</p>
+    
+  </header>
+
+
+<div class="entry-content"><p>So far, I&#8217;ve <a href="easy-storage-for-html5-applications.html">dabble with pieces of HTML5</a>, having build the rite-of-passage Todo application - now it&#8217;s time to jump in and build a more complete application.  In a series of posts, I&#8217;m going to build an HTML5 application from scratch and document my experiences along the way.  Let&#8217;s start off by exploring HTML5&#8217;s Web Storage feature.</p>
+
+<p>The application I&#8217;ve decided to build is a timer application - basically, you enter a time interval (in hours, minutes, seconds), and it&#8217;ll notify you when that time has been reached.  I start things off by creating the basics of what the application would look like via HTML:</p>
+
+<div>
+  <pre>
+    <code class='html'>&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Thymer&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;header&gt;
+    &lt;h1&gt;Thymer&lt;/h1&gt;
+  &lt;/header&gt;
+  &lt;div id=content&gt;
+    &lt;div id=add-timer-form&gt;
+      &lt;input class=text name=hours value=00 size=2&gt; :
+      &lt;input class=text name=mins value=05 size=2&gt; :
+      &lt;input class=text name=secs value=00 size=2&gt;
+      &lt;input name=name placeholder='Timer Name'&gt;
+      &lt;input type=submit value='Create Timer'&gt;
+    &lt;/div&gt;
+    &lt;ul id=timer-list&gt;&lt;/ul&gt;
+  &lt;/div&gt;
+  &lt;script src=thymer.js&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code>
+  </pre>
+</div>
+
+
+<p>Couple of notes about the above snippet:</p>
+
+<ol>
+<li><p>The <em>doctype</em> and lack of attribute quoting are standard to the spec.  One of the key points of HTML5 was identify the lowest common denominator between the popular browsers and based the spec around them.  In this case, the doctype of <em>html</em> was the minimum needed to be a valid doctype and attribute values do not need to be quoted unless there are whitespace in the value.</p></li>
+<li><p>Line #21: I&#8217;m using the new <em>placeholder</em> attribute which puts a placeholder text in the text input when the input is empty and doesn&#8217;t have value.  Once you put focus on that text input and enter a value, the place holder text goes away.</p></li>
+</ol>
+
+
+<p>Next comes the <em>thymer.js</em> script.  Nothing HTML5 specific here, I&#8217;m just putting the code here for completeness.</p>
+
+<div>
+  <pre>
+    <code class='javascript'>$().ready(function(){
+  var timerList = $('#timer-list');
+  var timers = [];
+
+  var UpdateLoop = {
+    start:function() {
+      if (!this.started) {
+        this.started = true;
+        this.interval = setInterval(function(){
+          UpdateLoop.update();
+        },1000);
+      }
+    },
+    update:function() {
+      if (timers.length &gt; 0) {
+        for (var i in timers) {
+          timers[i].update();
+        }
+
+      } else {
+        clearInterval(this.interval);
+        this.interval = null;
+        this.started = false;
+      }
+    }
+  };
+
+  var Timer = function(name, seconds) {
+    this.name = name;
+    this.seconds = seconds;
+    this.started = new Date().getTime();
+    this.finished = false;
+    this.start();
+  };
+  Timer.prototype = {
+    start:function() {
+      this.el = $(&quot;&lt;li&gt;&quot; + this.buildDisplayString() + &quot;&lt;/li&gt;&quot;);
+      timerList.append(this.el);
+    },
+    update:function() {
+      if (!this.finished) {
+        if (this.check()) {
+          var timer = this;
+          var removeLink = $('&lt;a href=&quot;#&quot;&gt;remove&lt;/a&gt;').click(function(){
+            timer.remove();
+          });
+          this.el.text('ALARM!!! - ' + this.name + ' ');
+          this.el.append(removeLink);
+        } else {
+          this.el.text(this.buildDisplayString());
+        }
+      }
+    },
+    remove:function() {
+      this.el.remove();
+      for (var i in timers) {
+        if (timers[i] == this) {
+          timers.splice(i,1);
+          break;
+        }
+      }
+    },
+    check:function() {
+      var remaining = this.calculateRemaining();
+      if (remaining &lt;= 0) {
+        this.finished = true;
+        return true;
+      }
+      return false;
+    },
+    calculateRemaining:function() {
+      return this.seconds - Math.floor((new Date().getTime() - this.started) / 1000);
+    },
+    buildDisplayString:function() {
+      var s = [];
+
+      var remaining = this.calculateRemaining();
+      remaining = this.buildTimeSegment('h', 60*60, remaining, s);
+      remaining = this.buildTimeSegment('m', 60, remaining, s);
+      s.push(remaining + 's');
+
+      return s.join(' ') + ' - ' + this.name;
+    },
+    buildTimeSegment:function(suffix, divisor, secondsRemaining, segments) {
+      var units = Math.floor(secondsRemaining / divisor);
+      if (units &gt; 0) {
+        segments.push(units + suffix);
+        return secondsRemaining % divisor;
+      }
+      return secondsRemaining;
+    }
+  };
+
+  $('#add-timer-form form').submit(function(){
+    var seconds = parseInt($('#secs').val()) +
+        (parseInt($('#mins').val()) * 60) +
+        (parseInt($('#hours').val()) * 60 * 60);
+    var timer = new Timer($('#timer-name').val(), seconds)
+    timers.push(timer);
+    UpdateLoop.start();
+    return false;
+  });
+});</code>
+  </pre>
+</div>
+
+
+<p>I now have a basic timer application.  Now for the HTML5 goodness.</p>
+
+<p>For any desktop to be truly useful (desktop or web), it needs to be able to remember state from the last time you ran the application.  For desktop applications, there are many different ways to do this, but web applications have always been limited to cookie or server-based storage.  In HTML5, there are actually a few options for storing data, with the most commonly supported one being the <strong>Local Storage API</strong>.  Local Storage API is a simple API that allows you to store data as key/value pairs.  For my Thymer application, I&#8217;m going to store the timer array so any created timers will be persisted across browser reloads.</p>
+
+<p>First, I update the <em>Timer</em> object so it can be converted to/from a save state:</p>
+
+<div>
+  <pre>
+    <code class='javascript'>var Timer = function(name, seconds, started, finished) {
+  this.name = name;
+  this.seconds = seconds;
+  this.started = started ? started : new Date().getTime();
+  this.finished = finished || false;
+  this.start();
+};
+Timer.prototype = {
+  // the rest of the Timer prototype...
+
+  toObject:function() {
+    return {
+      name: this.name,
+      seconds: this.seconds,
+      started: this.started,
+      finished: this.finished
+    };
+  }
+}</code>
+  </pre>
+</div>
+
+
+<p>Then I save the timer array every time a new timer is created, and load the stored timers when the application starts:</p>
+
+<div>
+  <pre>
+    <code class='javascript'>$('#add-timer-form form').submit(function(){
+  var seconds = parseInt($('#secs').val()) +
+      (parseInt($('#mins').val()) * 60) +
+      (parseInt($('#hours').val()) * 60 * 60);
+
+  var timer = new Timer($('#timer-name').val(), seconds)
+  timers.push(timer);
+
+  // store timers
+  if ('localStorage' in window) {
+    var arr = [];
+    for (var i in timers) {
+      arr.push(timers[i].toObject());
+    }
+    window.localStorage.setItem('timers', JSON.stringify(arr));
+  }
+
+  UpdateLoop.start();
+  return false;
+});
+
+// load stored timers
+if ('localStorage' in window) {
+  var timersData = window.localStorage.getItem('timers');
+  if (timersData) {
+    var timersData = JSON.parse(timersData);
+    for (var i in timersData) {
+      var t = timersData[i];
+      timers.push(new Timer(t.name, t.seconds, t.started, t.finished));
+    }
+    UpdateLoop.start();
+  }
+}</code>
+  </pre>
+</div>
+
+
+<p>Some notes about the <strong>Local Storage API</strong>:</p>
+
+<ol>
+<li><p><em>localStorage</em> only stores string values, so use <em>JSON.stringify()</em> and <em>JSON.parse()</em> to convert your data to/from JSON.</p></li>
+<li><p>In addition to <em>setItem</em> and <em>getItem</em>, there are also <em>clear</em> and <em>removeItem</em> functions available.</p></li>
+<li><p>You can also access stored values directly as properties on the <em>localStorage</em> object (e.g. <em>window.localStorage.timers</em>).</p></li>
+<li><p>Values are stored to an <em>origin</em>, which is the combination of <strong>scheme (http/https) + host + port</strong>.  This means other pages on that server could access those stored values, so attention should be paid to avoid naming collisions.</p></li>
+<li><p>Origin pinning also means that if a page can be viewed via multiple domains (www.example.com and example.com for example), you won&#8217;t be able to access stored values between those two domains.  Consider using permanent redirects to get users under one domain.</p></li>
+<li><p>Local Storage doesn&#8217;t seem to work in Firefox with pages served via the <em>file://</em> protocol - you&#8217;ll need to serve your page from a web server when testing locally.</p></li>
+</ol>
+
+
+<p>So that&#8217;s it for the part 1.  A lot of this is common knowledge for those who have already read up on HTML5, but now that we&#8217;ve setup the basic of the application, we can move on to more interesting aspects of HTML5.  In part 2, I&#8217;ll cover playing audio natively and using Chrome&#8217;s notification API.</p>
+
+<p>You can get <a href="https://github.com/cyu/thymer/tree/part1">the final code for Part I here</a>.  If you&#8217;re interested in going deeper into HTML5, I highly recommend visiting Mark Pilgrim&#8217;s <a href="http://diveintohtml5.org/">Dive Into HTML5</a> and getting his <em>HTML5: Up and Running</em> book.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Calvin Yu</span></span>
+
+      
+
+
+
+
+<time datetime="2011-03-29 00:00:00 -0400" pubdate  updated >Mar 29<span>th</span>, 2011</time>
+
+
+
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.sourcebender.com/building-an-html5-application-part1.html" data-via="cyu" data-counturl="http://blog.sourcebender.com/building-an-html5-application-part1.html" >Tweet</a>
+  
+  
+  <g:plusone size="medium"></g:plusone>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"><div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'dontforgettoplantit';
+  var disqus_identifier = 'http://blog.sourcebender.com/building-an-html5-application-part1.html';
+  var disqus_url = 'http://blog.sourcebender.com/building-an-html5-application-part1.html';
+  //var disqus_developer = 1;
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside role=sidebar>
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/building-an-html5-application-part3.html">Building an HTML5 Application, Part 3: Let&#8217;s Take this Offline</a>
+      </li>
+    
+      <li class="post">
+        <a href="/building-an-html5-application-part2.html">Building an HTML5 Application, Part 2: Web Notifications &amp; &lt;Audio&gt;</a>
+      </li>
+    
+      <li class="post">
+        <a href="/building-an-html5-application-part1.html">Building an HTML5 Application, Part 1: Local Storage</a>
+      </li>
+    
+      <li class="post">
+        <a href="/storio-and-backbonejs.html">Stor.IO and Backbone.js</a>
+      </li>
+    
+      <li class="post">
+        <a href="/easy-storage-for-html5-applications.html">Easy Storage for HTML5 Applications</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("cyu", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/cyu" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @cyu</a>
+  
+</section>
+
+
+
+<section>
+  <h1>My Pinboard</h1>
+  <ul id="pinboard_linkroll">Fetching linkroll&#8230;</ul>
+  <p><a href="http://pinboard.in/u:cyu">My Pinboard Bookmarks &raquo;</a></p>
+</section>
+<script type="text/javascript">
+  var linkroll = 'pinboard_linkroll'; //id target for pinboard list
+  var pinboard_user = "cyu"; //id target for pinboard list
+  var pinboard_count = 3; //id target for pinboard list
+  (function(){
+    var pinboardInit = document.createElement('script');
+    pinboardInit.type = 'text/javascript';
+    pinboardInit.async = true;
+    pinboardInit.src = '/javascripts/pinboard.js';
+    document.getElementsByTagName('head')[0].appendChild(pinboardInit);
+  })();
+</script>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer><p>
+  Copyright &copy; 2011 - Calvin Yu -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

@@ -1,0 +1,1082 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title>Don't Forget to Plant It!</title>
+  <link href="http://blog.sourcebender.com/atom.xml" rel="self"/>
+  <link href="http://blog.sourcebender.com/"/>
+  <updated>2011-08-24T22:24:46-04:00</updated>
+  <id>http://blog.sourcebender.com/</id>
+  <author>
+    <name>Calvin Yu</name>
+    
+  </author>
+
+  
+  <entry>
+    <title>Building an HTML5 Application, Part 3: Let's Take this Offline</title>
+    <link href="http://blog.sourcebender.com/building-an-html5-application-part3.html"/>
+    <updated>2011-04-28T00:00:00-04:00</updated>
+    <id>http://blog.sourcebender.com/building-an-html5-application-part3</id>
+    <content type="html">&lt;p&gt;&lt;em&gt;Here's &lt;a href=&quot;2011-03-29-building-an-html5-application-part1.html&quot;&gt;Part 1&lt;/a&gt; and &lt;a href=&quot;2011-04-05-building-an-html5-application-part2.html&quot;&gt;Part 2&lt;/a&gt; of this series.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;So after taking a break to spend time with family (yay!) and doing taxes (bleh!), I was able to spend some time on Thymer again.  It's time to get it working offline.&lt;/p&gt;
+
+&lt;p&gt;Since it doesn't require a server, Thymer is a perfect candidate to be an offline application.  In HTML5 you do this by telling the browser what files it should store locally so they are available offline.  You do this in a file called the &lt;strong&gt;Cache Manifest&lt;/strong&gt; file.  The &lt;a href=&quot;https://github.com/cyu/thymer/blob/part3/thymer.appcache&quot;&gt;one for Thymer&lt;/a&gt; looks like this:&lt;/p&gt;
+
+&lt;div&gt;&lt;figure role=code&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;span class='line'&gt;4&lt;/span&gt;
+&lt;span class='line'&gt;5&lt;/span&gt;
+&lt;span class='line'&gt;6&lt;/span&gt;
+&lt;span class='line'&gt;7&lt;/span&gt;
+&lt;span class='line'&gt;8&lt;/span&gt;
+&lt;span class='line'&gt;9&lt;/span&gt;
+&lt;span class='line'&gt;10&lt;/span&gt;
+&lt;span class='line'&gt;11&lt;/span&gt;
+&lt;span class='line'&gt;12&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;div class='line'&gt;CACHE MANIFEST
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;c&quot;&gt;# Revision: 10&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;alarm.mp3
+&lt;/div&gt;&lt;div class='line'&gt;alarm.ogg
+&lt;/div&gt;&lt;div class='line'&gt;alarm.wav
+&lt;/div&gt;&lt;div class='line'&gt;clock_32x32.png
+&lt;/div&gt;&lt;div class='line'&gt;index.html
+&lt;/div&gt;&lt;div class='line'&gt;jquery-1.5.2.min.js
+&lt;/div&gt;&lt;div class='line'&gt;minus_12x3.png
+&lt;/div&gt;&lt;div class='line'&gt;reload_12x14.png
+&lt;/div&gt;&lt;div class='line'&gt;thymer.css
+&lt;/div&gt;&lt;div class='line'&gt;thymer.js
+&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
+
+
+&lt;p&gt;In this file, I list all the files I'm going to need when offline.  It's important to note that files listed here must follow the &lt;strong&gt;same origin policy&lt;/strong&gt;, meaning the files must be served from the same domain.  I ran into this since I was using a Google hosted version of jQuery, and had to switch to self-hosting instead.&lt;/p&gt;
+
+&lt;p&gt;Another important thing to note is the second line of the manifest, where I specify the revision of the manifest in a comment.  Browsers will only update their offline cache when the manifest changes, and not when the files listed in the manifest change.  Common practice then is to update the revision number in the manifest to notify browsers to update their cache.&lt;/p&gt;
+
+&lt;p&gt;I ended up creating &lt;a href=&quot;https://github.com/cyu/thymer/blob/part3/Rakefile&quot;&gt;a rake task to generate the cache manifest&lt;/a&gt;, updating the file list when new files are added and incrementing the revision number on any changes.  To update the manifest, I just run the manifest task:&lt;/p&gt;
+
+&lt;div&gt;&lt;figure role=code&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;div class='line'&gt;rake thymer.appcache
+&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Once the manifest file is created, I need to reference that manifest from the page. You do this by setting the &lt;strong&gt;manifest&lt;/strong&gt; attribute on the &lt;em&gt;html&lt;/em&gt; element:&lt;/p&gt;
+
+&lt;div&gt;&lt;figure role=code&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='html'&gt;&lt;div class='line'&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;!doctype html&amp;gt;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;html&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;manifest=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;thymer.appcache&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Handling Updates in the Browser&lt;/h2&gt;
+
+&lt;p&gt;Some browsers must be explicitly told to update the application cache when it sees an update. Here's how that is done:&lt;/p&gt;
+
+&lt;div&gt;&lt;figure role=code&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;span class='line'&gt;4&lt;/span&gt;
+&lt;span class='line'&gt;5&lt;/span&gt;
+&lt;span class='line'&gt;6&lt;/span&gt;
+&lt;span class='line'&gt;7&lt;/span&gt;
+&lt;span class='line'&gt;8&lt;/span&gt;
+&lt;span class='line'&gt;9&lt;/span&gt;
+&lt;span class='line'&gt;10&lt;/span&gt;
+&lt;span class='line'&gt;11&lt;/span&gt;
+&lt;span class='line'&gt;12&lt;/span&gt;
+&lt;span class='line'&gt;13&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;div class='line'&gt;&lt;span class=&quot;c1&quot;&gt;// check for updates&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;applicationCache&amp;#39;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;#update-button&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;click&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;c1&quot;&gt;// Ensure the browser uses the latest version of the code&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;applicationCache&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;swapCache&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;c1&quot;&gt;// Reload the application&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;location&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;reload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;applicationCache&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;addEventListener&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;updateready&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;#update&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
+
+
+&lt;p&gt;In the above code, I just show a short message with a link to &lt;em&gt;swapCache()&lt;/em&gt; and reload when a new update is available.  Note that in some browsers, the update doesn't happen until &lt;em&gt;swapCache()&lt;/em&gt; is called, while others it's automatic and all you really have to do is reload.&lt;/p&gt;
+
+&lt;p&gt;In JavaScript, you can detect your current offline/online status with &lt;em&gt;navigator.onLine&lt;/em&gt;.  You can also listen to &lt;em&gt;offline&lt;/em&gt; and &lt;em&gt;online&lt;/em&gt; events in the document body.  For Thymer, I decided to check the manifest for updates when the browser comes back online:&lt;/p&gt;
+
+&lt;div&gt;&lt;figure role=code&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;span class='line'&gt;4&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;div class='line'&gt;&lt;span class=&quot;c1&quot;&gt;// Check for updates when the browser comes back online&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;bind&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;online&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;applicationCache&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
+
+
+&lt;p&gt;In testing, it looks like listening for &lt;em&gt;online&lt;/em&gt; event doesn't yet work in Chrome or Safari.&lt;/p&gt;
+
+&lt;h2&gt;Other Notes&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;When serving the manifest file, make sure it is served with a &lt;em&gt;Content-Type&lt;/em&gt; header of 'text/cache-manifest'.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;A lot of references and tutorials I found often named the manifest file &lt;em&gt;cache.manifest&lt;/em&gt;, but it looks like &lt;em&gt;.appcache&lt;/em&gt; will ultimately be &lt;a href=&quot;http://www.w3.org/TR/html5/iana.html#text-cache-manifest&quot;&gt;the standard extension&lt;/a&gt;.  This make sense, since the latter will probably have a lesser chance of name collisions with other file types.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;I ended up declaring all versions of my audio file in the manifest, which is less that optimal since browsers would only use one of the three sources.  I could dynamically generate the manifest based on User Agent, but that's less than ideal.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;You can browse the contents of the offline cache in FF by going to &lt;strong&gt;about:cache&lt;/strong&gt; from the address bar. In Chrome, you can see it for the current page under the Resources tab from within the Web Inspector.  Didn't see where this information was available in Safari.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;That's a Wrap&lt;/h2&gt;
+
+&lt;p&gt;That's it for Offline mode.  In the next and most likely the final post in this series, I'm going to get Thymer onto the Chrome web store.  If you want to learn more about Offline mode, HTML5Rocks has curated a &lt;a href=&quot;http://www.html5rocks.com/features/offline&quot;&gt;bunch of articles related to offline&lt;/a&gt;.  And here is &lt;a href=&quot;https://github.com/cyu/thymer/tree/part3&quot;&gt;the source code&lt;/a&gt; referenced by this post.&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Building an HTML5 Application, Part 2: Web Notifications &amp; &lt;Audio&gt;</title>
+    <link href="http://blog.sourcebender.com/building-an-html5-application-part2.html"/>
+    <updated>2011-04-05T00:00:00-04:00</updated>
+    <id>http://blog.sourcebender.com/building-an-html5-application-part2</id>
+    <content type="html">&lt;p&gt;This is part 2 in a series of posts walking through my experiences building &lt;a href=&quot;http://blog.sourcebender.com/thymer&quot;&gt;Thymer&lt;/a&gt;, a single-page web application using HTML5 and related technologies.  In &lt;a href=&quot;building-an-html5-application-part1.html&quot;&gt;my first post&lt;/a&gt;, I got the basics of the application working and used the Local &lt;strong&gt;Storage API&lt;/strong&gt; to store timers between browser refreshes.  In this article, I'm going to talk about the &lt;strong&gt;Notification API&lt;/strong&gt; and the &lt;strong&gt;&amp;lt;audio&amp;gt;&lt;/strong&gt; tag.&lt;/p&gt;
+
+&lt;h2&gt;The Notification API&lt;/h2&gt;
+
+&lt;p&gt;Since my last post, I've made some minor fixes and UI tweaks to get Thymer feeling more like a usable application, but Thymer really wasn't going to be useful unless it can grab a user's attention when a timer ends.  Recently Gmail introduced a new feature in Chrome where I get a nice little Growl-like notification whenever I received a Google Talk message.  This was done using something called the Notification API.  I wanted to see how easy it would be use this API to show a notification when a timer completes.&lt;/p&gt;
+
+&lt;p&gt;The Notification API is currently just a &lt;a href=&quot;http://www.chromium.org/developers/design-documents/desktop-notifications/api-specification&quot;&gt;draft spec&lt;/a&gt;, and it's support is currently only limited to Chrome.  Once the API gets wider adoption, there's a very good chance the API will change (at the minimum to rename the &lt;em&gt;window.webkitNotifications&lt;/em&gt; object).  Getting it working was super easy, basically by following &lt;a href=&quot;http://www.html5rocks.com/tutorials/notifications/quick/&quot;&gt;this tutorial here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;First, I request permission to use the Notifications API when the first timer is created.  It's important to note that &lt;strong&gt;you can only request permission on a user triggered event like a mouse click or key event.&lt;/strong&gt;  In Thymer's case, I request permission when the Enter key is pressed to submit a new timer:&lt;/p&gt;
+
+&lt;div&gt;
+  &lt;pre&gt;
+    &lt;code class='javascript'&gt;$('#add-timer-form input').keypress(function(event) {
+  if (event.which == '13') { // Enter key
+    event.preventDefault();
+    var seconds = parseInt($('#secs').val()) +
+        (parseInt($('#mins').val()) * 60) +
+        (parseInt($('#hours').val()) * 60 * 60);
+
+    Thymer.addTimer(new Timer($('#timer-name').val(), seconds));
+    $('#timer-name').val('');
+
+    // request notifications permission if API is supported.  We do
+    // this here because we can only do this on user triggered events.
+    if (window.webkitNotifications &amp;amp;&amp;amp;
+          window.webkitNotifications.checkPermission() != 0) {
+      window.webkitNotifications.requestPermission();
+    }
+  }
+})&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Then I create a notification when the timer ends:&lt;/p&gt;
+
+&lt;div&gt;
+  &lt;pre&gt;
+    &lt;code class='javascript'&gt;_alarm:function() {
+  // show a notification if the browser supports it.
+  if (window.webkitNotifications &amp;amp;&amp;amp;
+      window.webkitNotifications.checkPermission() == 0) {
+
+    window.webkitNotifications.createNotification('clock_32x32.png',
+        'Thymer', '&amp;quot;' + this.name + '&amp;quot; timer has completed').show();
+  }
+}&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Here's what the notification looks like:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;images/thymer-notification.jpg&quot; alt=&quot;Thymer Notification in Chrome&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;Some notes about the Notifications API:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;I had issues with &lt;em&gt;requestPermission()&lt;/em&gt; when using the &lt;em&gt;file://&lt;/em&gt; protocol where my permission got set as if I denied permission and didn't give me a way to reset it.  If you're testing locally I recommend serving your page via localhost.&lt;/li&gt;
+&lt;li&gt;Once you approve or deny the notification permission, users will not receive the permission infobar again when you call &lt;em&gt;requestPermission()&lt;/em&gt;.  You can reset the permission in Chrome from &lt;strong&gt;Preferences&lt;/strong&gt; &gt; &lt;strong&gt;Under the Hood&lt;/strong&gt; &gt; &lt;strong&gt;Content Settings&lt;/strong&gt; (Under &lt;em&gt;Privacy&lt;/em&gt;).&lt;/li&gt;
+&lt;li&gt;The image parameter in &lt;em&gt;createNotification()&lt;/em&gt; is not optional.  Passing &lt;strong&gt;null&lt;/strong&gt; will show a broken image.&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;h2&gt;The Audio Tag&lt;/h2&gt;
+
+&lt;p&gt;So now I have a way to grab user's attention when a timer completes in Chrome, but what about other browsers?  How about playing an alarm sound when the timer completes?  This turned out to be pretty easy with the &lt;strong&gt;&amp;lt;audio&amp;gt;&lt;/strong&gt; tag:&lt;/p&gt;
+
+&lt;div&gt;
+  &lt;pre&gt;
+    &lt;code class='html'&gt;&amp;lt;audio id=alarm-sound&amp;gt;
+  &amp;lt;source src=alarm.mp3 type=audio/mpeg /&amp;gt;
+  &amp;lt;source src=alarm.ogg type=audio/ogg /&amp;gt;
+  &amp;lt;source src=alarm.wav type=audio/wav /&amp;gt;
+&amp;lt;/audio&amp;gt;&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;This sets up a audio clip that I can access from JavaScript via the element id.  Since I don't specify a &lt;strong&gt;controls&lt;/strong&gt; or &lt;strong&gt;autoplay&lt;/strong&gt; attribute, the audio won't play until I want it to.  I'm also specifying the three different sources for audio (gotta love proprietary sound formats).  Between MP3 &amp;amp; Ogg Vorbis, all modern browsers should be covered, but I'm going to throw a WAV in there for completeness anyway.  I am concerned about how this will affect my footprint when I setup offline mode for Thymer, but that's an issue for a different post.&lt;/p&gt;
+
+&lt;p&gt;Playing the audio from JavaScript is cake:&lt;/p&gt;
+
+&lt;div&gt;
+  &lt;pre&gt;
+    &lt;code class='javascript'&gt;_alarm:function() {
+  // show a notification if the browser supports it.
+  if (window.webkitNotifications &amp;amp;&amp;amp; window.webkitNotifications.checkPermission() == 0) {
+    window.webkitNotifications.createNotification('clock_32x32.png', 'Thymer', '&amp;quot;' + this.name + '&amp;quot; timer has completed').show();
+  }
+
+  // play the alarm sound
+  document.getElementById('alarm-sound').play();
+}&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;For more information about the Audio tag, I recommend &lt;a href=&quot;http://html5doctor.com/native-audio-in-the-browser/&quot;&gt;this article at &amp;lt;html&amp;gt;5doctor&lt;/a&gt;.  In that article they have a helpful table showing the browser support for the different audio formats.&lt;/p&gt;
+
+&lt;p&gt;This concludes Part 2 of this series.  You can &lt;a href=&quot;https://github.com/cyu/thymer/tree/part2&quot;&gt;see the final code for this part here&lt;/a&gt;.  You can also see the final application on &lt;a href=&quot;https://github.com/cyu/thymer&quot;&gt;the master branch&lt;/a&gt; as well as play with a &lt;a href=&quot;http://blog.sourcebender.com/thymer&quot;&gt;running version of Thymer here&lt;/a&gt;.  In part 3, I'm going to configure Thymer to run in offline mode by creating a cache manifest.&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Building an HTML5 Application, Part 1: Local Storage</title>
+    <link href="http://blog.sourcebender.com/building-an-html5-application-part1.html"/>
+    <updated>2011-03-29T00:00:00-04:00</updated>
+    <id>http://blog.sourcebender.com/building-an-html5-application-part1</id>
+    <content type="html">&lt;p&gt;So far, I've &lt;a href=&quot;easy-storage-for-html5-applications.html&quot;&gt;dabble with pieces of HTML5&lt;/a&gt;, having build the rite-of-passage Todo application - now it's time to jump in and build a more complete application.  In a series of posts, I'm going to build an HTML5 application from scratch and document my experiences along the way.  Let's start off by exploring HTML5's Web Storage feature.&lt;/p&gt;
+
+&lt;p&gt;The application I've decided to build is a timer application - basically, you enter a time interval (in hours, minutes, seconds), and it'll notify you when that time has been reached.  I start things off by creating the basics of what the application would look like via HTML:&lt;/p&gt;
+
+&lt;div&gt;
+  &lt;pre&gt;
+    &lt;code class='html'&gt;&amp;lt;!doctype html&amp;gt;
+&amp;lt;html&amp;gt;
+&amp;lt;head&amp;gt;
+&amp;lt;title&amp;gt;Thymer&amp;lt;/title&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body&amp;gt;
+  &amp;lt;header&amp;gt;
+    &amp;lt;h1&amp;gt;Thymer&amp;lt;/h1&amp;gt;
+  &amp;lt;/header&amp;gt;
+  &amp;lt;div id=content&amp;gt;
+    &amp;lt;div id=add-timer-form&amp;gt;
+      &amp;lt;input class=text name=hours value=00 size=2&amp;gt; :
+      &amp;lt;input class=text name=mins value=05 size=2&amp;gt; :
+      &amp;lt;input class=text name=secs value=00 size=2&amp;gt;
+      &amp;lt;input name=name placeholder='Timer Name'&amp;gt;
+      &amp;lt;input type=submit value='Create Timer'&amp;gt;
+    &amp;lt;/div&amp;gt;
+    &amp;lt;ul id=timer-list&amp;gt;&amp;lt;/ul&amp;gt;
+  &amp;lt;/div&amp;gt;
+  &amp;lt;script src=thymer.js&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Couple of notes about the above snippet:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;The &lt;em&gt;doctype&lt;/em&gt; and lack of attribute quoting are standard to the spec.  One of the key points of HTML5 was identify the lowest common denominator between the popular browsers and based the spec around them.  In this case, the doctype of &lt;em&gt;html&lt;/em&gt; was the minimum needed to be a valid doctype and attribute values do not need to be quoted unless there are whitespace in the value.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Line #21: I'm using the new &lt;em&gt;placeholder&lt;/em&gt; attribute which puts a placeholder text in the text input when the input is empty and doesn't have value.  Once you put focus on that text input and enter a value, the place holder text goes away.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;p&gt;Next comes the &lt;em&gt;thymer.js&lt;/em&gt; script.  Nothing HTML5 specific here, I'm just putting the code here for completeness.&lt;/p&gt;
+
+&lt;div&gt;
+  &lt;pre&gt;
+    &lt;code class='javascript'&gt;$().ready(function(){
+  var timerList = $('#timer-list');
+  var timers = [];
+
+  var UpdateLoop = {
+    start:function() {
+      if (!this.started) {
+        this.started = true;
+        this.interval = setInterval(function(){
+          UpdateLoop.update();
+        },1000);
+      }
+    },
+    update:function() {
+      if (timers.length &amp;gt; 0) {
+        for (var i in timers) {
+          timers[i].update();
+        }
+
+      } else {
+        clearInterval(this.interval);
+        this.interval = null;
+        this.started = false;
+      }
+    }
+  };
+
+  var Timer = function(name, seconds) {
+    this.name = name;
+    this.seconds = seconds;
+    this.started = new Date().getTime();
+    this.finished = false;
+    this.start();
+  };
+  Timer.prototype = {
+    start:function() {
+      this.el = $(&amp;quot;&amp;lt;li&amp;gt;&amp;quot; + this.buildDisplayString() + &amp;quot;&amp;lt;/li&amp;gt;&amp;quot;);
+      timerList.append(this.el);
+    },
+    update:function() {
+      if (!this.finished) {
+        if (this.check()) {
+          var timer = this;
+          var removeLink = $('&amp;lt;a href=&amp;quot;#&amp;quot;&amp;gt;remove&amp;lt;/a&amp;gt;').click(function(){
+            timer.remove();
+          });
+          this.el.text('ALARM!!! - ' + this.name + ' ');
+          this.el.append(removeLink);
+        } else {
+          this.el.text(this.buildDisplayString());
+        }
+      }
+    },
+    remove:function() {
+      this.el.remove();
+      for (var i in timers) {
+        if (timers[i] == this) {
+          timers.splice(i,1);
+          break;
+        }
+      }
+    },
+    check:function() {
+      var remaining = this.calculateRemaining();
+      if (remaining &amp;lt;= 0) {
+        this.finished = true;
+        return true;
+      }
+      return false;
+    },
+    calculateRemaining:function() {
+      return this.seconds - Math.floor((new Date().getTime() - this.started) / 1000);
+    },
+    buildDisplayString:function() {
+      var s = [];
+
+      var remaining = this.calculateRemaining();
+      remaining = this.buildTimeSegment('h', 60*60, remaining, s);
+      remaining = this.buildTimeSegment('m', 60, remaining, s);
+      s.push(remaining + 's');
+
+      return s.join(' ') + ' - ' + this.name;
+    },
+    buildTimeSegment:function(suffix, divisor, secondsRemaining, segments) {
+      var units = Math.floor(secondsRemaining / divisor);
+      if (units &amp;gt; 0) {
+        segments.push(units + suffix);
+        return secondsRemaining % divisor;
+      }
+      return secondsRemaining;
+    }
+  };
+
+  $('#add-timer-form form').submit(function(){
+    var seconds = parseInt($('#secs').val()) +
+        (parseInt($('#mins').val()) * 60) +
+        (parseInt($('#hours').val()) * 60 * 60);
+    var timer = new Timer($('#timer-name').val(), seconds)
+    timers.push(timer);
+    UpdateLoop.start();
+    return false;
+  });
+});&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;I now have a basic timer application.  Now for the HTML5 goodness.&lt;/p&gt;
+
+&lt;p&gt;For any desktop to be truly useful (desktop or web), it needs to be able to remember state from the last time you ran the application.  For desktop applications, there are many different ways to do this, but web applications have always been limited to cookie or server-based storage.  In HTML5, there are actually a few options for storing data, with the most commonly supported one being the &lt;strong&gt;Local Storage API&lt;/strong&gt;.  Local Storage API is a simple API that allows you to store data as key/value pairs.  For my Thymer application, I'm going to store the timer array so any created timers will be persisted across browser reloads.&lt;/p&gt;
+
+&lt;p&gt;First, I update the &lt;em&gt;Timer&lt;/em&gt; object so it can be converted to/from a save state:&lt;/p&gt;
+
+&lt;div&gt;
+  &lt;pre&gt;
+    &lt;code class='javascript'&gt;var Timer = function(name, seconds, started, finished) {
+  this.name = name;
+  this.seconds = seconds;
+  this.started = started ? started : new Date().getTime();
+  this.finished = finished || false;
+  this.start();
+};
+Timer.prototype = {
+  // the rest of the Timer prototype...
+
+  toObject:function() {
+    return {
+      name: this.name,
+      seconds: this.seconds,
+      started: this.started,
+      finished: this.finished
+    };
+  }
+}&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Then I save the timer array every time a new timer is created, and load the stored timers when the application starts:&lt;/p&gt;
+
+&lt;div&gt;
+  &lt;pre&gt;
+    &lt;code class='javascript'&gt;$('#add-timer-form form').submit(function(){
+  var seconds = parseInt($('#secs').val()) +
+      (parseInt($('#mins').val()) * 60) +
+      (parseInt($('#hours').val()) * 60 * 60);
+
+  var timer = new Timer($('#timer-name').val(), seconds)
+  timers.push(timer);
+
+  // store timers
+  if ('localStorage' in window) {
+    var arr = [];
+    for (var i in timers) {
+      arr.push(timers[i].toObject());
+    }
+    window.localStorage.setItem('timers', JSON.stringify(arr));
+  }
+
+  UpdateLoop.start();
+  return false;
+});
+
+// load stored timers
+if ('localStorage' in window) {
+  var timersData = window.localStorage.getItem('timers');
+  if (timersData) {
+    var timersData = JSON.parse(timersData);
+    for (var i in timersData) {
+      var t = timersData[i];
+      timers.push(new Timer(t.name, t.seconds, t.started, t.finished));
+    }
+    UpdateLoop.start();
+  }
+}&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Some notes about the &lt;strong&gt;Local Storage API&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;localStorage&lt;/em&gt; only stores string values, so use &lt;em&gt;JSON.stringify()&lt;/em&gt; and &lt;em&gt;JSON.parse()&lt;/em&gt; to convert your data to/from JSON.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;In addition to &lt;em&gt;setItem&lt;/em&gt; and &lt;em&gt;getItem&lt;/em&gt;, there are also &lt;em&gt;clear&lt;/em&gt; and &lt;em&gt;removeItem&lt;/em&gt; functions available.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;You can also access stored values directly as properties on the &lt;em&gt;localStorage&lt;/em&gt; object (e.g. &lt;em&gt;window.localStorage.timers&lt;/em&gt;).&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Values are stored to an &lt;em&gt;origin&lt;/em&gt;, which is the combination of &lt;strong&gt;scheme (http/https) + host + port&lt;/strong&gt;.  This means other pages on that server could access those stored values, so attention should be paid to avoid naming collisions.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Origin pinning also means that if a page can be viewed via multiple domains (www.example.com and example.com for example), you won't be able to access stored values between those two domains.  Consider using permanent redirects to get users under one domain.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Local Storage doesn't seem to work in Firefox with pages served via the &lt;em&gt;file://&lt;/em&gt; protocol - you'll need to serve your page from a web server when testing locally.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;p&gt;So that's it for the part 1.  A lot of this is common knowledge for those who have already read up on HTML5, but now that we've setup the basic of the application, we can move on to more interesting aspects of HTML5.  In part 2, I'll cover playing audio natively and using Chrome's notification API.&lt;/p&gt;
+
+&lt;p&gt;You can get &lt;a href=&quot;https://github.com/cyu/thymer/tree/part1&quot;&gt;the final code for Part I here&lt;/a&gt;.  If you're interested in going deeper into HTML5, I highly recommend visiting Mark Pilgrim's &lt;a href=&quot;http://diveintohtml5.org/&quot;&gt;Dive Into HTML5&lt;/a&gt; and getting his &lt;em&gt;HTML5: Up and Running&lt;/em&gt; book.&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Stor.IO and Backbone.js</title>
+    <link href="http://blog.sourcebender.com/storio-and-backbonejs.html"/>
+    <updated>2011-03-08T00:00:00-05:00</updated>
+    <id>http://blog.sourcebender.com/storio-and-backbonejs</id>
+    <content type="html">&lt;p&gt;&lt;a href=&quot;http://documentcloud.github.com/backbone/&quot;&gt;Backbone.js&lt;/a&gt; is a nice JavaScript framework that provides some basic structure to your JavaScript application.  What's nice about it is that it does this while at the same time being flexible and letting you make some design decisions on your own.  One of those is how you choose store you data.&lt;/p&gt;
+
+&lt;p&gt;While looking at Backbone's extensive documentation, I couldn't help but notice that they had an example todo application that used localStorage as a backing store.  And since the &lt;a href=&quot;easy-storage-for-html5-applications.html&quot;&gt;Stor.IO&lt;/a&gt; API so closely resembles the localStorage API, it was easy to adapt the example application to use Stor.IO as a backend.  Here's the &lt;a href=&quot;http://github.com/cyu/storio-backbone-todos&quot;&gt;Github Project&lt;/a&gt;.  And you can &lt;a href=&quot;http://cyu.github.com/storio-backbone-todos&quot;&gt;play around with the application here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;In other news, I've setup &lt;a href=&quot;https://convore.com/storio/&quot;&gt;a group on Convore to discuss Stor.IO&lt;/a&gt;.  I'm on there pretty regularly, so there's a good chance you'll find me there if you have questions.&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Easy Storage for HTML5 Applications</title>
+    <link href="http://blog.sourcebender.com/easy-storage-for-html5-applications.html"/>
+    <updated>2011-02-22T00:00:00-05:00</updated>
+    <id>http://blog.sourcebender.com/easy-storage-for-html5-applications</id>
+    <content type="html">&lt;p&gt;I'm a big believer that HTML5 will be a game changer.  It reminds me of the introduction of &lt;a href=&quot;http://en.wikipedia.org/wiki/Dhtml&quot;&gt;DHTML&lt;/a&gt; over a decade ago, and although DHTML the term never really caught on, it definitely paved the way to the eventual discovery of Ajax and an integral part of what is considered standard web application practice today.&lt;/p&gt;
+
+&lt;p&gt;A core component of HTML5 is the &lt;a href=&quot;http://diveintohtml5.org/storage.html&quot;&gt;localStorage API&lt;/a&gt;.  With it, you can write a fairly useful application &amp;mdash; all in JavaScript.  There are limitations however: without server-side storage, your data is trapped to that browser, and with the diversity of devices we use today (laptop, smartphones and tablets), applications need to be available wherever you have a browser.&lt;/p&gt;
+
+&lt;p&gt;So what if you can write an application, still all in client-side JavaScript, but store data centrally so it can be accessible on all devices and browsers?  This is what &lt;a href=&quot;http://stor.io&quot;&gt;Stor.IO&lt;/a&gt; does.  Here's some example code:&lt;/p&gt;
+
+&lt;div&gt;
+  &lt;pre&gt;
+    &lt;code class='javascript'&gt;&amp;lt;script src=&amp;quot;http://stor.io/app_storage.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script&amp;gt;
+  window.appStorage.$.connect({email: 'my@emailaddress.com'});
+  //window.appStorage.$.connect({twitter:true}); // use Twitter OAuth
+  window.appStorage.setItem('foo', 'bar');
+  window.appStorage.getItem('foo'); // &amp;quot;bar&amp;quot;
+  window.appStorage.foo; // &amp;quot;bar&amp;quot;
+&amp;lt;/script&amp;gt;&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Including the &lt;em&gt;app_storage.js&lt;/em&gt; script creates the &lt;strong&gt;appStorage&lt;/strong&gt; object on the browser window.  Next, you call the &lt;em&gt;connect&lt;/em&gt; method on the server object (&lt;em&gt;$&lt;/em&gt;), passing in the identity of the user.  Currently, an email-only method of authenticating is available, as well as Twitter OAuth.   Once connected, the appStorage API behaves essentially like the localStorage API.  And it doesn't force you to store strings like localStorage does, meaning you don't need to serialize/deserialize objects to/from JSON.&lt;/p&gt;
+
+&lt;p&gt;For reading data from Stor.IO, you'll need to wait on the server to identify the user and retrieve their data, and there's a &lt;em&gt;ready()&lt;/em&gt; handler available for that:&lt;/p&gt;
+
+&lt;div&gt;
+  &lt;pre&gt;
+    &lt;code class='javascript'&gt;&amp;lt;script&amp;gt;
+window.appStorage.$.ready(function(){
+  var tasks = window.appStorage.tasks;
+  for (var i=0; i&amp;lt;tasks.length; i++) {
+    console.log(tasks[i].text);
+  }
+});
+&amp;lt;/script&amp;gt;&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Underneath, how Stor.IO works is that it creates an iframe and uses the &lt;a href=&quot;http://ajaxian.com/archives/cross-window-messaging-with-html-5-postmessage&quot;&gt;postMessage API&lt;/a&gt; to work around the same origin policy that handicaps Ajax calls.  The server is Sinatra app with the data being stored in MongoDB.  The data is isolated by the user identity and the application path, which is a substring the current URL up to the first directory path, so http://localhost/app1 and http://localhost/app2 will actually hold different data sets.&lt;/p&gt;
+
+&lt;p&gt;To flush out the initial implementation, I wrote a very rudimentary &lt;a href=&quot;http://blog.sourcebender.com/todojs&quot;&gt;todo application&lt;/a&gt;.  It's actually hosted on Github pages, so you can see how everything works from the &lt;a href=&quot;http://github.com/cyu/todojs&quot;&gt;project page&lt;/a&gt;.  Even better is that you can fork the project and immediately have groundwork on your own todo application, with hosting courtesy of Github.&lt;/p&gt;
+
+&lt;p&gt;Please give it a shot and join the &lt;a href=&quot;http://groups.google.com/group/storio&quot;&gt;Google Group&lt;/a&gt; if you have questions or are interested in further development.&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Leaving WordPress for Jekyll</title>
+    <link href="http://blog.sourcebender.com/leaving-wordpress-for-jekyll.html"/>
+    <updated>2011-02-12T00:00:00-05:00</updated>
+    <id>http://blog.sourcebender.com/leaving-wordpress-for-jekyll</id>
+    <content type="html">&lt;p&gt;Taking &lt;a href=&quot;http://paulstamatiou.com/how-to-wordpress-to-jekyll&quot;&gt;inspiration from Paul&lt;/a&gt;, I've switched my blog from a self-hosted WordPress one to a static HTML site using &lt;a href=&quot;http://github.com/mojombo/jekyll&quot;&gt;Jekyll&lt;/a&gt;.  I didn't initially look at Jekyll because it seemed like the migration process was going to take a lot of work, but eventually settled on it because:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;I couldn't easily migrate my blog data to Tumblr, and&lt;/li&gt;
+&lt;li&gt;Although I was able to migrate to Posterous, the customization options was limited and buggy at times.  Also, some of the HTML it generated (i.e. comments) looked pretty gnarly to style.&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;p&gt;So I gave Jekyll a shot, and came out quite happy with the results.  The migration script to convert my WP data worked as well as expected, and since the results were plain text it was easy to make the necessary tweaks to complete the migration.&lt;/p&gt;
+
+&lt;p&gt;In the switch over, I elected not to migrate all the sidebar widgets, instead putting the focus primarily on the articles.  At the end of the day, that's really want I want people to get out of this site.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Apologies to my RSS subscribers (all 70 of you) who will likely see all my posts as new posts.&lt;/em&gt;&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Loading CouchDB Views from Source Files</title>
+    <link href="http://blog.sourcebender.com/2010/07/28/loading-couchdb-views.html"/>
+    <updated>2010-07-28T00:00:00-04:00</updated>
+    <id>http://blog.sourcebender.com/2010/07/28/loading-couchdb-views</id>
+    <content type="html">&lt;p&gt;I've been doing a lot work with CouchDB lately for Socialytics, and which means writing map/reduce functions in JavaScript for building views.  I was beginning to have a healthy set of views, it made sense to have this code in version control and be able to load these views to a CouchDB instance via the command line.  Not finding anything like this on the interwebs, I decided to come with something on my own.&lt;/p&gt;
+
+&lt;p&gt;My first pass at it was a Ruby implementation, but was fragile since it found the map and reduce functions via regular expressions.  This past weekend I decided to give a go with a new implementation using &lt;a href=&quot;http://nodejs.org&quot;&gt;Node.js&lt;/a&gt;.  Since I'm now using JavaScript, I no longer had to use regular expressions to sniff out the map/reduce functions - I can just load the scripts up as code.  Another additional benefit is that now the view code got parsed, so I find syntax errors before the are loaded to Couch.&lt;/p&gt;
+
+&lt;p&gt;&lt;a title=&quot;loader.js&quot; href=&quot;http://gist.github.com/492124&quot;&gt;Here's the code&lt;/a&gt;.  The script expects a &lt;em&gt;designs/&lt;/em&gt; folder at the same level as the loader script, with a subfolder for each design document underneath.  A design folder should have a &lt;em&gt;.js&lt;/em&gt; file for each view.  A view file looks like this:&lt;/p&gt;
+
+&lt;div&gt;
+  &lt;pre&gt;
+    &lt;code class='javascript'&gt;design.view = {
+    map: function(doc) {
+        emit(doc.created_at, null);
+    },
+    reduce: '_count'
+};&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;&lt;a href=&quot;http://wiki.apache.org/couchdb/Document_Update_Handlers&quot;&gt;CouchDB document update handlers&lt;/a&gt; are supported as well by assigning a function to &lt;strong&gt;design.update&lt;/strong&gt;.  Once your view files are ready, just run &lt;strong&gt;loader.js&lt;/strong&gt; with the CouchDB database URL as the parameter:&lt;/p&gt;
+
+&lt;pre&gt;node db/couchdb/loader.js http://localhost:5984/myDatabase&lt;/pre&gt;
+
+
+&lt;p&gt;So what do you think?  Does something like this exist already?  Is there a better way to do this?&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Introducing Rack::CORS</title>
+    <link href="http://blog.sourcebender.com/2010/06/09/introducin-rack-cors.html"/>
+    <updated>2010-06-09T00:00:00-04:00</updated>
+    <id>http://blog.sourcebender.com/2010/06/09/introducin-rack-cors</id>
+    <content type="html">&lt;p&gt;Recently, I've been working on an HTML5 project that needed to need to retrieve data from a different origin, and decided to look at using CORS.&lt;/p&gt;
+
+&lt;p&gt;CORS, or Cross-Origin Resource Sharing is a specification that allows web applications to make AJAX calls cross-origin without resorting to workarounds such as &lt;a title=&quot;Wikipedia write up on JSONP&quot; href=&quot;http://en.wikipedia.org/wiki/JSON#JSONP&quot;&gt;JSONP&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Searching around, I found an CORS extension for Sinatra, which happened to be the framework I was using.  However, the extension didn't properly implement the spec, nor did it support CORS preflighting (required for more complex AJAX requests).  So I rolled my own, but as a Rack Middleware.  Here's an example of a Rackup that shows it in action (this example uses &lt;a title=&quot;Rack::CORS Rubygem&quot; href=&quot;http://rubygems.org/gems/rack-cors&quot;&gt;Rack::CORS&lt;/a&gt; in Sinatra app, but should be able to use it in any Rack compatible framework):&lt;/p&gt;
+
+&lt;div&gt;
+  &lt;pre&gt;
+    &lt;code class='ruby'&gt;require 'sinatra'
+require 'rack/cors'
+
+use Rack::Cors do |config|
+  config.allow do |allow|
+    allow.origins '*'
+    allow.resource '/file/list_all/', :headers =&amp;amp;gt; :any
+    allow.resource '/file/at/*',
+        :methods =&amp;amp;gt; [:get, :post, :put, :delete],
+        :headers =&amp;amp;gt; :any,
+        :max_age =&amp;amp;gt; 0
+  end
+end
+
+get '/file/list_all/' do
+  #...
+end
+
+get '/file/at/*' do
+  #...
+end&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;To get going with Rack::CORS, just install the rack-cors Gem.  To check out the source, see &lt;a href=&quot;http://github.com/cyu/rack-cors&quot;&gt;the project on Github&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;If you want to learn more about CORS, here are some good links I found along the way:&lt;/p&gt;
+
+&lt;ul&gt;
+    &lt;li&gt;The &lt;a title=&quot;Cross-Origin Resource Sharing Working Draft&quot; href=&quot;http://www.w3.org/TR/access-control/&quot;&gt;W3C Working Draft on CORS&lt;/a&gt;, for good night time reading.&lt;/li&gt;
+    &lt;li&gt;A &lt;a title=&quot;Cross-domain Ajax with Cross-Origin Resource Sharing&quot; href=&quot;http://www.nczonline.net/blog/2010/05/25/cross-domain-ajax-with-cross-origin-resource-sharing/&quot;&gt;good article about CORS&lt;/a&gt; that summarizes the CORS spec.&lt;/li&gt;
+    &lt;li&gt;You can &lt;a title=&quot;CORS Support Tests&quot; href=&quot;http://rdfa.digitalbazaar.com/tests/cors/&quot;&gt;check if your browsers support CORS here&lt;/a&gt;.  This site records all pass/fails so you'll be able to see a list of CORS supported (and not supported) browsers.&lt;/li&gt;
+    &lt;li&gt;The &lt;a title=&quot;Cross Origin Resource Sharing with Sinatra&quot; href=&quot;http://britg.com/2009/12/29/cross-origin-resource-sharing-with-sinatra/&quot;&gt;Sinatra CORS Extension&lt;/a&gt; I found.&lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+  </entry>
+  
+  <entry>
+    <title>Setting up Virtual Hosts on Mac OSX</title>
+    <link href="http://blog.sourcebender.com/2010/03/26/setting-up-virtual-hosts-on-mac-osx.html"/>
+    <updated>2010-03-26T00:00:00-04:00</updated>
+    <id>http://blog.sourcebender.com/2010/03/26/setting-up-virtual-hosts-on-mac-osx</id>
+    <content type="html">&lt;p&gt;I've been juggling a few different web projects lately, and decided to setup different virtual hosts on my Mac so that I can easily work with them.  Googling around gave me a lot of different answers, none of which seem to work completely.  This is what finally worked for me (on Snow Leopard).&lt;/p&gt;
+
+&lt;p&gt;First, add a new local domain to your &lt;em&gt;/etc/hosts&lt;/em&gt; file:&lt;/p&gt;
+
+&lt;pre&gt;127.0.0.1       localhost devsite.local&lt;/pre&gt;
+
+
+&lt;p&gt;Next, you'll need to configure Apache with this new virtual host.  Fortunately, the default Apache config has this partially setup.  Open up &lt;em&gt;/etc/apache2/httpd.conf&lt;/em&gt; and uncomment the following Include:&lt;/p&gt;
+
+&lt;div&gt;
+  &lt;pre&gt;
+    &lt;code class='apache'&gt;# Virtual hosts
+#Include /private/etc/apache2/extra/httpd-vhosts.conf&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Now, we need to add our virtual host to the &lt;em&gt;httpd-vhosts.conf &lt;/em&gt;file referenced above.  The file already had a couple of sample configuration in it, but I commented out those and added the following:&lt;/p&gt;
+
+&lt;div&gt;
+  &lt;pre&gt;
+    &lt;code class='apache'&gt;&amp;lt;VirtualHost *:80&amp;gt;
+    DocumentRoot &amp;quot;/Library/WebServer/Documents&amp;quot;
+    ServerName localhost
+&amp;lt;/VirtualHost&amp;gt;
+
+&amp;lt;VirtualHost *:80&amp;gt;
+    DocumentRoot &amp;quot;/usr/docs/devsite.local&amp;quot;
+    ServerName devsite.local
+&amp;lt;/VirtualHost&amp;gt;&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;This first entry will map localhost to its default document location (without it http://localhost won't work correctly).  The second entry maps my new domain.  Additionally, you'll want to make sure files in your new docs directory have adequate access permissions.  I ended adding a new Directory section to &lt;em&gt;httpd-vhosts.conf &lt;/em&gt;file:&lt;/p&gt;
+
+&lt;div&gt;
+  &lt;pre&gt;
+    &lt;code class='apache'&gt;&amp;lt;Directory &amp;quot;/usr/docs/devsite.local&amp;quot;&amp;gt;
+    Options Indexes FollowSymLinks MultiViews
+    AllowOverride None
+    Order allow,deny
+    Allow from all
+&amp;lt;/Directory&amp;gt;&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Now all you have to do is put your web files in &lt;em&gt;/usr/docs/devsite.local&lt;/em&gt;.  I originally had my new local domain map to &lt;em&gt;&amp;lt;user dir&amp;gt;/Sites/devsite.local&lt;/em&gt;, but changed it because I would have to make sure Apache could access to all the directories leading up to those docs. So instead I just symlinked my http docs from my user directory into &lt;em&gt;/usr/docs.&lt;/em&gt;&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Installing Native Gems with Custom Library Paths</title>
+    <link href="http://blog.sourcebender.com/2009/09/06/installing-native-gems-with-custom-library-paths.html"/>
+    <updated>2009-09-06T00:00:00-04:00</updated>
+    <id>http://blog.sourcebender.com/2009/09/06/installing-native-gems-with-custom-library-paths</id>
+    <content type="html">&lt;p&gt;A few weeks ago, I started using the &lt;a href=&quot;http://github.com/toland/patron/tree/master&quot;&gt;Patron&lt;/a&gt; Gem for Skribit and ran into an issue on our CentOS production servers which uses a very old version of libcurl.  I got it working by compiling a new version of libcurl and building the Gem against those binaries.  Since I didn't want to overwrite the libcurl that CentOS provided, I installed the binaries in another location instead, and updated the &lt;strong&gt;LD_LIBRARY_PATH&lt;/strong&gt; environment variable so Rails could properly load the Gem.&lt;/p&gt;
+
+&lt;p&gt;A couple of days ago, &lt;a href=&quot;http://paulstamatiou.com&quot;&gt;Paul&lt;/a&gt; brought to my attention that &lt;a href=&quot;http://linuxmafia.com/faq/Admin/ld-lib-path.html&quot;&gt;using LD_LIBRARY_PATH isn't a good thing&lt;/a&gt;.  While I didn't necessarily think it was a big deal, it did peak my curiosity on how I would get this work without it.  Here's the command I finally used to get it to work:&lt;/p&gt;
+
+&lt;div&gt;
+  &lt;pre&gt;
+    &lt;code class='bash'&gt;sudo env PATH=&amp;quot;/opt/curl/bin:$PATH&amp;quot; gem install toland-patron \
+    -v &amp;quot;0.4.1&amp;quot; --source http://gems.github.com \
+    -- --with-ldflags=&amp;quot;-Wl,-R/opt/curl/lib&amp;quot;&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;The key part is the &lt;strong&gt;--with-ldflags&lt;/strong&gt; option at the very end.  The &lt;strong&gt;-Wl,-R&amp;lt;path&amp;gt;&lt;/strong&gt; option adds the given path to the list of paths the linker will use to find libraries at runtime.  Hopefully, someone will find this information useful, since I couldn't find this information myself on the 'nets anywhere.&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Switching from Windows to Mac: A Retrospective</title>
+    <link href="http://blog.sourcebender.com/2009/07/08/switching-from-windows-to-mac-a-retrospective.html"/>
+    <updated>2009-07-08T00:00:00-04:00</updated>
+    <id>http://blog.sourcebender.com/2009/07/08/switching-from-windows-to-mac-a-retrospective</id>
+    <content type="html">&lt;p&gt;Just recently done a 2 week stint working on Windows while Apple Geniuses were working on my MBP, I thought it would be a good time to blog on &lt;a title=&quot;My Skribit Suggestion&quot; href=&quot;http://skribit.com/suggestions/switching-to-from-windows-to-mac&quot;&gt;my own Skribit Suggestion&lt;/a&gt; and reflect on my switch to Mac 14 months ago.&lt;/p&gt;
+
+&lt;h2&gt;Reasons for Switching&lt;/h2&gt;
+
+
+&lt;p&gt;Prior to my MBP, I've was working on a personal HP laptop that was on it's last leg.  My screen had started developing an assortment of 1 pixel vertical lines and the keyboard would randomly doouble typed keys.  I had a choice to make - I can either get another (and better) Windows laptop, or do the the switch.  Ultimately, I decided on switching.  Here were my reasons.&lt;/p&gt;
+
+&lt;h3&gt;Apple made great &lt;span style=&quot;text-decoration: line-through;&quot;&gt;looking&lt;/span&gt; laptops that looks good too&lt;/h3&gt;
+
+
+&lt;p&gt;Apple really makes some really good looking laptops, but it's easy to forget that they they're functionally great laptops too.  When my wife first got her MacBook, I was amazed at how everything looked so crisp on it.  And speaking as someone that has broken a power connector on a laptop before, MagSafe is a must-have awesome feature.&lt;/p&gt;
+
+&lt;h3&gt;A Unix based Operating System&lt;/h3&gt;
+
+
+&lt;p&gt;When you do development, working on a Unix based environment with a real command line is a big advantage.  Cygwin can help bridge that gap on Windows, but it's nothing like having a terminal that can size itself properly and not having to constantly translate Windows paths to Unix paths and vice versa.&lt;/p&gt;
+
+&lt;p&gt;Another benefit of having a Unix OS is that Open Source software plays much better on it than on Windows.  Most OSS is developed to target Unix first, Windows second.  When working on Elf Island on Windows, my workflow while working on the game (which is developed primarily using OSS), involved starting two different services from Windows System Tray, starting another service from the Windows Services, and finally running a few commands from Cygwin.  I can do the equivalent of all that from the command line on a Unix environment.&lt;/p&gt;
+
+&lt;h3&gt;A Paid-For Software Friendly Ecosystem&lt;/h3&gt;
+
+
+&lt;p&gt;For some reason, it seems that Mac users are willing to pay for software, and as a result there is a lot of &lt;a title=&quot;TextMate Editor&quot; href=&quot;http://macromates.com/&quot;&gt;reasonably price&lt;/a&gt; &lt;a title=&quot;Transmit&quot; href=&quot;http://www.panic.com/transmit/&quot;&gt;software&lt;/a&gt; for Macs.  Doing software development myself, I can appreciate and definitely want to support this line of thinking.  Sure, Windows has tons of commercial, &lt;a href=&quot;http://downloads.com&quot;&gt;paid-for software&lt;/a&gt;, but I can't say I feel comfortable about downloading them for fear of excessive ads, poor installations practices, and/or spyware.&lt;/p&gt;
+
+&lt;h3&gt;Experiencing Something New&lt;/h3&gt;
+
+
+&lt;p&gt;Probably the biggest reason for doing the switch is that I've been using Windows for years.  It was time for a change - a change for changes' sake.  Programmers are told that they should regularly learn new languages to keep their skills sharp and to explore new ways of doing things.  It should be the same with the software you use as well.  If you develop software, you owe it to yourself to see how the other side does it to gain some perspective.&lt;/p&gt;
+
+&lt;h3&gt;Conclusions&lt;/h3&gt;
+
+
+&lt;p&gt;So after a year of working fully on the Mac, here's are some things I like and don't like about my OS X:&lt;/p&gt;
+
+&lt;h4&gt;Pros&lt;/h4&gt;
+
+
+&lt;ul&gt;
+    &lt;li&gt;&lt;strong&gt;Windows Management.&lt;/strong&gt; It took a while getting used to, but I have grown to prefer &lt;strong&gt;Command+Tab&lt;/strong&gt; &amp;amp; &lt;strong&gt;Command+`&lt;/strong&gt; to Windows &lt;strong&gt;Alt+Tab&lt;/strong&gt; model.&lt;/li&gt;
+    &lt;li&gt;&lt;strong&gt;OS Degradation.&lt;/strong&gt; With my prior laptop, Windows had greatly degraded by it's first anniversary.  I haven't experience that with my MBP yet.&lt;/li&gt;
+    &lt;li&gt;&lt;strong&gt;Great TrackPad.&lt;/strong&gt; When programming, I try to stay on the keyboard as much as possible, but I find that transitioning between the trackpad and keyboard on my MBP the easiest of any laptop I've used before.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h4&gt;Cons&lt;/h4&gt;
+
+
+&lt;ul&gt;
+    &lt;li&gt;&lt;strong&gt;Keyboard Shortcut Images. &lt;/strong&gt;For some strange reason keyboard shortcuts are still displayed using icons (&lt;img style=&quot;border: 0px initial initial;&quot; title=&quot;Apple Keys&quot; src=&quot;http://blog.codeeg.com/wp-content/uploads/2009/06/mac_keys.png&quot; alt=&quot;Apple Keys&quot; width=&quot;47&quot; height=&quot;11&quot; /&gt;) that in some cases are no longer shown on the keyboard.  Trying to remember what icon is what key can feel like akin to decipher hieroglyphics.&lt;/li&gt;
+    &lt;li&gt;&lt;strong&gt;Alt Key Menu Access.&lt;/strong&gt; I miss how the &lt;strong&gt;Alt &lt;/strong&gt;key in Windows gave you keyboard access to the application menu.  I often used that function keyboard shortcut.&lt;/li&gt;
+    &lt;li&gt;&lt;strong&gt;I Miss My Alt+Ctrl+Delete.&lt;/strong&gt; I kind of feel that Windows does a better job of preventing errant applications from locking up the whole OS.  I attribute that to Window's plentiful experience with crashes and lockups.  It seems that lockups on OS X are more catastrophic (requiring a hard reboot) than they should be.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;div id=&quot;_mcePaste&quot; style=&quot;overflow: hidden; position: absolute; left: -10000px; top: 247px; width: 1px; height: 1px;&quot;&gt;http://macromates.com/&lt;/div&gt;
+
+</content>
+  </entry>
+  
+  <entry>
+    <title>Problems Uploading Files to WordPress?</title>
+    <link href="http://blog.sourcebender.com/2009/06/25/having-problems-uploading-files-to-wordpress.html"/>
+    <updated>2009-06-25T00:00:00-04:00</updated>
+    <id>http://blog.sourcebender.com/2009/06/25/having-problems-uploading-files-to-wordpress</id>
+    <content type="html">&lt;p&gt;A Google search seems to indicate that problems uploading files on WordPress installs is a pretty common occurrence.  Unfortunately, I had the hardest time finding the solution to my particular ailment.  Hopefully, this post will find those others who run into this problem in the future.&lt;/p&gt;
+
+&lt;p&gt;From the WP Admin pages, go to &lt;strong&gt;Settings &amp;gt; Miscellaneous&lt;/strong&gt;.  Make sure the value for 'Store uploads in this folder' is where you want your files stored (in most cases, it should be &lt;em&gt;wp-content/uploads&lt;/em&gt;).&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;&lt;a href=&quot;http://blog.sourcebender.com/images/wp/wp-settings.jpg&quot;&gt;&lt;img title=&quot;Miscellaneous Settings ‹ Don’t Forget to Plant It! — WordPress&quot; src=&quot;http://blog.sourcebender.com/images/wp/wp-settings.jpg&quot; alt=&quot;Miscellaneous Settings ‹ Don’t Forget to Plant It! — WordPress&quot; width=&quot;500&quot; height=&quot;196&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+
+&lt;p&gt;In my case, this was pointing to a folder I was using for a WP install I was using to test the Thesis theme I'm using now.  Reverting it to the default fixed my problem.&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Creating Static Pages w/ Rails ActionViews</title>
+    <link href="http://blog.sourcebender.com/2009/05/24/creating-static-pages-w-rails-actionviews.html"/>
+    <updated>2009-05-24T00:00:00-04:00</updated>
+    <id>http://blog.sourcebender.com/2009/05/24/creating-static-pages-w-rails-actionviews</id>
+    <content type="html">&lt;p&gt;Recently, I needed to create some static reporting pages for Skribit.  From a quick search, I got a lot of results that talk about Rails and static pages, but none did exactly what I needed:&lt;/p&gt;
+
+&lt;ol&gt;
+    &lt;li&gt;To be able to generate pages with different paths from one URL&lt;/li&gt;
+    &lt;li&gt;Pages to persist across Rails deployments&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;p&gt;Not seeing any solutions that fit my needs, I set out to come up with my own.  Here is what I ended up with.&lt;/p&gt;
+
+&lt;p&gt;First, I needed to add a route for generating/displaying the reports:&lt;/p&gt;
+
+&lt;div&gt;
+  &lt;pre&gt;
+    &lt;code class='ruby'&gt;map.reports 'report/:year/:month/:day', :controller =&amp;gt; 'report',
+    :action =&amp;gt; 'show', :year =&amp;gt; nil, :month =&amp;gt; nil, :day =&amp;gt; nil&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;From here, I could just use the standard &lt;strong&gt;caches_page :show&lt;/strong&gt; declaration, but that would only generate the page I wanted if I used &lt;em&gt;/report/2009/05/25 &lt;/em&gt;as the URL.  What if I wanted &lt;em&gt;/report&lt;/em&gt; to generate the report for the current week?  Well, you can do something like this:&lt;/p&gt;
+
+&lt;div&gt;
+  &lt;pre&gt;
+    &lt;code class='ruby'&gt;class ReportController &amp;lt; ApplicationController
+  after_filter :cache_weekly_report, :only =&amp;gt; :show
+  
+  def show
+    if params[:year]
+      @year  = params[:year]
+      @month = params[:month]
+      @day   = params[:day]
+      if File.exist?(&amp;quot;#{Rails.root}/public/report/#{@year}/#{@month}/#{@day}.html&amp;quot;)
+        redirect_to reports_path(
+            :year  =&amp;gt; @year,
+            :month =&amp;gt; @month,
+            :day   =&amp;gt; @day)
+      else
+        # render report for a specific day
+      end
+    else
+      today  = Date.today
+      @year  = today.year
+      @month = today.month
+      @day   = today.day
+      
+      # render report for the current week
+    end
+  end
+  
+  protected
+  
+    def cache_weekly_report
+      cache_page(response.body,
+            &amp;quot;/report/#{@year}/#{@month}/#{@day}.html&amp;quot;) if @year
+    end
+    
+end&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;The magic is in the &lt;strong&gt;after_filter&lt;/strong&gt; method &lt;strong&gt;cache_weekly_report&lt;/strong&gt;.  We basically use the same mechanism Rails page caching uses to save our new report page.  Now, calling &lt;em&gt;/report&lt;/em&gt; will generate a static report at &lt;em&gt;/report/2009/05/25&lt;/em&gt;, or whatever the current day is.&lt;/p&gt;
+
+&lt;p&gt;The last thing to do is to make sure that the reports persist through new server deployments.  That can easily be done with a symlink in your capistrano script:&lt;/p&gt;
+
+&lt;div&gt;
+  &lt;pre&gt;
+    &lt;code class='ruby'&gt;task :symlink_reports do
+  run &amp;quot;mkdir -p #{shared_path}/report; ln -nfs #{shared_path}/report #{release_path}/public/report&amp;quot;
+end
+after 'deploy:update_code', 'deploy:symlink_reports'&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;And that's it!  What do you think?  I'd love to know if there are any simpler solutions to this.&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Building Software to their Audiences</title>
+    <link href="http://blog.sourcebender.com/2009/02/24/building-software-to-their-audiences.html"/>
+    <updated>2009-02-24T00:00:00-05:00</updated>
+    <id>http://blog.sourcebender.com/2009/02/24/building-software-to-their-audiences</id>
+    <content type="html">&lt;p&gt;When building software, it's a good idea to identify the needs of 3 different kinds of audiences.&lt;/p&gt;
+
+&lt;p&gt;The first 2 kinds are obvious ones.  We know to listen to what our End Users ask for, but not necessarily build everything they ask.  And we want to balance what the Business wants with when they want it.&lt;/p&gt;
+
+&lt;p&gt;The last audience, the fellow Developer, is often forgotten.  This means writing clear and concise code.  This also means identifying the common maintenance points in your software and making it easy to work with.&lt;/p&gt;
+
+&lt;p&gt;And this also means factoring into the design the capabilities of the development team.  Just like it is unacceptable to write bad code, it should be just as unacceptable to over design software beyond the hiring practices of the company you work for.&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Turning a New Page</title>
+    <link href="http://blog.sourcebender.com/2008/11/15/turning-a-new-page.html"/>
+    <updated>2008-11-15T00:00:00-05:00</updated>
+    <id>http://blog.sourcebender.com/2008/11/15/turning-a-new-page</id>
+    <content type="html">&lt;p&gt;It's been a month now since I left my contract at AutoTrader.com.  For the most part, I've enjoyed my time there, but the thought of celebrating my two year anniversary there was a little frightening.  While I am very adaptable to the corporate life, it isn't for me.  When FlickStation (the last startup I was a part of) desolved, the plan was to serve a year of corporate duty to get my bearings before heading back into the startup arena.  But some interesting work, interesting politics, and great co-workers kept me there longer than I expected.  But ultimately, I'm addicted to execution and delivery, both of which seem very hard to do well and often in large companies.&lt;/p&gt;
+
+&lt;p&gt;Also, for people with entrepreneurial aspirations, the corporate world has a way of slowly draining it from you, replacing it with contentedness.  And when you're building your startup, those aspirations provides the fuel for you to push on.  I was worried that one day I wake up and find it all gone.&lt;/p&gt;
+
+&lt;p&gt;I'm now spending my time at Good Egg Studios, where we just now wrapped up our second week in private beta of &lt;a title=&quot;Elf Island&quot; href=&quot;http://elfisland.com&quot;&gt;Elf Island&lt;/a&gt;.  Working here has been like a breathe of fresh air.  The technology is familiar and not so familiar at the same time, and I'm working with some great people (including &lt;a href=&quot;http://atlanta.startupweekend.com&quot;&gt;Startup Weekend&lt;/a&gt; alums &lt;a title=&quot;Rob Kischuk&quot; href=&quot;http://blog.kischuk.com/&quot;&gt;Rob&lt;/a&gt; and &lt;a title=&quot;Amro Mousa - iPhone Developer :)&quot; href=&quot;http://amromousa.com&quot;&gt;Amro&lt;/a&gt;) and leadership with great character.  As an added bonus, my commute is a lot shorter now, and also I'm much closer to &lt;a title=&quot;Skribit - Blog Suggestion Application&quot; href=&quot;http://skribit.com&quot;&gt;Skribit&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Oh, and did I mention I was working on a game!  A fscking game!&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Growl Notifications for Ant</title>
+    <link href="http://blog.sourcebender.com/2008/10/18/growl-notifications-for-ant.html"/>
+    <updated>2008-10-18T00:00:00-04:00</updated>
+    <id>http://blog.sourcebender.com/2008/10/18/growl-notifications-for-ant</id>
+    <content type="html">&lt;p&gt;It's a real refreshing change to be doing developing on Mac these days.  Currently, our Ant builds at work are less than optimal, taking ten's of minutes to do a full build.  Fixing it is something we definitely want to do, but because of the complexity of the build and existing deadlines, right now isn't the best time.  So instead of constantly checking on the progress of my build, I installed this &lt;a href=&quot;http://blog.slimeslurp.net/2007/03/18/ant-build-notifications-via-growl/&quot;&gt;Growl Ant build listener&lt;/a&gt; which will display a Growl notification when a build has completed.&lt;/p&gt;
+
+&lt;p&gt;The &lt;a href=&quot;http://code.google.com/p/growlbuildlistener/wiki/README&quot;&gt;README&lt;/a&gt; for the listener got me started - the only thing that didn't work for me is setting the build listener using the &lt;em&gt;ANT_OPT&lt;/em&gt; environment variable.  It looks like the default install of Ant on Leopard uses that environment variable as arguments to pass to the Java VM.  So instead, I just used an alias:&lt;/p&gt;
+
+&lt;div&gt;
+  &lt;pre&gt;
+    &lt;code class='ruby'&gt;alias ant='ant -listener net.slimeslurp.growl.GrowlListener'&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Just add this line to your &lt;em&gt;~/.bash_login&lt;/em&gt; to use the build listener every time you build.&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Moving Off WP.com</title>
+    <link href="http://blog.sourcebender.com/2008/10/07/moving-off-wpcom.html"/>
+    <updated>2008-10-07T00:00:00-04:00</updated>
+    <id>http://blog.sourcebender.com/2008/10/07/moving-off-wpcom</id>
+    <content type="html">&lt;p&gt;So after three months of WP.com, I've decided to move back to my own hosted WordPress blog.  One reason for the move was so that I can beta test our &lt;a href=&quot;http://skribit.com&quot;&gt;Skribit&lt;/a&gt; widget, which can now be easily styled to blend perfectly to your site.  Please give it a shot, and shoot us any feedback.  Right now, this is a one off install, but I'm starting to put things together so that we can roll this new widget out to more testers.&lt;/p&gt;
+
+&lt;p&gt;Also, I felt that by moving to WP.com my blog got sort of bleh.  I had to use from one of the provided themes, and was limited in the plugins and widgets I was able to use.  It's not like it was anything special before, but at least it wasn't special by my choosing.  So, I'm on my own again, using the WP Subversion installation that &lt;a href=&quot;http://paulstamatiou.com&quot;&gt;Paul&lt;/a&gt; recommended.  I also bought this &lt;a title=&quot;Thesis WordPress theme&quot; href=&quot;http://diythemes.com/thesis/&quot;&gt;wicket cool theme&lt;/a&gt; that is very well done and supported.  Now, I need to get some cool plugins - any recommendations?&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Running FiveRuns TuneUp in a Separate Environment</title>
+    <link href="http://blog.sourcebender.com/2008/10/05/running-fiveruns-tuneup-in-a-separate-environment.html"/>
+    <updated>2008-10-05T00:00:00-04:00</updated>
+    <id>http://blog.sourcebender.com/2008/10/05/running-fiveruns-tuneup-in-a-separate-environment</id>
+    <content type="html">&lt;p&gt;&lt;a href=&quot;http://www.fiveruns.com/products/tuneup&quot;&gt;FiveRuns' TuneUp&lt;/a&gt; is a great tool for profiling your Rails app, but by default it is always running in development.  This causes two issues 1) every request is slower in development as it is always collecting profiling data, and 2) the TuneUp bar can mess with the layout of your application, especially if you're rendering content in iframes like we do with &lt;a href=&quot;http://skribit.com&quot;&gt;Skribit&lt;/a&gt;.  So instead of having TuneUp always run in development mode, I've changed it to run only when the server is started in a new environment called 'profiler'.   Here's how I did it.&lt;/p&gt;
+
+&lt;p&gt;First, you need to tell TuneUp to only run in the profiler environment.  You do this by modifying &lt;em&gt;config/tuneup.rb&lt;/em&gt; (create this file if it doesn't already exist):&lt;/p&gt;
+
+&lt;div&gt;
+  &lt;pre&gt;
+    &lt;code class='ruby'&gt;Fiveruns::Tuneup.config do |config|
+  config.environments.delete('development')
+  config.environments &amp;lt;&amp;lt; 'profiler'
+end&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Next, copy the development configuration block in &lt;em&gt;config/database.yml&lt;/em&gt; and create a new block called &lt;em&gt;profiler&lt;/em&gt;:&lt;/p&gt;
+
+&lt;div&gt;
+  &lt;pre&gt;
+    &lt;code class='yaml'&gt;profiler:
+  adapter: mysql
+  encoding: utf8
+  database: YOUR_DATABASE
+  username: YOUR_USERNAME
+  password: YOUR_PASSWORD
+  socket: /tmp/mysql.sock&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Finally, create your profiler environment configs by copying your development configs:&lt;/p&gt;
+
+&lt;div&gt;
+  &lt;pre&gt;
+    &lt;code class='bash'&gt;cp config/environments/development.rb config/environments/profiler.rb&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;You're all set!  Now, to run the server with TuneUp on, just run the server in the &lt;em&gt;profiler&lt;/em&gt; environment:&lt;/p&gt;
+
+&lt;div&gt;
+  &lt;pre&gt;
+    &lt;code class='bash'&gt;script/server -e profiler&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Now, I have TuneUp available to me only when I'm looking to optimize performance.&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Aptana Goes into the Clouds</title>
+    <link href="http://blog.sourcebender.com/2008/09/07/aptana-goes-into-the-clouds.html"/>
+    <updated>2008-09-07T00:00:00-04:00</updated>
+    <id>http://blog.sourcebender.com/2008/09/07/aptana-goes-into-the-clouds</id>
+    <content type="html">&lt;p&gt;I use &lt;a title=&quot;Aptana Website&quot; href=&quot;http://www.aptana.com&quot;&gt;Aptana&lt;/a&gt; for RoR development.  Not because it's a good Ruby or Rails IDE, but because I do so much Java at my paying job and switching between Java development on Eclipse to RoR development on Aptana is a breeze.  Today, I was checking out Aptana's website for updates when I noticed that they now have a product called &lt;a href=&quot;http://www.aptana.com/cloud&quot;&gt;Aptana Cloud&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Aptana Cloud appears to be a integrated deployment/hosting platform for Aptana.  You can write applications in PHP, Jaxer (Aptana's AJAX framework), and Ruby on Rails (coming soon), and deploy them to a cloud with a push of a button.  Right now, it deploys to Joyent's Cloud, but it appears that the intention is to be provider agnostic, which would be key for adoption.&lt;/p&gt;
+
+&lt;p&gt;I'm very interested in trying this out, though I'm going to wait until RoR support is ready.  Hopefully, this will lead to some standards to cloud computing, making it easier to switch from one provider to another.  No doubt this is where lightweight development frameworks should be going (looking at you Appcelerator).&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Problems With Rails Fixture Labels?</title>
+    <link href="http://blog.sourcebender.com/2008/07/13/problems-with-rails-fixture-labels.html"/>
+    <updated>2008-07-13T00:00:00-04:00</updated>
+    <id>http://blog.sourcebender.com/2008/07/13/problems-with-rails-fixture-labels</id>
+    <content type="html">&lt;p&gt;Newer versions of Rails has a nice feature where you can use label references for fixtures.  So instead of:&lt;/p&gt;
+
+&lt;div&gt;
+  &lt;pre&gt;
+    &lt;code class='yaml'&gt;# posts.yml
+test_post:
+  user_id: 1
+  title: My Test Post&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;You can do this:&lt;/p&gt;
+
+&lt;div&gt;
+  &lt;pre&gt;
+    &lt;code class='yaml'&gt;test_post:
+  user: quentin
+  title: My Test Post&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;However, if your model class name is in a pluralized form, you might find that label references won't work.  That's because fixtures derive their class name from the singular form of the table name by default.  Fortunately, you can fix this by adding this line to your TestHelper:&lt;/p&gt;
+
+&lt;div&gt;
+  &lt;pre&gt;
+    &lt;code class='ruby'&gt;class Test::Unit::TestCase
+
+  # Explicitly map the table name to class name
+  set_fixture_class :accounts =&amp;gt; 'accounts'
+end&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Hopefully, this will save someone else from having to dig through the Rails fixtures internals.&lt;/p&gt;
+</content>
+  </entry>
+  
+</feed>

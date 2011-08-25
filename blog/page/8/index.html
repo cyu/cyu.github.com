@@ -1,0 +1,608 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Don't Forget to Plant It!</title>
+  <meta name="author" content="Calvin Yu">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://blog.sourcebender.com/blog/page/8/index.html"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Don't Forget to Plant It!" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-21276166-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Don't Forget to Plant It!</a></h1>
+  
+    <h2>.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:blog.sourcebender.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/2007/01/01/tails-037.html">Tails 0.3.7</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-01-01 00:00:00 -0500" pubdate  updated >Jan 1<span>st</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I&#8217;ve finally gotten tired of telling folks that this and that will be fixed in the next release, and have finally gotten Tails to the point of a 0.3.7 release.  Here&#8217;s are the highlights this new release:</p>
+
+<ul>
+    <li>I created a test harness so that I can run Tails through the <a title="microformats tests" href="http://hg.microformats.org/tests">tests from the microformats repository</a>.  I&#8217;ve only gotten hCard and hCalendar tested, and they don&#8217;t all pass (some do to inconsistencies in the tests, others because they require some extensive rework of the parser which will come later), but the hCard parsing and hCalendar parsing is now better than ever, and the export functions produce results very comparable to <a title="Brian's X2V project" href="http://suda.co.uk/projects/X2V/">Brian Suda&#8217;s X2V stylesheet</a>.</li>
+    <li>Exporting to vCard has been greatly improved.  Partly through verifying my parser against the tests, but also because Tails will now generate a file with the vCard valid .vcf extension.  This will required a update of the <a title="vCard Tails Script" href="http://codeeg.com/tails/scripts/vcard.tails.js">vCard Tails Script</a>.</li>
+    <li>Exporting to iCal is now supported with the <a title="iCal Tails Script" href="http://codeeg.com/tails/scripts/ical.tails.js">iCal Tails Script</a>.</li>
+    <li>A number of minor parsing tweaks were made to produce better results.</li>
+</ul>
+
+
+<p><a title="Tails Firefox Extension" href="http://blog.codeeg.com/tails-firefox-extension-03/">Download Tails 0.3.7 here.</a></p>
+
+<p>I&#8217;m glad to finally get this release out, as I have some UI changes I&#8217;m looking to forward to putting into the next release.  Keep an eye out for it, I hope to get that out shortly.</p>
+
+<p>I hope everyone is having a happy new year!</p>
+</div>
+  
+  
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/11/30/daily-delicious-10.html">Del.icio.us Bookmarks, for 2006-11-29</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2006-11-30 00:00:00 -0500" pubdate  updated >Nov 30<span>th</span>, 2006</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p class="daily-delicious-header">For Wednesday, November 29 2006 &#8211;</p>
+
+
+<ul class="daily-delicious">
+    <li><img src="http://images.websnapr.com/?url=http://andrewchen.typepad.com/andrew_chens_blog/2006/11/simplicity_and_.html"> <p><a href="http://andrewchen.typepad.com/andrew_chens_blog/2006/11/simplicity_and_.html" title="http://andrewchen.typepad.com/andrew_chens_blog/2006/11/simplicity_and_.html">Futuristic Play by Andrew Chen: Simplicity and choices for users</a></p>
+<p>Interesting discussion about UI design of the operating system shutdown.</p><div class="daily-delicious-tags">Tag(s): </div></li></ul>
+
+
+<p class="daily-delicious-footer">Bookmarks provided by <a href="http://del.icio.us/cyu">del.icio.us</a>.  Thumbnails courtesy of <a href="http://websnapr.com">WebSnapr</a>
+
+</div>
+  
+  
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/11/17/daily-delicious-9.html">Del.icio.us Bookmarks, for 2006-11-16</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2006-11-17 00:00:00 -0500" pubdate  updated >Nov 17<span>th</span>, 2006</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p class="daily-delicious-header">For Thursday, November 16 2006 &#8211;</p>
+
+
+<ul class="daily-delicious">
+    <li><img src="http://images.websnapr.com/?url=http://fishbowl.pastiche.org/2006/11/16/rigid_agile"> <p><a href="http://fishbowl.pastiche.org/2006/11/16/rigid_agile" title="http://fishbowl.pastiche.org/2006/11/16/rigid_agile">The Fishbowl: Rigid Agile?</a></p>
+<p>&quot;If losing a single resource for one day is a cataclysm that causes the entire iteration to collapse for everybody, youâ€™ve got problems, and youâ€™re putting the wrong kind of pressure on your team.&quot;</p><div class="daily-delicious-tags">Tag(s): </div></li></ul>
+
+
+<p class="daily-delicious-footer">Bookmarks provided by <a href="http://del.icio.us/cyu">del.icio.us</a>.  Thumbnails courtesy of <a href="http://websnapr.com">WebSnapr</a>
+
+</div>
+  
+  
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/11/14/daily-delicious-8.html">Del.icio.us Bookmarks, for 2006-11-13</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2006-11-14 00:00:00 -0500" pubdate  updated >Nov 14<span>th</span>, 2006</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p class="daily-delicious-header">For Monday, November 13 2006 &#8211;</p>
+
+
+<ul class="daily-delicious">
+    <li><img src="http://images.websnapr.com/?url=http://radar.oreilly.com/archives/2006/11/thoughts_on_the.html"> <p><a href="http://radar.oreilly.com/archives/2006/11/thoughts_on_the.html" title="http://radar.oreilly.com/archives/2006/11/thoughts_on_the.html">O&#8217;Reilly Radar &gt; Thoughts on the State of Search</a></p>
+<p>&quot;&#8230;I do wonder where the next search innovations are going to come from, and I&#8217;m surprised to find that Google isn&#8217;t the obvious answer to that question anymore.&quot;  - I need to try using other search engines more.</p><div class="daily-delicious-tags">Tag(s): <a href="http://del.icio.us/popular/google">google</a> <a href="http://del.icio.us/popular/search">search</a> </div></li>    <li><img src="http://images.websnapr.com/?url=http://nymag.com/arts/tv/features/23763/index.html"> <p><a href="http://nymag.com/arts/tv/features/23763/index.html" title="http://nymag.com/arts/tv/features/23763/index.html">How to Fix Shows Like &#8216;Lost&#8217; &#8211; New York Magazine</a></p>
+<p>This the reason I haven&#8217;t gotten into Lost - I&#8217;ve been well seasoned from my previous experience with The X-Files to know how this show is going to end (or rather, not end).  The idea of closing it in two seasons is great one, and if the network is concer</p><div class="daily-delicious-tags">Tag(s): <a href="http://del.icio.us/popular/television">television</a> </div></li>    <li><img src="http://images.websnapr.com/?url=http://beust.com/weblog/archives/000423.html"> <p><a href="http://beust.com/weblog/archives/000423.html" title="http://beust.com/weblog/archives/000423.html">Otaku, Cedric&#8217;s weblog: Google vs. Yahoo</a></p>
+<p>Yahoo! wins.  I wonder is this is something Yahoo! can use on analysts when they try compare them to the Wall Street darlings of Google.</p><div class="daily-delicious-tags">Tag(s): <a href="http://del.icio.us/popular/googe">googe</a> <a href="http://del.icio.us/popular/yahoo">yahoo</a> </div></li></ul>
+
+
+<p class="daily-delicious-footer">Bookmarks provided by <a href="http://del.icio.us/cyu">del.icio.us</a>.  Thumbnails courtesy of <a href="http://websnapr.com">WebSnapr</a>
+
+</div>
+  
+  
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/11/12/finding-the-package-you-need-in-ubuntu.html">Finding the Package You Need in Ubuntu</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2006-11-12 00:00:00 -0500" pubdate  updated >Nov 12<span>th</span>, 2006</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I just discovered the handy <strong>apt-file</strong> command in Ubuntu today while trying to resolve the dependencies need to install <a title="Hpricot" href="http://code.whytheluckystiff.net/hpricot/">Hpricot</a>.  With this utility, you call search through all the packages in your repositories (installed and not installed) for a given file.  For example:</p>
+
+<div>
+  <pre>
+    <code class='bash'>apt-file search stdlib.h</code>
+  </pre>
+</div>
+
+
+<p>Will return a list of packages with that header file.  In order for this command to work though, you&#8217;ll need to at least have ran this command once:</p>
+
+<div>
+  <pre>
+    <code class='bash'>sudo apt-file update</code>
+  </pre>
+</div>
+
+
+
+</div>
+  
+  
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/11/01/daily-delicious-3-2.html">Del.icio.us Bookmarks, Served Daily</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2006-11-01 00:00:00 -0500" pubdate  updated >Nov 1<span>st</span>, 2006</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p class="daily-delicious-header">For Tuesday, October 31 2006 &#8211;</p>
+
+
+
+
+<ul class="daily-delicious">
+    <li><img alt="Thumbnail of bookmark" src="http://images.websnapr.com/?url=http://radar.oreilly.com/archives/2006/10/oreilly_labs_co.html" />
+<p><a title="http://radar.oreilly.com/archives/2006/10/oreilly_labs_co.html" href="http://radar.oreilly.com/archives/2006/10/oreilly_labs_co.html">O&#8217;Reilly Radar &gt; O&#8217;Reilly Labs Code Quiz</a></p>
+<p>O&#8217;Reilly releases Code Quiz in the image of Google&#8217;s Image Labeler.  My first attempt (and only so far) yielded a score of 328.</p>
+<div class="daily-delicious-tags">Tag(s):</div>
+</li>
+    <li><img alt="Thumbnail of bookmark" src="http://images.websnapr.com/?url=http://sethf.com/infothought/blog/archives/001087.html" />
+<p><a title="http://sethf.com/infothought/blog/archives/001087.html" href="http://sethf.com/infothought/blog/archives/001087.html">Infothought: PageRank/Link-Buying Doesn&#8217;t Care About Blogger Ethics</a></p>
+<p>&#8220;But it can be misleading to see their[A-listers] unhappiness as the main story (though it can be an amusing sideline), rather than a reflection of the economic shifts and battles between commerce vs social, being played out in various ways.&#8221;</p>
+<div class="daily-delicious-tags">Tag(s): <a href="http://del.icio.us/popular/advertising">advertising</a></div>
+</li>
+    <li><img alt="Thumbnail of bookmark" src="http://images.websnapr.com/?url=http://www.microsoft.com/presspass/press/2006/oct06/10-29AccountingExpress07PR.mspx" />
+<p><a title="http://www.microsoft.com/presspass/press/2006/oct06/10-29AccountingExpress07PR.mspx" href="http://www.microsoft.com/presspass/press/2006/oct06/10-29AccountingExpress07PR.mspx">Microsoft Introduces New Accounting Software and Services for Small and Home-Based Businesses: New online services with Microsoft Office Accounting Express 2007</a></p>
+<p>Great move in offering a free version. Not only will this product give Intuit a run for this money, but the integrated third-party online services sounds a lot like it is targeting salesforce.com as well.</p>
+<div class="daily-delicious-tags">Tag(s): <a href="http://del.icio.us/popular/business">business</a> <a href="http://del.icio.us/popular/startup">startup</a></div>
+</li>
+</ul>
+
+
+<p class="daily-delicious-footer">Bookmarks provided by <a href="http://del.icio.us/cyu">del.icio.us</a>.  Thumbnails courtesy of <a href="http://websnapr.com">WebSnapr</a></p>
+
+</div>
+  
+  
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/10/31/daily-delicious-7.html">Del.icio.us Bookmarks, Served Daily</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2006-10-31 00:00:00 -0500" pubdate  updated >Oct 31<span>st</span>, 2006</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p class="daily-delicious-header">For Monday, October 30 2006 &#8211;</p>
+
+
+<ul class="daily-delicious">
+    <li><p><img src="http://images.websnapr.com/?url=http://googleblog.blogspot.com/2006/10/domino-effect.html"><br /> <a href="http://googleblog.blogspot.com/2006/10/domino-effect.html" title="http://googleblog.blogspot.com/2006/10/domino-effect.html">Official Google Blog: The Domino Effect</a>
+Google hooks up Coke &amp; Mentos guys with advertising partners.  Check out the video, its pretty cool.</p><div class="daily-delicious-tags">Tag(s): </div></li></ul>
+
+
+<p class="daily-delicious-footer">Bookmarks provided by <a href="http://del.icio.us/cyu">del.icio.us</a>.  Thumbnails courtesy of <a href="http://websnapr.com">WebSnapr</a>
+
+</div>
+  
+  
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/10/30/daily-delicious-6.html">Del.icio.us Bookmarks, Served Daily</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2006-10-30 00:00:00 -0500" pubdate  updated >Oct 30<span>th</span>, 2006</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p class="daily-delicious-header">For Sunday, October 29 2006 &#8211;</p>
+
+
+<ul class="daily-delicious">
+    <li><p><img src="http://images.websnapr.com/?url=http://evergreenip.typepad.com/view_from_bridge/2006/10/augering_in_the.html"><br /> <a href="http://evergreenip.typepad.com/view_from_bridge/2006/10/augering_in_the.html" title="http://evergreenip.typepad.com/view_from_bridge/2006/10/augering_in_the.html">View From The Bridge: Augering In: The Death of an EIP Project but Survival of the Pilot</a>
+Good insight on why VC do what they do, and a teaser for upcoming posts.  Looking forward to it.</p><div class="daily-delicious-tags">Tag(s): </div></li></ul>
+
+
+<p class="daily-delicious-footer">Bookmarks provided by <a href="http://del.icio.us/cyu">del.icio.us</a>.  Thumbnails courtesy of <a href="http://websnapr.com">WebSnapr</a>
+
+</div>
+  
+  
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/10/29/tails-update-036.html">Tails Update 0.3.6</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2006-10-29 00:00:00 -0400" pubdate  updated >Oct 29<span>th</span>, 2006</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><span style="color:#0000ee;text-decoration:underline;"><a href="/tails-firefox-extension-03/"><img class="alignnone size-full wp-image-117" src="/images/wp/v0-3-6screenshot.png" alt="" width="500" height="120" /></a></span></p>
+
+<p>It looks like the code for the notification box in Firefox 2.0 has changed &#8211; this update fixes that problem.  The notification box will still work if you&#8217;re still on Firefox 1.x.  Thanks to <a title="Jeremy Kitchen's website" href="http://www.scriptkitchen.com/">Jeremy</a> for pointing this out.</p>
+
+<p><a title="Tails Firefox Extension" href="http://blog.codeeg.com/tails-firefox-extension-03/">Get the update here.</a></p>
+</div>
+  
+  
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/10/28/daily-delicious-5.html">Del.icio.us Bookmarks, Served Daily</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2006-10-28 00:00:00 -0400" pubdate  updated >Oct 28<span>th</span>, 2006</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p class="daily-delicious-header">For Friday, October 27 2006 &#8211;</p>
+
+
+<ul class="daily-delicious">
+    <li><p><img src="http://images.websnapr.com/?url=http://www.37signals.com/svn/posts/89-consumer-reports-unfortunate-advice"><br /> <a href="http://www.37signals.com/svn/posts/89-consumer-reports-unfortunate-advice" title="http://www.37signals.com/svn/posts/89-consumer-reports-unfortunate-advice">Consumer Reports&#8217; unfortunate advice - (37signals)</a>
+Good post on consumer ethics.  A lot of good comments too.</p><div class="daily-delicious-tags">Tag(s): </div></li>    <li><p><img src="http://images.websnapr.com/?url=http://www.feld.com/blog/archives/002016.html"><br /> <a href="http://www.feld.com/blog/archives/002016.html" title="http://www.feld.com/blog/archives/002016.html">Feld Thoughts: PHP vs. Ruby</a>
+&lt;? vs &lt;% &#8211; Ruby wins every time.  Also, the Ohloh website is worth checking out.</p><div class="daily-delicious-tags">Tag(s): <a href="http://del.icio.us/popular/php">php</a> <a href="http://del.icio.us/popular/ruby">ruby</a> <a href="http://del.icio.us/popular/comparison">comparison</a> </div></li>    <li><p><img src="http://images.websnapr.com/?url=http://www.37signals.com/svn/posts/83-traffic-vs-employees"><br /> <a href="http://www.37signals.com/svn/posts/83-traffic-vs-employees" title="http://www.37signals.com/svn/posts/83-traffic-vs-employees">Traffic vs. employees - (37signals)</a>
+Despite the issues with the numbers pointed out in the comments, it is still a very impressive showing for craigslist.</p><div class="daily-delicious-tags">Tag(s): <a href="http://del.icio.us/popular/business">business</a> <a href="http://del.icio.us/popular/craigslist">craigslist</a> <a href="http://del.icio.us/popular/traffic">traffic</a> </div></li></ul>
+
+
+<p class="daily-delicious-footer">Bookmarks provided by <a href="http://del.icio.us/cyu">del.icio.us</a>.  Thumbnails courtesy of <a href="http://websnapr.com">WebSnapr</a>
+
+</div>
+  
+  
+
+
+  </article>
+
+<nav role="pagination">
+  <div>
+    
+      <a class="prev" href="/blog/page/9/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/7/">Newer &rarr;</a>
+    
+  </div>
+</nav>
+
+<script type="text/javascript">
+    var disqus_shortname = 'dontforgettoplantit';
+    (function () {
+      var s = document.createElement('script'); s.async = true;
+      s.type = 'text/javascript';
+      s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+      (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+
+</div>
+<aside role=sidebar>
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/building-an-html5-application-part3.html">Building an HTML5 Application, Part 3: Let&#8217;s Take this Offline</a>
+      </li>
+    
+      <li class="post">
+        <a href="/building-an-html5-application-part2.html">Building an HTML5 Application, Part 2: Web Notifications &amp; &lt;Audio&gt;</a>
+      </li>
+    
+      <li class="post">
+        <a href="/building-an-html5-application-part1.html">Building an HTML5 Application, Part 1: Local Storage</a>
+      </li>
+    
+      <li class="post">
+        <a href="/storio-and-backbonejs.html">Stor.IO and Backbone.js</a>
+      </li>
+    
+      <li class="post">
+        <a href="/easy-storage-for-html5-applications.html">Easy Storage for HTML5 Applications</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("cyu", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/cyu" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @cyu</a>
+  
+</section>
+
+
+
+<section>
+  <h1>My Pinboard</h1>
+  <ul id="pinboard_linkroll">Fetching linkroll&#8230;</ul>
+  <p><a href="http://pinboard.in/u:cyu">My Pinboard Bookmarks &raquo;</a></p>
+</section>
+<script type="text/javascript">
+  var linkroll = 'pinboard_linkroll'; //id target for pinboard list
+  var pinboard_user = "cyu"; //id target for pinboard list
+  var pinboard_count = 3; //id target for pinboard list
+  (function(){
+    var pinboardInit = document.createElement('script');
+    pinboardInit.type = 'text/javascript';
+    pinboardInit.async = true;
+    pinboardInit.src = '/javascripts/pinboard.js';
+    document.getElementsByTagName('head')[0].appendChild(pinboardInit);
+  })();
+</script>
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer><p>
+  Copyright &copy; 2011 - Calvin Yu -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>
