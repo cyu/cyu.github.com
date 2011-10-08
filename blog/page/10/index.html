@@ -372,13 +372,15 @@
   </header>
 
 
-  <div class="entry-content"><p>Having switched to GMail as my primary email client for a couple of months now, I&#8217;ve decided that it was time to try to copy my old emails from Thunderbird to GMail.  From doing a quick search, I find that the tool to use is <a href="http://www.marklyon.org/gmail/download.htm">Mark Lyon&#8217;s GMail Loader tool</a>.  Unfortunately, that&#8217;s been the only quick thing so far in this exercise.</p>
+  <div class="entry-content"><p><strong>[Update 10/8/2011: Made the script available via <a href="https://gist.github.com/1272449">a gist</a>.  Updated the download link.]</strong></p>
+
+<p>Having switched to GMail as my primary email client for a couple of months now, I&#8217;ve decided that it was time to try to copy my old emails from Thunderbird to GMail.  From doing a quick search, I find that the tool to use is <a href="http://www.marklyon.org/gmail/download.htm">Mark Lyon&#8217;s GMail Loader tool</a>.  Unfortunately, that&#8217;s been the only quick thing so far in this exercise.</p>
 
 <p>Note that I&#8217;m using Ubuntu Drapper Drake.  You might have better luck on other systems.</p>
 
 <p>It appears that GMail has changed their SMTP server port and now requires SSL (TLS) authentication, neither of which GML seems to support.   I was eventually able to get GML working with the GMail SMTP server, but I ended up getting a protocol error at the end of every send, which prevents the script from continuing until a timeout from the SMTP server occured.  I strongly recommend using a SMTP server other than GMail&#8217;s.</p>
 
-<p>Here&#8217;s my <a href="http://codeeg.com/gmail/gmlw.zip">modified version of the GML script</a>.  Good Luck.</p>
+<p>Here&#8217;s my <a href="https://gist.github.com/1272449">modified version of the GML script</a>.  Good Luck.</p>
 
 <p>Note that while GML is forwarding an email, the GML GUI won&#8217;t paint, so don&#8217;t get frustrated like I did and think that GML locked up.  You&#8217;ll have to check the console output to see if GML is still running.   If it does seem to be stuck on an email for a long time, you can send a SIGINT to the process to skip that email (remember to note which one you skipped if you want to resend it manually later).</p>
 </div>
